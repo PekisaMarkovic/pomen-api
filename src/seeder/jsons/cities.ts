@@ -1,5 +1,5 @@
-export const CITIES_DATA = [
-  { name: 'Belgrade', code: '11000' },
+export const SERBIAN_CITIES = [
+  { name: 'Beograd', code: '11000' },
   { name: 'Novi Sad', code: '21000' },
   { name: 'Niš', code: '18000' },
   { name: 'Kragujevac', code: '34000' },

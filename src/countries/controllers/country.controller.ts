@@ -1,25 +1,33 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
-import { CountryService } from '../services/country.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Public } from 'src/auth/decorators/public.decorator';
 import { CreateCountryDto } from '../dto/create-country.dto';
-import { Country } from '../entities/country.entity';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { DropdownCountryDto } from '../dto/dropdown-country.dto';
 import { UpdateCountryDto } from '../dto/update-country.dto';
+import { Country } from '../entities/country.entity';
+import { CountryService } from '../services/country.service';
 
 @Controller('countries')
 @ApiTags('Countries')
+@ApiBearerAuth('access-token')
 export class CountryController {
   constructor(private readonly countryService: CountryService) {}
 
@@ -34,6 +42,7 @@ export class CountryController {
     return this.countryService.createCountry(createCountryDto);
   }
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Get all countries paginated' })
   @ApiResponse({
@@ -41,10 +50,19 @@ export class CountryController {
     description: 'Return all countries.',
     type: [Country],
   })
-  getCemeteries(@Query() options: IPaginationOptions) {
-    return this.countryService.getCountries(options);
+  getCountries(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.countryService.getCountries({
+      page,
+      limit,
+    });
   }
 
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a country by id' })
   @ApiResponse({
@@ -61,6 +79,7 @@ export class CountryController {
     return this.countryService.getCountryById(+id);
   }
 
+  @Public()
   @Get('/slug/:slug')
   @ApiOperation({ summary: 'Get a country by slug' })
   @ApiResponse({
@@ -77,6 +96,7 @@ export class CountryController {
     return this.countryService.getCountryBySlug(slug);
   }
 
+  @Public()
   @Get('/options')
   @ApiOperation({ summary: 'Get all countries options' })
   @ApiResponse({

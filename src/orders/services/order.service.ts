@@ -35,7 +35,7 @@ export class OrderService {
   getOrders(options: IPaginationOptions): Promise<Pagination<Order>> {
     const query = this.orderRepository
       .createQueryBuilder('order')
-      .where('order.deleted_at = NULL')
+      .where('order.deleted_at IS NULL')
       .leftJoinAndSelect('order.certificate', 'certificate')
       .leftJoinAndSelect('order.user', 'user')
       .leftJoinAndSelect('order.city', 'city');

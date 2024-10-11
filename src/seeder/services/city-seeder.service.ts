@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import { COUNTRIES_DATA } from '../jsons/countries';
 import { CityService } from 'src/cities/services/city.service';
+import { SERBIAN_CITIES } from '../jsons/cities';
 
 @Injectable()
 export class CitySeederService {
   constructor(private cityService: CityService) {}
 
-  async initCountries(countryId: number) {
-    const citiesPromises = COUNTRIES_DATA.map(({ name, code }) => {
+  async initCities(countryId: number) {
+    const citiesPromises = SERBIAN_CITIES.map(({ name, code }) => {
       return this.cityService.createCity({
         code,
         name,

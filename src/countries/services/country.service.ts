@@ -28,7 +28,7 @@ export class CountryService {
   getCountries(options: IPaginationOptions): Promise<Pagination<Country>> {
     const query = this.countryRepository
       .createQueryBuilder('country')
-      .where('country.deleted_at = NULL');
+      .where('country.deleted_at IS NULL');
 
     return paginate<Country>(query, options);
   }

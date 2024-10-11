@@ -29,7 +29,7 @@ export class GetheringsService {
   getGetherings(options: IPaginationOptions): Promise<Pagination<Gethering>> {
     const query = this.getheringRepository
       .createQueryBuilder('gethering')
-      .where('gethering.deleted_at = NULL')
+      .where('gethering.deleted_at IS NULL')
       .leftJoinAndSelect('gethering.certificate', 'certificate');
 
     return paginate<Gethering>(query, options);

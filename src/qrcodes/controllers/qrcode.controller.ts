@@ -1,24 +1,31 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
-import { QrcodeService } from '../services/qrcode.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Qrcode } from '../entities/qrcode.entity';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateQrcodeDto } from '../dto/create-qrcode.dto';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { UpdateQrcodeDto } from '../dto/update-qrcode.dto';
+import { Qrcode } from '../entities/qrcode.entity';
+import { QrcodeService } from '../services/qrcode.service';
 
 @Controller('qrcodes')
 @ApiTags('Qrcodes')
+@ApiBearerAuth('access-token')
 export class QrcodeController {
   constructor(private readonly qrcodeService: QrcodeService) {}
 
@@ -45,8 +52,16 @@ export class QrcodeController {
     description: 'Return all qrcodes.',
     type: [Qrcode],
   })
-  getQRcodes(@Query() options: IPaginationOptions) {
-    return this.qrcodeService.getQRcodes(options);
+  getQRcodes(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.qrcodeService.getQRcodes({
+      page,
+      limit,
+    });
   }
 
   @Get(':id')

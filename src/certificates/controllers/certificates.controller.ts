@@ -1,27 +1,35 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
-import { CertificatesService } from '../services/certificates.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Certificate } from '../entities/certificate.entity';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import {
   CreateCertificateAndUserDto,
   CreateCertificateDto,
 } from '../dto/create-certificate.dto';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { UpdateCertificateDto } from '../dto/update-certificate.dto';
+import { Certificate } from '../entities/certificate.entity';
+import { CertificatesService } from '../services/certificates.service';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('certificates')
 @ApiTags('Certificates')
+@ApiBearerAuth('access-token')
 export class CertificatesController {
   constructor(private readonly certificatesService: CertificatesService) {}
 
@@ -61,6 +69,7 @@ export class CertificatesController {
     );
   }
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Get all certificates' })
   @ApiResponse({
@@ -68,10 +77,19 @@ export class CertificatesController {
     description: 'Return all certificates.',
     type: [Certificate],
   })
-  getCertificates(@Query() options: IPaginationOptions) {
-    return this.certificatesService.getCertificates(options);
+  getCertificates(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.certificatesService.getCertificates({
+      page,
+      limit,
+    });
   }
 
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a certificate by id' })
   @ApiResponse({
@@ -88,6 +106,7 @@ export class CertificatesController {
     return this.certificatesService.getCertificateById(+id);
   }
 
+  @Public()
   @Get('/slug/:slug')
   @ApiOperation({ summary: 'Get a certificate by slug' })
   @ApiResponse({
@@ -103,6 +122,7 @@ export class CertificatesController {
     return this.certificatesService.getCertificateBySlug(slug);
   }
 
+  @Public()
   @Get('/cemeteries/:cementeryId')
   @ApiOperation({ summary: 'Get all cemeteries by cementery id' })
   @ApiResponse({

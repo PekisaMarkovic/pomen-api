@@ -2,11 +2,17 @@ import { Controller, Get, HttpException, HttpStatus } from '@nestjs/common';
 import { MailerService } from '../services/mailer.service';
 import { SendMailDto } from '../dto/send-mail.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 @Controller('mailer')
 @ApiTags('Mailer')
+@ApiBearerAuth('access-token')
 export class MailerController {
   constructor(private readonly mailerService: MailerService) {}
   @Public()

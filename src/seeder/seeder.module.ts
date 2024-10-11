@@ -10,12 +10,15 @@ import { CountryModule } from 'src/countries/country.module';
 import { CitySeederService } from './services/city-seeder.service';
 import { CountrySeederService } from './services/country-seeder.service';
 import { UserSeederService } from './services/user-seeder.service';
+import { CemeteriesSeederService } from './services/cemeteries-seeder.service';
+import { CemeteryModule } from 'src/cemeteries/cemetery.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Role, Permission]),
     UsersModule,
     CountryModule,
+    CemeteryModule,
     CityModule,
   ],
   providers: [
@@ -23,6 +26,7 @@ import { UserSeederService } from './services/user-seeder.service';
     UserSeederService,
     CitySeederService,
     CountrySeederService,
+    CemeteriesSeederService,
   ],
 })
 export class SeederModule {}

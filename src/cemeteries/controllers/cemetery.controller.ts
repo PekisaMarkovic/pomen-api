@@ -1,25 +1,33 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { CementeryService } from '../services/cementery.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateCemeteryDto } from '../dto/create-cemetery.dto';
 import { Cemetery } from '../entities/cementery.entity';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { updateCemeteryDto } from '../dto/update-cementery.dto';
 import { DropdownCementeryDto } from '../dto/dropdown-cementery.dto';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('cemeteries')
 @ApiTags('Cemeteries')
+@ApiBearerAuth('access-token')
 export class CemeteryController {
   constructor(private readonly cementeryService: CementeryService) {}
 
@@ -39,6 +47,7 @@ export class CemeteryController {
     return this.cementeryService.createCemetery(createCemeteryDto);
   }
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Get all cemeteries paginated.' })
   @ApiResponse({
@@ -46,10 +55,19 @@ export class CemeteryController {
     description: 'Return all cemeteries.',
     type: [Cemetery],
   })
-  getCemeteries(@Query() options: IPaginationOptions) {
-    return this.cementeryService.getCemeteries(options);
+  getCemeteries(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.cementeryService.getCemeteries({
+      page,
+      limit,
+    });
   }
 
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a cemetery by id' })
   @ApiResponse({
@@ -66,6 +84,7 @@ export class CemeteryController {
     return this.cementeryService.getCemeteryById(+id);
   }
 
+  @Public()
   @Get('/slug/:slug')
   @ApiOperation({ summary: 'Get a cemetery by slug' })
   @ApiResponse({
@@ -82,6 +101,7 @@ export class CemeteryController {
     return this.cementeryService.getCemeteryBySlug(slug);
   }
 
+  @Public()
   @Get('/cities/:cityId')
   @ApiOperation({ summary: 'Get all cemeteries by city id' })
   @ApiResponse({
@@ -93,6 +113,7 @@ export class CemeteryController {
     return this.cementeryService.getCemeteriesByCityId(+cityId);
   }
 
+  @Public()
   @Get('/options')
   @ApiOperation({ summary: 'Get all cemeteries options' })
   @ApiResponse({

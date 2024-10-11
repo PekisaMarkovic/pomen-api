@@ -1,24 +1,31 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
-import { OrderService } from '../services/order.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateOrderDto } from '../dto/create-order.dto';
-import { Order } from '../entities/order.entity';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { UpdateOrderDto } from '../dto/update-order.dto';
+import { Order } from '../entities/order.entity';
+import { OrderService } from '../services/order.service';
 
 @Controller('orders')
 @ApiTags('Orders')
+@ApiBearerAuth('access-token')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
@@ -45,8 +52,16 @@ export class OrderController {
     description: 'Return all orders.',
     type: [Order],
   })
-  getCemeteries(@Query() options: IPaginationOptions) {
-    return this.orderService.getOrders(options);
+  getCemeteries(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.orderService.getOrders({
+      page,
+      limit,
+    });
   }
 
   @Get(':id')

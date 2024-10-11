@@ -1,25 +1,33 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
-import { CityService } from '../services/city.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateCityDto } from '../dto/create-city.dto';
-import { City } from '../entities/city.entity';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { DropdownCityDto } from '../dto/dropdown-city.dto';
 import { UpdateCityDto } from '../dto/update-city.dto';
+import { City } from '../entities/city.entity';
+import { CityService } from '../services/city.service';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('cities')
 @ApiTags('Cities')
+@ApiBearerAuth('access-token')
 export class CityController {
   constructor(private readonly cityService: CityService) {}
 
@@ -35,10 +43,11 @@ export class CityController {
     description: 'Throw exception if the country is not found',
     type: NotFoundException,
   })
-  createCemetery(@Body() createCityDto: CreateCityDto) {
+  createCity(@Body() createCityDto: CreateCityDto) {
     return this.cityService.createCity(createCityDto);
   }
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Get all cities paginated' })
   @ApiResponse({
@@ -46,10 +55,19 @@ export class CityController {
     description: 'Return all cities.',
     type: [City],
   })
-  getCemeteries(@Query() options: IPaginationOptions) {
-    return this.cityService.getCities(options);
+  getCities(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.cityService.getCities({
+      page,
+      limit,
+    });
   }
 
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a city by id' })
   @ApiResponse({
@@ -66,6 +84,7 @@ export class CityController {
     return this.cityService.getCityById(+id);
   }
 
+  @Public()
   @Get('/slug/:slug')
   @ApiOperation({ summary: 'Get a city by slug' })
   @ApiResponse({
@@ -82,7 +101,8 @@ export class CityController {
     return this.cityService.getCityBySlug(slug);
   }
 
-  @Get('/county/:countryId')
+  @Public()
+  @Get('/countries/:countryId')
   @ApiOperation({ summary: 'Get all cities by county id' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -93,6 +113,7 @@ export class CityController {
     return this.cityService.getCitiesByCountryId(+countryId);
   }
 
+  @Public()
   @Get('/options')
   @ApiOperation({ summary: 'Get all cities options' })
   @ApiResponse({

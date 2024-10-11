@@ -30,7 +30,7 @@ export class QrcodeService {
   getQRcodes(options: IPaginationOptions): Promise<Pagination<Qrcode>> {
     const query = this.qrcodeRepository
       .createQueryBuilder('qrcode')
-      .where('qrcode.deleted_at = NULL')
+      .where('qrcode.deleted_at IS NULL')
       .leftJoinAndSelect('qrcode.certificate', 'certificate');
 
     return paginate<Qrcode>(query, options);

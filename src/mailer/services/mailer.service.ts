@@ -30,7 +30,7 @@ export class MailerService {
 
   private async readHtmlTemplate(name: string) {
     try {
-      const filePath = path.join(__dirname, '..', 'templates', name); // Adjust the path as needed
+      const filePath = path.join(__dirname, '..', 'templates', name);
       const data = await fs.readFile(filePath, 'utf-8');
       return data;
     } catch (error) {

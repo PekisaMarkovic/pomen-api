@@ -49,7 +49,7 @@ export class CertificatesService {
   ): Promise<Pagination<Certificate>> {
     const query = this.certificateRepository
       .createQueryBuilder('certificate')
-      .where('certificate.deleted_at = NULL')
+      .where('certificate.deleted_at IS NULL')
       .leftJoinAndSelect('certificate.user', 'user')
       .leftJoinAndSelect('certificate.qrcode', 'qrcode')
       .leftJoinAndSelect('certificate.getherings', 'getherings')

@@ -29,7 +29,7 @@ export class TributesService {
   getTributes(options: IPaginationOptions): Promise<Pagination<Tribute>> {
     const query = this.tributeRepository
       .createQueryBuilder('tribute')
-      .where('tribute.deleted_at = NULL')
+      .where('tribute.deleted_at IS NULL')
       .leftJoinAndSelect('tribute.certificate', 'certificate');
 
     return paginate<Tribute>(query, options);

@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Our API provides a seamless way to create and manage memorial profiles. It allows developers to integrate features for storing and sharing memories, uploading photos and videos, and locating memorial sites. With built-in search functionality, users can easily find profiles by name and explore their biographies, family connections, and important life events. The API supports personalization options, including profile updates and interaction with guestbooks. Designed for scalability and ease of use, our API empowers developers to build meaningful experiences around preserving memories and honoring loved ones.
 
 ## Project setup
 
@@ -60,15 +60,14 @@ $ pnpm run test:cov
 
 ## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
+List of most important libraries used in this project:
 
 - Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+- For API docs we use [SWAGGER](https://swagger.io), list of all endpoints and descriptions.
+- [TypeORM](https://typeorm.io) is used for modeling the tables in databaset.
+- Images,files and videos we are on [Coudinary](https://cloudinary.com), as well as their optimization
+- Authetication and Authrozation is done with [JWT](https://www.passportjs.org/packages/passport-nest/) with passport package
+- Emails are sent with [Nodemailer](https://nodemailer.com), templates are custom made for our needs
 
 ## Support
 
@@ -76,9 +75,9 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Petar Markovic](https://www.linkedin.com/in/petar-markovic-072b00162/)
+- Website - [Pomen](https://www.pomen.org/)
+- Instagram - [@pomen](https://twitter.com/nestframework)
 
 ## License
 

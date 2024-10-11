@@ -31,7 +31,7 @@ export class CityService {
   getCities(options: IPaginationOptions): Promise<Pagination<City>> {
     const query = this.cityRepository
       .createQueryBuilder('city')
-      .where('city.deleted_at = NULL')
+      .where('city.deleted_at IS NULL')
       .leftJoinAndSelect('city.country', 'country');
 
     return paginate<City>(query, options);
@@ -107,7 +107,10 @@ export class CityService {
    * @throws NotFoundException if the city/country is not found
    *
    */
-  async updateCity(cityId: number, updateCityDto: UpdateCityDto) {
+  async updateCity(
+    cityId: number,
+    updateCityDto: UpdateCityDto,
+  ): Promise<City> {
     const city = await this.cityRepository.findOne({
       where: { cityId, deletedAt: null },
     });
@@ -140,7 +143,7 @@ export class CityService {
    * @throws NotFoundException if the city is not found
    *
    */
-  async removeCity(cityId: number) {
+  async removeCity(cityId: number): Promise<City> {
     const city = await this.cityRepository.findOne({
       where: { cityId, deletedAt: null },
     });
@@ -161,7 +164,7 @@ export class CityService {
    * @throws NotFoundException if the country is not found
    *
    */
-  async createCity(createCityDto: CreateCityDto) {
+  async createCity(createCityDto: CreateCityDto): Promise<City> {
     const { name, code, countryId } = createCityDto;
 
     const country = await this.countryRepository.findOne({
@@ -181,7 +184,7 @@ export class CityService {
       country,
     });
 
-    return this.countryRepository.save(city);
+    return this.cityRepository.save(city);
   }
 
   /**

@@ -1,17 +1,19 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Connection } from 'typeorm';
 import { InjectConnection } from '@nestjs/typeorm';
-import { UserSeederService } from './services/user-seeder.service';
+import { Connection } from 'typeorm';
 import { CountrySeederService } from './services/country-seeder.service';
+import { UserSeederService } from './services/user-seeder.service';
 import { CitySeederService } from './services/city-seeder.service';
+import { CemeteriesSeederService } from './services/cemeteries-seeder.service';
 
 @Injectable()
 export class AppSeederService implements OnModuleInit {
   constructor(
-    private userSeederService: UserSeederService,
     private countrySeederService: CountrySeederService,
     private citySeederService: CitySeederService,
+    private cemeteriesSeederService: CemeteriesSeederService,
+    private userSeederService: UserSeederService,
     private configService: ConfigService,
     @InjectConnection()
     private connection: Connection,
@@ -19,7 +21,7 @@ export class AppSeederService implements OnModuleInit {
 
   async onModuleInit() {
     if (this.configService.get('ENVIROMENT') === 'local') {
-      // await this.resetDatabase();
+      await this.resetDatabase();
     }
   }
 
@@ -40,10 +42,16 @@ export class AppSeederService implements OnModuleInit {
     console.log(
       '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀   SEEDING DATABASE STARTED     🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
     );
-    const { serbia } = await this.countrySeederService.initCountries();
-    await this.citySeederService.initCountries(serbia.countryId);
 
-    await this.userSeederService.initUsers();
+    this.userSeederService.initUsers();
+
+    const { serbia } = await this.countrySeederService.initCountries();
+
+    const { cities } = await this.citySeederService.initCities(
+      serbia.countryId,
+    );
+
+    await this.cemeteriesSeederService.initCemeteries(cities);
 
     console.log(
       '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟   SEEDING DATABASE ENDED     🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟',

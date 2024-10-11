@@ -31,7 +31,7 @@ export class CementeryService {
   getCemeteries(options: IPaginationOptions): Promise<Pagination<Cemetery>> {
     const query = this.cemeteryRepository
       .createQueryBuilder('cemetery')
-      .where('cemetery.deleted_at = NULL')
+      .where('cemetery.deleted_at IS NULL')
       .leftJoinAndSelect('cemetery.city', 'city');
 
     return paginate<Cemetery>(query, options);
@@ -156,7 +156,7 @@ export class CementeryService {
 
     cemetery.deletedAt = new Date();
 
-    return this.cityRepository.save(cemetery);
+    return this.cemeteryRepository.save(cemetery);
   }
 
   /**
@@ -177,7 +177,7 @@ export class CementeryService {
       throw new NotFoundException();
     }
 
-    const slug = await this.generateSlug(name);
+    const slug = await this.generateSlug(`${name} ${city.name}`);
 
     const cementery = this.cemeteryRepository.create({
       name,
