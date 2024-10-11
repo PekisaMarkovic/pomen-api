@@ -20,8 +20,14 @@ export class AppSeederService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    if (this.configService.get('ENVIROMENT') === 'local') {
-      await this.resetDatabase();
+    switch (this.configService.get('ENVIROMENT')) {
+      case 'production':
+        await this.initProdDatabase();
+        break;
+
+      case 'local':
+        await this.resetDatabase();
+        break;
     }
   }
 
@@ -34,8 +40,11 @@ export class AppSeederService implements OnModuleInit {
     await this.connection.synchronize();
     console.log('🖖🖖Database synchronized.🖖🖖');
 
-    // Optionally seed the database
     await this.seedDatabase();
+  }
+
+  private async initProdDatabase() {
+    await this.seedProduction();
   }
 
   private async seedDatabase() {
@@ -55,6 +64,28 @@ export class AppSeederService implements OnModuleInit {
 
     console.log(
       '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟   SEEDING DATABASE ENDED     🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟',
+    );
+  }
+
+  private async seedProduction() {
+    console.log(
+      '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀   SEEDING PRODUCTION DATABASE STARTED     🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
+    );
+
+    const exist = await this.countrySeederService.checkIsThereOneRecord();
+
+    if (!exist) {
+      const { serbia } = await this.countrySeederService.initCountries();
+
+      const { cities } = await this.citySeederService.initCities(
+        serbia.countryId,
+      );
+
+      await this.cemeteriesSeederService.initCemeteries(cities);
+    }
+
+    console.log(
+      '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟   SEEDING PRODUCTION DATABASE ENDED     🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟',
     );
   }
 }

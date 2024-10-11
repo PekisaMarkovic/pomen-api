@@ -21,4 +21,10 @@ export class CountrySeederService {
 
     return { countries, serbia };
   }
+
+  async checkIsThereOneRecord() {
+    const country = await this.countryService.getCountryById(1);
+
+    return !!country;
+  }
 }
