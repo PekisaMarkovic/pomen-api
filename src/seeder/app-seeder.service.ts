@@ -32,13 +32,19 @@ export class AppSeederService implements OnModuleInit {
   }
 
   private async resetDatabase() {
-    console.log('🌕🌕Dropping database...🌕🌕');
+    console.log(
+      '🌕🌕🌕🌕🌕🌕🌕🌕🌕🌕 Dropping database... 🌕🌕🌕🌕🌕🌕🌕🌕🌕🌕',
+    );
     await this.connection.dropDatabase();
-    console.log('🌚🌚Database dropped.🌚🌚');
+    console.log('🌚🌚🌚🌚🌚🌚🌚🌚🌚🌚 Database dropped. 🌚🌚🌚🌚🌚🌚🌚🌚🌚🌚');
 
-    console.log('📈📈Synchronizing database...📈📈');
+    console.log(
+      '📈📈📈📈📈📈📈📈📈📈 Synchronizing database... 📈📈📈📈📈📈📈📈📈📈',
+    );
     await this.connection.synchronize();
-    console.log('🖖🖖Database synchronized.🖖🖖');
+    console.log(
+      '🖖🖖🖖🖖🖖🖖🖖🖖🖖🖖 Database synchronized. 🖖🖖🖖🖖🖖🖖🖖🖖🖖🖖',
+    );
 
     await this.seedDatabase();
   }
@@ -49,7 +55,7 @@ export class AppSeederService implements OnModuleInit {
 
   private async seedDatabase() {
     console.log(
-      '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀   SEEDING DATABASE STARTED     🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
+      '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀   SEEDING DATABASE STARTED     🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
     );
 
     this.userSeederService.initUsers();
@@ -63,18 +69,19 @@ export class AppSeederService implements OnModuleInit {
     await this.cemeteriesSeederService.initCemeteries(cities);
 
     console.log(
-      '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟   SEEDING DATABASE ENDED     🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟',
+      '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟   SEEDING DATABASE ENDED     🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟',
     );
   }
 
   private async seedProduction() {
     console.log(
-      '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀   SEEDING PRODUCTION DATABASE STARTED     🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
+      '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀   SEEDING PRODUCTION DATABASE STARTED     🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
     );
 
-    const exist = await this.countrySeederService.checkIsThereOneRecord();
+    const exist = await this.countrySeederService.checkIsThereOneRecordExist();
 
     if (!exist) {
+      console.log('🌕🌕🌕🌕🌕 Data dont exist... 🌕🌕🌕🌕🌕');
       const { serbia } = await this.countrySeederService.initCountries();
 
       const { cities } = await this.citySeederService.initCities(
@@ -82,10 +89,12 @@ export class AppSeederService implements OnModuleInit {
       );
 
       await this.cemeteriesSeederService.initCemeteries(cities);
+    } else {
+      console.log('📈📈📈📈📈 Data exist 📈📈📈📈📈');
     }
 
     console.log(
-      '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟   SEEDING PRODUCTION DATABASE ENDED     🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟',
+      '🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟   SEEDING PRODUCTION DATABASE ENDED     🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟',
     );
   }
 }
