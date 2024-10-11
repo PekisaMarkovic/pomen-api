@@ -1,0 +1,219 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  RegisterUserDto,
+  RegisterUserOptionsDto,
+} from '../dto/register-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../entities/user.entity';
+import { Repository } from 'typeorm';
+import * as bcrypt from 'bcryptjs';
+import { Nullable } from 'src/common/interface/general';
+import { LoginUser } from '../interface/user';
+import { UserRolesAndPermisssionsDto } from '../dto/user-roles-and-permisssions.dto';
+import { Role } from 'src/auth/entities/role.entity';
+
+@Injectable()
+export class UsersService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    @InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>,
+  ) {}
+
+  /**
+   * Create a new user
+   * @param RegisterUserDto - The data to create a new user
+   * @param RegisterUserOptionsDto - The optional addition data for more details
+   * @returns The created user
+   * @throws NotFoundException if the city is not found
+   *
+   */
+  async registerUser(dto: RegisterUserDto, options?: RegisterUserOptionsDto) {
+    const { email, firstName, lastName, password, phone } = dto;
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await this.userRepository.create({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      phoneNumber: phone,
+    });
+
+    if (options.roles) {
+      const roles: Role[] = [];
+
+      for (const role of options.roles) {
+        const foundRole = await this.roleRepository.findOne({
+          where: { name: role },
+        });
+
+        if (foundRole) {
+          roles.push(foundRole);
+        }
+      }
+
+      user.roles = roles;
+    }
+
+    const newUser = await this.userRepository.save(user);
+
+    delete newUser.password;
+
+    return newUser;
+  }
+
+  /**
+   * Find all users with pagination
+   * @param IPaginationOptions - The pagination parameters
+   * @returns An array of users and the total count
+   *
+   */
+  getUsers(): Promise<User[]> {
+    const query = this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.roles', 'role')
+      .leftJoinAndSelect('role.permissions', 'rolePermission')
+      .leftJoinAndSelect('user.permissions', 'permission');
+
+    return query.getMany();
+  }
+
+  /**
+   * Find a user by id
+   * @param cityId - The id of the user to find
+   * @returns The found user
+   *
+   */
+  async getUserByUserId(userId: number): Promise<User> {
+    const query = this.userRepository
+      .createQueryBuilder('user')
+      .where('user.userId = :userId', { userId })
+      .leftJoinAndSelect('user.roles', 'role')
+      .leftJoinAndSelect('role.permissions', 'rolePermission')
+      .leftJoinAndSelect('user.permissions', 'permission');
+
+    const user = await query.getOne();
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user;
+  }
+
+  /**
+   * Find a user by email
+   * @param email - The email of the user to find
+   * @returns The found user | null
+   *
+   */
+  getUserByEmail(email: string): Promise<Nullable<User>> {
+    const query = this.userRepository
+      .createQueryBuilder('user')
+      .where('user.email = :email', { email })
+      .leftJoinAndSelect('user.roles', 'role')
+      .leftJoinAndSelect('role.permissions', 'rolePermission')
+      .leftJoinAndSelect('user.permissions', 'permission');
+
+    return query.getOne();
+  }
+
+  /**
+   * Find a user by email for log in
+   * @param email - The email of the user to find
+   * @returns The found user | null
+   *
+   */
+  getUserByEmailForLogIn(email: string): Promise<Nullable<LoginUser>> {
+    const query = this.userRepository
+      .createQueryBuilder('user')
+      .where('user.email = :email', { email })
+      .leftJoinAndSelect('user.roles', 'role')
+      .leftJoinAndSelect('role.permissions', 'rolePermission')
+      .leftJoinAndSelect('user.permissions', 'permission');
+
+    query.addSelect('user.password');
+
+    return query.getOne();
+  }
+
+  /**
+   * Update a user
+   * @param userId - The id of the user to update
+   * @param UserRolesAndPermisssionsDto - The data to update the user
+   * @returns The updated user
+   * @throws NotFoundException if the city/user is not found
+   *
+   */
+  async updateUserRolesAndPermissions(
+    userId: number,
+    dto: UserRolesAndPermisssionsDto,
+  ) {
+    const user = await this.userRepository.findOne({ where: { userId } });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    const { roles, permissions } = dto;
+
+    user.roles = roles ?? user.roles;
+    user.permissions = permissions ?? user.permissions;
+
+    return await this.userRepository.save(user);
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} user`;
+  }
+
+  /**
+   * Create a new user
+   * @param RegisterUserDto - The data to create a new user
+   * @param RegisterUserOptionsDto - The optional addition data for more details
+   * @returns The created user without password
+   * @throws NotFoundException if the city is not found
+   *
+   */
+  async createUser(
+    dto: RegisterUserDto,
+    options?: RegisterUserOptionsDto,
+  ): Promise<User> {
+    const { email, password, firstName, lastName, phone } = dto;
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const user = this.userRepository.create({
+      email,
+      password: hashedPassword,
+      firstName,
+      lastName,
+      phoneNumber: phone,
+      isEmailConfirmed: !!options?.isEmailConfirmed,
+    });
+
+    if (options?.roles) {
+      const roles: Role[] = [];
+
+      for (const role of options.roles) {
+        const foundRole = await this.roleRepository.findOne({
+          where: { name: role },
+        });
+
+        roles.push(foundRole);
+      }
+
+      user.roles = roles;
+    }
+
+    const newUser = await this.userRepository.save(user);
+
+    delete (newUser as Partial<User>).password;
+
+    return newUser;
+  }
+}
