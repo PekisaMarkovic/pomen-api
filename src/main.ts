@@ -3,9 +3,16 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>('PORT', 3000);
+  const origin = configService.get<string>(
+    'APP_DOMAIN',
+    'http://localhost:5173',
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Pomen API')
@@ -30,7 +37,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.enableCors({
-    origin: ['http://localhost:5173'],
+    origin: [origin],
     methods: 'GET,POST,PUT,DELETE,PATCH',
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true,
@@ -49,6 +56,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(3000);
+  await app.listen(port);
 }
 bootstrap();
