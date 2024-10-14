@@ -26,7 +26,11 @@ export class AppSeederService implements OnModuleInit {
         break;
 
       case 'local':
-        await this.resetDatabase();
+        // await this.resetDatabase();
+        break;
+
+      default:
+        await this.initProdDatabase();
         break;
     }
   }
@@ -78,10 +82,20 @@ export class AppSeederService implements OnModuleInit {
       '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀   SEEDING PRODUCTION DATABASE STARTED     🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
     );
 
-    const exist = await this.countrySeederService.checkIsThereOneRecordExist();
+    const exist = await this.userSeederService.checkRoles();
 
     if (!exist) {
       console.log('🌕🌕🌕🌕🌕 Data dont exist... 🌕🌕🌕🌕🌕');
+
+      const { superAdminRole, adminRole, userRole } =
+        await this.userSeederService.createRolesAndPermisions();
+
+      this.userSeederService.createSuperAdmin(
+        superAdminRole,
+        adminRole,
+        userRole,
+      );
+
       const { serbia } = await this.countrySeederService.initCountries();
 
       const { cities } = await this.citySeederService.initCities(

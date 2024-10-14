@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class DropdownCementeryDto {
+export class DropdownCertificateDto {
   @ApiProperty()
-  cityId: number;
+  certificateId: number;
 
   @ApiProperty()
   name: string;
@@ -11,5 +11,5 @@ export class DropdownCementeryDto {
   slug: string;
 
   @ApiProperty()
-  cemeteryId: number;
+  image: string;
 }

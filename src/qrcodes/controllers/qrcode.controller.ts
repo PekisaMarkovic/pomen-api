@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   DefaultValuePipe,
   Delete,
@@ -8,8 +7,6 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Patch,
-  Post,
   Query,
 } from '@nestjs/common';
 import {
@@ -18,8 +15,6 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateQrcodeDto } from '../dto/create-qrcode.dto';
-import { UpdateQrcodeDto } from '../dto/update-qrcode.dto';
 import { Qrcode } from '../entities/qrcode.entity';
 import { QrcodeService } from '../services/qrcode.service';
 
@@ -28,22 +23,6 @@ import { QrcodeService } from '../services/qrcode.service';
 @ApiBearerAuth('access-token')
 export class QrcodeController {
   constructor(private readonly qrcodeService: QrcodeService) {}
-
-  @Post()
-  @ApiOperation({ summary: 'Create a new Qrcode' })
-  @ApiResponse({
-    status: HttpStatus.CREATED,
-    description: 'The Qrcode has been successfully created.',
-    type: Qrcode,
-  })
-  @ApiResponse({
-    status: HttpStatus.NOT_FOUND,
-    description: 'Throws exception if city/certificate not found.',
-    type: NotFoundException,
-  })
-  createQRcode(@Body() createTributeDto: CreateQrcodeDto) {
-    return this.qrcodeService.createQRcode(createTributeDto);
-  }
 
   @Get()
   @ApiOperation({ summary: 'Get all qrcodes paginated.' })
@@ -89,25 +68,6 @@ export class QrcodeController {
   })
   getQRcodesByCertificateId(@Param('certificateId') certificateId: string) {
     return this.qrcodeService.getQRcodesByCertificateId(+certificateId);
-  }
-
-  @Patch('/:id')
-  @ApiOperation({ summary: 'Update a qrcode with id' })
-  @ApiResponse({
-    status: HttpStatus.ACCEPTED,
-    description: 'Return the qrcode.',
-    type: Qrcode,
-  })
-  @ApiResponse({
-    status: HttpStatus.NOT_FOUND,
-    description: 'Throws exception if city/qrcode.',
-    type: NotFoundException,
-  })
-  updateQRcode(
-    @Param('id') id: string,
-    @Body() updateQrcodeDto: UpdateQrcodeDto,
-  ) {
-    return this.qrcodeService.updateQRcode(+id, updateQrcodeDto);
   }
 
   @Delete('/:id')

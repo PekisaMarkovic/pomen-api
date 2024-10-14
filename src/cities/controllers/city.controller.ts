@@ -68,6 +68,18 @@ export class CityController {
   }
 
   @Public()
+  @Get('/options')
+  @ApiOperation({ summary: 'Get all cities options' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the options.',
+    type: [DropdownCityDto],
+  })
+  getCitiesOptions() {
+    return this.cityService.getCitiesOptions();
+  }
+
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a city by id' })
   @ApiResponse({
@@ -111,18 +123,6 @@ export class CityController {
   })
   getCitiesByCountryId(@Param('countryId') countryId: string) {
     return this.cityService.getCitiesByCountryId(+countryId);
-  }
-
-  @Public()
-  @Get('/options')
-  @ApiOperation({ summary: 'Get all cities options' })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'Return the options.',
-    type: [DropdownCityDto],
-  })
-  getCitiesOptions() {
-    return this.cityService.getCitiesOptions();
   }
 
   @Patch('/:id')

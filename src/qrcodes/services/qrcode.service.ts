@@ -1,16 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
-import { Qrcode } from '../entities/qrcode.entity';
-import { Repository } from 'typeorm';
 import {
   IPaginationOptions,
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { UpdateQrcodeDto } from '../dto/update-qrcode.dto';
-import { CreateQrcodeDto } from '../dto/create-qrcode.dto';
-import { slugify } from 'src/common/helpers/slug.helpers';
+import { Certificate } from 'src/certificates/entities/certificate.entity';
+import { Repository } from 'typeorm';
+import { Qrcode } from '../entities/qrcode.entity';
 
 @Injectable()
 export class QrcodeService {
@@ -19,6 +17,8 @@ export class QrcodeService {
     private readonly qrcodeRepository: Repository<Qrcode>,
     @InjectRepository(Certificate)
     private readonly certificateRepository: Repository<Certificate>,
+
+    private readonly configService: ConfigService,
   ) {}
 
   /**
@@ -69,32 +69,8 @@ export class QrcodeService {
   }
 
   /**
-   * Update a qrcode
-   * @param cementeryId - The id of the qrcode to update
-   * @param UpdateQrcodeDto - The data to update the qrcode
-   * @returns The updated qrcode
-   * @throws NotFoundException if the qrcode is not found
-   *
-   */
-  async updateQRcode(qrcodeId: number, updateQrcodeDto: UpdateQrcodeDto) {
-    const qrcode = await this.qrcodeRepository.findOne({
-      where: { qrcodeId, deletedAt: null },
-    });
-
-    if (!qrcode) {
-      throw new NotFoundException();
-    }
-
-    Object.assign(qrcode, updateQrcodeDto);
-
-    qrcode.updatedAt = new Date();
-
-    return this.qrcodeRepository.save(qrcode);
-  }
-
-  /**
    * Remove a qrcode
-   * @param cementeryId - The id of the qrcode to remove
+   * @param cemeteryId - The id of the qrcode to remove
    * @returns The removed qrcode
    * @throws NotFoundException if the qrcode is not found
    *
@@ -112,54 +88,4 @@ export class QrcodeService {
 
     return this.qrcodeRepository.save(qrcode);
   }
-
-  /**
-   * Create a new qrcode
-   * @param CreateQrcodeDto - The data to create a new qrcode
-   * @returns The created qrcode
-   * @throws NotFoundException if the certificate is not found
-   *
-   */
-  async createQRcode(createTributeDto: CreateQrcodeDto) {
-    const { value, certificateId } = createTributeDto;
-
-    const certificate = await this.certificateRepository.findOne({
-      where: { certificateId, deletedAt: null },
-    });
-
-    if (!certificate) {
-      throw new NotFoundException();
-    }
-
-    const qrcode = this.qrcodeRepository.create({
-      value,
-      certificate,
-    });
-
-    const slug = await this.generateSlug(
-      `${certificate.firstName} ${certificate.lastName} ${certificate.dateOfBirth} ${certificate.dateOfDeath}`,
-    );
-
-    await this.certificateRepository.save({ ...certificate, slug });
-
-    return this.qrcodeRepository.save(qrcode);
-  }
-
-  /**
-   * Create a slug for sertificate
-   * @param slug - The data to create a new slug
-   * @returns slug
-   *
-   */
-  private generateSlug = async (slug: string) => {
-    let count = 2;
-    let nextSlug = slugify({ text: slug });
-    while (
-      await this.certificateRepository.findOne({ where: { slug: nextSlug } })
-    ) {
-      nextSlug = `${slug}-${count}`;
-      count++;
-    }
-    return nextSlug;
-  };
 }

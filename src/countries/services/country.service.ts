@@ -78,6 +78,7 @@ export class CountryService {
    */
   getCountriesOptions(): Promise<DropdownCountryDto[]> {
     return this.countryRepository.find({
+      where: { deletedAt: null },
       select: ['countryId', 'name', 'slug'],
     });
   }
@@ -160,7 +161,7 @@ export class CountryService {
     while (
       await this.countryRepository.findOne({ where: { slug: nextSlug } })
     ) {
-      nextSlug = `${slug}-${count}`;
+      nextSlug = slugify({ text: `${slug}-${count}` });
       count++;
     }
     return nextSlug;

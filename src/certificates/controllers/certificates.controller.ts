@@ -26,6 +26,7 @@ import { UpdateCertificateDto } from '../dto/update-certificate.dto';
 import { Certificate } from '../entities/certificate.entity';
 import { CertificatesService } from '../services/certificates.service';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { DropdownCertificateDto } from '../dto/dropdown-certificate.dto';
 
 @Controller('certificates')
 @ApiTags('Certificates')
@@ -90,6 +91,18 @@ export class CertificatesController {
   }
 
   @Public()
+  @Get('/options')
+  @ApiOperation({ summary: 'Get all certificate options' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the options.',
+    type: [DropdownCertificateDto],
+  })
+  getCertificateOptions() {
+    return this.certificatesService.getCertificateOptions();
+  }
+
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a certificate by id' })
   @ApiResponse({
@@ -123,7 +136,7 @@ export class CertificatesController {
   }
 
   @Public()
-  @Get('/cemeteries/:cementeryId')
+  @Get('/cemeteries/:cemeteryId')
   @ApiOperation({ summary: 'Get all cemeteries by cementery id' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -134,8 +147,8 @@ export class CertificatesController {
     description: 'Throws exception if certificate is not found.',
     type: NotFoundException,
   })
-  getCertificatesByCementeryId(@Param('cementeryId') cementeryId: string) {
-    return this.certificatesService.getCertificatesByCementeryId(+cementeryId);
+  getCertificatesBycemeteryId(@Param('cemeteryId') cemeteryId: string) {
+    return this.certificatesService.getCertificatesBycemeteryId(+cemeteryId);
   }
 
   @Patch('/:id')

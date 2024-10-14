@@ -12,18 +12,25 @@ import { Repository } from 'typeorm';
 import { CreateOrderDto } from '../dto/create-order.dto';
 import { UpdateOrderDto, UpdateOrderStatusDto } from '../dto/update-order.dto';
 import { Order } from '../entities/order.entity';
+import * as qr from 'qrcode';
+import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class OrderService {
   constructor(
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
+    @InjectRepository(Qrcode)
+    private readonly qrcodeRepository: Repository<Qrcode>,
     @InjectRepository(Certificate)
     private readonly certificateRepository: Repository<Certificate>,
     @InjectRepository(City)
     private readonly cityRepository: Repository<City>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+
+    private configService: ConfigService,
   ) {}
 
   /**
@@ -58,7 +65,7 @@ export class OrderService {
 
   /**
    * Find a order by id
-   * @param cementeryId - The id of the order to find
+   * @param cemeteryId - The id of the order to find
    * @returns The found order
    * @throws NotFoundException if the order is not found
    *
@@ -122,7 +129,7 @@ export class OrderService {
       cityId,
       firstName,
       lastName,
-      postCode,
+      phoneNumber,
       userId,
       address,
       certificateId,
@@ -152,16 +159,29 @@ export class OrderService {
       throw new NotFoundException();
     }
 
-    const order = this.orderRepository.create({
+    const newOrder = this.orderRepository.create({
       address,
       firstName,
       lastName,
-      postCode,
+      phoneNumber,
       certificate,
       user,
     });
 
-    return this.orderRepository.save(order);
+    const order = await this.orderRepository.save(newOrder);
+
+    const fullUrl = `${this.configService.get('APP_DOMAIN')}/docs/${certificate.slug}`;
+
+    qr.toDataURL(fullUrl).then((value) => {
+      const qrcode = this.qrcodeRepository.create({
+        value,
+        certificate,
+      });
+
+      this.qrcodeRepository.save(qrcode);
+    });
+
+    return order;
   }
 
   /**

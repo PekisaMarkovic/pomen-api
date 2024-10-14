@@ -1,4 +1,10 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsNumber,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { FileTypeEnum } from '../enums/file-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -28,8 +34,11 @@ export class CreateFileDto {
 
 export class CreateFileBodyDto {
   @ApiProperty()
+  @IsArray()
+  @ValidateNested({ each: true })
   filesToAdd: CreateFileDto[];
 
   @ApiProperty()
+  @IsArray()
   filesToRemove: number[];
 }

@@ -197,7 +197,7 @@ export class CityService {
     let count = 2;
     let nextSlug = slugify({ text: slug });
     while (await this.cityRepository.findOne({ where: { slug: nextSlug } })) {
-      nextSlug = `${slug}-${count}`;
+      nextSlug = slugify({ text: `${slug}-${count}` });
       count++;
     }
     return nextSlug;

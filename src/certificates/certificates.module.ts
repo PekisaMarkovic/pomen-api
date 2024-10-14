@@ -10,10 +10,21 @@ import { MailerModule } from 'src/mailer/mailer.module';
 import { ValidationTokenModule } from 'src/validation-token/validation-token.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Order } from 'src/orders/entities/order.entity';
+import { City } from 'src/cities/entities/city.entity';
+import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Certificate, Cemetery, User, Role]),
+    TypeOrmModule.forFeature([
+      Certificate,
+      Cemetery,
+      User,
+      Role,
+      Order,
+      City,
+      Qrcode,
+    ]),
     MailerModule,
     ValidationTokenModule,
     JwtModule.registerAsync({

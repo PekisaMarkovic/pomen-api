@@ -15,7 +15,7 @@ export class Qrcode {
   qrcodeId: number;
 
   @ApiProperty()
-  @Column({ length: 255 })
+  @Column({ type: 'text' })
   value: string;
 
   @ApiProperty()

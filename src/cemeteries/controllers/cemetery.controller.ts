@@ -68,6 +68,18 @@ export class CemeteryController {
   }
 
   @Public()
+  @Get('/options')
+  @ApiOperation({ summary: 'Get all cemeteries options' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the options.',
+    type: [DropdownCementeryDto],
+  })
+  getCemeteriesOptions() {
+    return this.cementeryService.getCemeteriesOptions();
+  }
+
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a cemetery by id' })
   @ApiResponse({
@@ -111,18 +123,6 @@ export class CemeteryController {
   })
   getCemeteriesByCityId(@Param('cityId') cityId: string) {
     return this.cementeryService.getCemeteriesByCityId(+cityId);
-  }
-
-  @Public()
-  @Get('/options')
-  @ApiOperation({ summary: 'Get all cemeteries options' })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'Return the options.',
-    type: [DropdownCementeryDto],
-  })
-  getCemeteriesOptions() {
-    return this.cementeryService.getCemeteriesOptions();
   }
 
   @Patch('/:id')

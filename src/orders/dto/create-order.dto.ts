@@ -15,8 +15,8 @@ export class CreateOrderDto {
   address: string;
 
   @ApiProperty()
-  @IsNumber()
-  postCode: number;
+  @IsString()
+  phoneNumber: string;
 
   @ApiProperty()
   @IsString()

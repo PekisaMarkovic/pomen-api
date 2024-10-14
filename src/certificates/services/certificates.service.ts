@@ -1,25 +1,33 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Certificate } from '../entities/certificate.entity';
 import {
   IPaginationOptions,
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
+import { Role } from 'src/auth/entities/role.entity';
+import { ClientRoleEnums } from 'src/auth/enums/role.enum';
+import { Cemetery } from 'src/cemeteries/entities/cementery.entity';
+import { MailerService } from 'src/mailer/services/mailer.service';
+import { Order } from 'src/orders/entities/order.entity';
+import { User } from 'src/users/entities/user.entity';
+import { ValidationTokenTypeEnums } from 'src/validation-token/enums/VerificationTokenType';
+import { ValidationTokenService } from 'src/validation-token/services/validation-token.service';
+import { Repository } from 'typeorm';
 import {
   CreateCertificateAndUserDto,
   CreateCertificateDto,
 } from '../dto/create-certificate.dto';
+import { DropdownCertificateDto } from '../dto/dropdown-certificate.dto';
 import { UpdateCertificateDto } from '../dto/update-certificate.dto';
-import { User } from 'src/users/entities/user.entity';
-import { ClientRoleEnums } from 'src/auth/enums/role.enum';
-import { Role } from 'src/auth/entities/role.entity';
-import { ValidationTokenTypeEnums } from 'src/validation-token/enums/VerificationTokenType';
-import { MailerService } from 'src/mailer/services/mailer.service';
-import { ValidationTokenService } from 'src/validation-token/services/validation-token.service';
-import { JwtService } from '@nestjs/jwt';
-import { Cemetery } from 'src/cemeteries/entities/cementery.entity';
+import { Certificate } from '../entities/certificate.entity';
+import { City } from 'src/cities/entities/city.entity';
+import { slugify } from 'src/common/helpers/slug.helpers';
+import { ConfigService } from '@nestjs/config';
+import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
+import * as qr from 'qrcode';
+import { formatDateYearMonthDay } from 'src/common/utils/date';
 
 @Injectable()
 export class CertificatesService {
@@ -28,14 +36,21 @@ export class CertificatesService {
     private readonly certificateRepository: Repository<Certificate>,
     @InjectRepository(Cemetery)
     private readonly cemeteryRepository: Repository<Cemetery>,
+    @InjectRepository(City)
+    private readonly cityRepository: Repository<City>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
+    @InjectRepository(Order)
+    private readonly orderRepository: Repository<Order>,
+    @InjectRepository(Qrcode)
+    private readonly qrcodeRepository: Repository<Qrcode>,
 
     private readonly mailerService: MailerService,
     private readonly validationTokenService: ValidationTokenService,
     private readonly jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   /**
@@ -50,10 +65,6 @@ export class CertificatesService {
     const query = this.certificateRepository
       .createQueryBuilder('certificate')
       .where('certificate.deleted_at IS NULL')
-      .leftJoinAndSelect('certificate.user', 'user')
-      .leftJoinAndSelect('certificate.qrcode', 'qrcode')
-      .leftJoinAndSelect('certificate.getherings', 'getherings')
-      .leftJoinAndSelect('certificate.tributes', 'tributes')
       .leftJoinAndSelect('certificate.profileImage', 'file')
       .leftJoinAndSelect('certificate.cemetery', 'cemetery');
 
@@ -62,14 +73,14 @@ export class CertificatesService {
 
   /**
    * Find all certificates by Cementery id
-   * @param cementeryId - The cementeryId of the certificates to find
+   * @param cemeteryId - The cemeteryId of the certificates to find
    * @returns The found certificates
    *
    */
-  getCertificatesByCementeryId(cementeryId: number): Promise<Certificate[]> {
+  getCertificatesBycemeteryId(cemeteryId: number): Promise<Certificate[]> {
     return this.certificateRepository.find({
-      where: { cementeryId, deletedAt: null },
-      relations: ['user', 'qrcode', 'getherings', 'tributes', 'file'],
+      where: { cemeteryId, deletedAt: null },
+      relations: ['user', 'qrcode', 'getherings', 'tributes', 'profileImage'],
     });
   }
 
@@ -89,7 +100,7 @@ export class CertificatesService {
         'getherings',
         'tributes',
         'cemetery',
-        'file',
+        'profileImage',
       ],
     });
 
@@ -98,6 +109,34 @@ export class CertificatesService {
     }
 
     return certificate;
+  }
+
+  /**
+   * Find all countries options
+   * @returns The countries options
+   *
+   */
+  async getCertificateOptions(): Promise<DropdownCertificateDto[]> {
+    const data = await this.certificateRepository.find({
+      where: { deletedAt: null },
+      select: [
+        'certificateId',
+        'firstName',
+        'lastName',
+        'slug',
+        'profileImage',
+      ],
+      relations: ['profileImage'],
+    });
+
+    return data.map((obj) => {
+      return {
+        image: obj?.profileImage?.url || '',
+        name: `${obj.firstName} ${obj.lastName}`,
+        slug: obj.slug,
+        certificateId: obj.certificateId,
+      };
+    });
   }
 
   /**
@@ -116,7 +155,7 @@ export class CertificatesService {
         'getherings',
         'tributes',
         'cemetery',
-        'file',
+        'profileImage',
       ],
     });
 
@@ -148,7 +187,7 @@ export class CertificatesService {
     }
 
     const cemetery = await this.cemeteryRepository.findOne({
-      where: { cementeryId: updateCertificateDto.cementeryId },
+      where: { cemeteryId: updateCertificateDto.cemeteryId },
     });
 
     if (!cemetery) {
@@ -173,7 +212,7 @@ export class CertificatesService {
    */
   async createCertificate(createCertificateDto: CreateCertificateDto) {
     const {
-      cementeryId,
+      cemeteryId,
       biography,
       dateOfBirth,
       dateOfDeath,
@@ -187,7 +226,7 @@ export class CertificatesService {
     } = createCertificateDto;
 
     const cemetery = await this.cemeteryRepository.findOne({
-      where: { cementeryId, deletedAt: null },
+      where: { cemeteryId, deletedAt: null },
     });
 
     if (!cemetery) {
@@ -251,57 +290,80 @@ export class CertificatesService {
     createCertificateDto: CreateCertificateAndUserDto,
   ) {
     const {
-      cementeryId,
+      cemeteryId,
       biography,
       dateOfBirth,
       dateOfDeath,
       firstName,
       lastName,
-      location,
       placeOfBirth,
       placeOfDeath,
       timeOfDeath,
       emailNewUser,
       firstNameNewUser,
       lastNameNewUser,
-      firstNameNewPhone,
+      phoneNewUser,
+      addressOrder,
     } = createCertificateDto;
 
-    const newUser = this.userRepository.create({
-      email: emailNewUser,
-      firstName: firstNameNewUser,
-      lastName: lastNameNewUser,
-      phoneNumber: firstNameNewPhone,
-      isEmailConfirmed: true,
+    let user = null;
+
+    const exist = await this.userRepository.findOne({
+      where: { email: emailNewUser },
     });
 
-    const role = await this.roleRepository.findOne({
-      where: { name: ClientRoleEnums.USER },
-    });
+    if (!exist) {
+      const newUser = this.userRepository.create({
+        email: emailNewUser,
+        firstName: firstNameNewUser,
+        lastName: lastNameNewUser,
+        phoneNumber: phoneNewUser,
+        isEmailConfirmed: true,
+      });
 
-    newUser.roles = [role];
+      const role = await this.roleRepository.findOne({
+        where: { name: ClientRoleEnums.USER },
+      });
 
-    const user = await this.userRepository.save(newUser);
+      newUser.roles = [role];
+
+      user = await this.userRepository.save(newUser);
+    } else {
+      user = exist;
+    }
 
     if (!user) {
       throw new NotFoundException();
     }
 
     const cemetery = await this.cemeteryRepository.findOne({
-      where: { cementeryId, deletedAt: null },
+      where: { cemeteryId, deletedAt: null },
     });
 
     if (!cemetery) {
       throw new NotFoundException();
     }
 
+    const city = await this.cityRepository.findOne({
+      where: { cityId: cemetery.cityId, deletedAt: null },
+    });
+
+    if (!city) {
+      throw new NotFoundException();
+    }
+
+    const slug = await this.generateSlug(
+      `${firstName} ${lastName} ${formatDateYearMonthDay(dateOfBirth)} ${formatDateYearMonthDay(dateOfDeath)}`,
+    );
+
     const newCertificate = this.certificateRepository.create({
       biography,
+      slug,
       dateOfBirth,
       dateOfDeath,
       firstName,
       lastName,
-      location,
+      location: cemetery.location,
       placeOfBirth,
       placeOfDeath,
       timeOfDeath,
@@ -311,24 +373,71 @@ export class CertificatesService {
 
     const certificate = await this.certificateRepository.save(newCertificate);
 
-    const token = this.jwtService.sign(certificate);
+    if (!exist) {
+      const token = this.jwtService.sign({
+        email: emailNewUser,
+        certificateId: certificate.certificateId,
+        slug: certificate.slug,
+      });
 
-    await this.validationTokenService.createValidationToken({
-      email: emailNewUser,
-      token,
-      validationTokenType: ValidationTokenTypeEnums.FIRST_TIME_REGISTER,
+      await this.validationTokenService.createValidationToken({
+        email: emailNewUser,
+        token,
+        validationTokenType: ValidationTokenTypeEnums.FIRST_TIME_REGISTER,
+      });
+
+      await this.mailerService.sendFirstTimeRegisterMail({
+        data: { token },
+        recipients: [
+          {
+            name: `${firstNameNewUser} ${lastNameNewUser}`,
+            address: emailNewUser,
+          },
+        ],
+      });
+    }
+
+    const newOrder = this.orderRepository.create({
+      address: addressOrder,
+      firstName: firstNameNewUser,
+      lastName: lastNameNewUser,
+      city,
+      phoneNumber: phoneNewUser,
+      certificate,
+      user,
     });
 
-    await this.mailerService.sendFirstTimeRegisterMail({
-      data: { token },
-      recipients: [
-        {
-          name: `${firstNameNewUser} ${lastNameNewUser}`,
-          address: emailNewUser,
-        },
-      ],
+    await this.orderRepository.save(newOrder);
+
+    const fullUrl = `${this.configService.get('APP_DOMAIN')}/docs/${certificate.slug}`;
+
+    const qrData = await qr.toDataURL(fullUrl);
+
+    const qrcode = this.qrcodeRepository.create({
+      value: qrData,
+      certificate,
     });
+
+    await this.qrcodeRepository.save(qrcode);
 
     return certificate;
   }
+
+  /**
+   * Create a slug for sertificate
+   * @param slug - The data to create a new slug
+   * @returns slug
+   *
+   */
+  private generateSlug = async (slug: string) => {
+    let count = 2;
+    let nextSlug = slugify({ text: slug });
+    while (
+      await this.certificateRepository.findOne({ where: { slug: nextSlug } })
+    ) {
+      nextSlug = slugify({ text: `${slug}-${count}` });
+      count++;
+    }
+    return nextSlug;
+  };
 }

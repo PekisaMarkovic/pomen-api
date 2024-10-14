@@ -21,14 +21,4 @@ export class CountrySeederService {
 
     return { countries, serbia };
   }
-
-  async checkIsThereOneRecordExist() {
-    try {
-      await this.countryService.getCountryById(1);
-
-      return true;
-    } catch {
-      return false;
-    }
-  }
 }

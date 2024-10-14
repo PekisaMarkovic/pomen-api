@@ -39,14 +39,14 @@ export class CementeryService {
 
   /**
    * Find a cemetery by id
-   * @param cementeryId - The id of the cemetery to find
+   * @param cemeteryId - The id of the cemetery to find
    * @returns The found cemetery
    * @throws NotFoundException if the cemetery is not found
    *
    */
-  async getCemeteryById(cementeryId: number): Promise<Cemetery> {
+  async getCemeteryById(cemeteryId: number): Promise<Cemetery> {
     const cemetery = await this.cemeteryRepository.findOne({
-      where: { cementeryId, deletedAt: null },
+      where: { cemeteryId, deletedAt: null },
       relations: ['city'],
     });
 
@@ -97,24 +97,24 @@ export class CementeryService {
   getCemeteriesOptions(): Promise<DropdownCementeryDto[]> {
     return this.cemeteryRepository.find({
       where: { deletedAt: null },
-      select: ['cityId', 'name', 'slug', 'cementeryId'],
+      select: ['cityId', 'name', 'slug', 'cemeteryId'],
     });
   }
 
   /**
    * Update a cemetery
-   * @param cementeryId - The id of the cemetery to update
+   * @param cemeteryId - The id of the cemetery to update
    * @param updateCemeteryDto - The data to update the cemetery
    * @returns The updated cemetery
    * @throws NotFoundException if the city/cemetery is not found
    *
    */
   async updateCemetery(
-    cementeryId: number,
+    cemeteryId: number,
     updateCemeteryDto: updateCemeteryDto,
   ) {
     const cemetery = await this.cemeteryRepository.findOne({
-      where: { cementeryId, deletedAt: null },
+      where: { cemeteryId, deletedAt: null },
     });
 
     if (!cemetery) {
@@ -140,14 +140,14 @@ export class CementeryService {
 
   /**
    * Remove a cemetery
-   * @param cementeryId - The id of the cemetery to remove
+   * @param cemeteryId - The id of the cemetery to remove
    * @returns The removed cemetery
    * @throws NotFoundException if the cemetery is not found
    *
    */
-  async removeCemetery(cementeryId: number) {
+  async removeCemetery(cemeteryId: number) {
     const cemetery = await this.cemeteryRepository.findOne({
-      where: { cementeryId },
+      where: { cemeteryId },
     });
 
     if (!cemetery) {
@@ -167,7 +167,7 @@ export class CementeryService {
    *
    */
   async createCemetery(createCemeteryDto: CreateCemeteryDto) {
-    const { name, address, cityId } = createCemeteryDto;
+    const { name, address, cityId, location } = createCemeteryDto;
 
     const city = await this.cityRepository.findOne({
       where: { cityId, deletedAt: null },
@@ -182,6 +182,7 @@ export class CementeryService {
     const cementery = this.cemeteryRepository.create({
       name,
       address,
+      location,
       slug,
       city,
     });
@@ -201,7 +202,7 @@ export class CementeryService {
     while (
       await this.cemeteryRepository.findOne({ where: { slug: nextSlug } })
     ) {
-      nextSlug = `${slug}-${count}`;
+      nextSlug = slugify({ text: `${slug}-${count}` });
       count++;
     }
     return nextSlug;

@@ -30,14 +30,14 @@ export class Order {
   address: string;
 
   @ApiProperty()
-  @Column({ name: 'post_code', type: 'int8' })
-  postCode: number;
+  @Column()
+  phoneNumber: string;
 
   @ApiProperty()
   @Column({
     type: 'enum',
     enum: OrderStatusEnum,
-    default: OrderStatusEnum.IN_PROGRESS,
+    default: OrderStatusEnum.PENDING,
   })
   status: OrderStatusEnum;
 

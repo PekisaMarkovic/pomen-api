@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { LocationPointDto } from 'src/common/dto/location-point.dto';
 
 export class CreateCertificateDto {
   @ApiProperty()
@@ -30,6 +31,7 @@ export class CreateCertificateDto {
   placeOfDeath: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsNumber()
   timeOfDeath: number;
 
@@ -37,13 +39,12 @@ export class CreateCertificateDto {
   @IsString()
   biography: string;
 
-  @ApiProperty()
-  @IsString()
-  location: string;
+  @Type(() => LocationPointDto)
+  location: LocationPointDto;
 
   @ApiProperty()
   @IsNumber()
-  cementeryId: number;
+  cemeteryId: number;
 
   @ApiProperty()
   @IsNumber()
@@ -54,7 +55,7 @@ export class CreateCertificateAndUserDto {
   @ApiProperty()
   @IsOptional()
   @IsString()
-  firstNameNewPhone: string;
+  phoneNewUser: string;
 
   @ApiProperty()
   @IsString()
@@ -67,6 +68,10 @@ export class CreateCertificateAndUserDto {
   @ApiProperty()
   @IsString()
   emailNewUser: string;
+
+  @ApiProperty()
+  @IsString()
+  addressOrder: string;
 
   @ApiProperty()
   @IsString()
@@ -96,6 +101,7 @@ export class CreateCertificateAndUserDto {
 
   @ApiProperty()
   @IsNumber()
+  @IsOptional()
   timeOfDeath: number;
 
   @ApiProperty()
@@ -103,10 +109,6 @@ export class CreateCertificateAndUserDto {
   biography: string;
 
   @ApiProperty()
-  @IsString()
-  location: string;
-
-  @ApiProperty()
   @IsNumber()
-  cementeryId: number;
+  cemeteryId: number;
 }

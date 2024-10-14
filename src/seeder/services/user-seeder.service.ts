@@ -21,51 +21,21 @@ export class UserSeederService {
     private permissionRepository: Repository<Permission>,
   ) {}
 
+  async checkRoles() {
+    try {
+      const roles = await this.roleRepository.find();
+
+      return !!roles.length;
+    } catch {
+      return false;
+    }
+  }
+
   async initUsers() {
-    // demo permissions
-    const permissions = await this.createPermissions([
-      ClientPermissionEnums.CRETE_USER,
-      ClientPermissionEnums.READ_USER,
-      ClientPermissionEnums.UPDATE_USER,
-      ClientPermissionEnums.DELETE_USER,
+    const { adminRole, superAdminRole, userRole, permissions } =
+      await this.createRolesAndPermisions();
 
-      ClientPermissionEnums.CREATE_ANNOUNCEMENT,
-      ClientPermissionEnums.UPDATE_ANNOUNCEMENT,
-    ]);
-
-    // demo roles
-    const [
-      CRETE_USER,
-      READ_USER,
-      UPDATE_USER,
-      DELETE_USER,
-      CREATE_ANNOUNCEMENT,
-      UPDATE_ANNOUNCEMENT,
-    ] = permissions;
-
-    const superAdminRole = await this.createRole({
-      name: ClientRoleEnums.SUPER_ADMIN,
-      permissions: [
-        CRETE_USER,
-        READ_USER,
-        UPDATE_USER,
-        DELETE_USER,
-        CREATE_ANNOUNCEMENT,
-        UPDATE_ANNOUNCEMENT,
-      ],
-    });
-
-    const adminRole = await this.createRole({
-      name: ClientRoleEnums.ADMIN,
-      permissions: [CRETE_USER, READ_USER, UPDATE_USER, DELETE_USER],
-    });
-
-    const userRole = await this.createRole({
-      name: ClientRoleEnums.USER,
-      permissions: [READ_USER],
-    });
-
-    // demo users
+    this.createSuperAdmin(superAdminRole, adminRole, userRole);
 
     const admins: User[] = [];
 
@@ -128,6 +98,68 @@ export class UserSeederService {
       superAdmins,
       users,
     };
+  }
+
+  async createSuperAdmin(
+    superAdminRole: Role,
+    adminRole: Role,
+    userRole: Role,
+  ) {
+    const superAdmin = await this.usersService.createUser({
+      email: `admin@pomen.org`,
+      password: null,
+      firstName: `Admin`,
+      lastName: 'Pomen',
+    });
+
+    this.usersService.updateUserRolesAndPermissions(superAdmin.userId, {
+      roles: [superAdminRole, adminRole, userRole],
+    });
+  }
+
+  async createRolesAndPermisions() {
+    const permissions = await this.createPermissions([
+      ClientPermissionEnums.CRETE_USER,
+      ClientPermissionEnums.READ_USER,
+      ClientPermissionEnums.UPDATE_USER,
+      ClientPermissionEnums.DELETE_USER,
+
+      ClientPermissionEnums.CREATE_ANNOUNCEMENT,
+      ClientPermissionEnums.UPDATE_ANNOUNCEMENT,
+    ]);
+
+    const [
+      CRETE_USER,
+      READ_USER,
+      UPDATE_USER,
+      DELETE_USER,
+      CREATE_ANNOUNCEMENT,
+      UPDATE_ANNOUNCEMENT,
+    ] = permissions;
+
+    const superAdminRole = await this.createRole({
+      name: ClientRoleEnums.SUPER_ADMIN,
+      permissions: [
+        CRETE_USER,
+        READ_USER,
+        UPDATE_USER,
+        DELETE_USER,
+        CREATE_ANNOUNCEMENT,
+        UPDATE_ANNOUNCEMENT,
+      ],
+    });
+
+    const adminRole = await this.createRole({
+      name: ClientRoleEnums.ADMIN,
+      permissions: [CRETE_USER, READ_USER, UPDATE_USER, DELETE_USER],
+    });
+
+    const userRole = await this.createRole({
+      name: ClientRoleEnums.USER,
+      permissions: [READ_USER],
+    });
+
+    return { adminRole, userRole, superAdminRole, permissions };
   }
 
   private async createPermissions(

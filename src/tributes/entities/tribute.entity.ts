@@ -7,6 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { TributeStatusEnum } from '../enums/tribute-status.enum';
 
 @Entity({ name: 'tributes' })
 export class Tribute {
@@ -29,6 +30,14 @@ export class Tribute {
   @ApiProperty()
   @Column({ length: 100 })
   email: string;
+
+  @ApiProperty()
+  @Column({
+    type: 'enum',
+    enum: TributeStatusEnum,
+    default: TributeStatusEnum.PENDING,
+  })
+  status: TributeStatusEnum;
 
   @ApiProperty()
   @Column({ type: 'date', name: 'created_at', default: new Date() })

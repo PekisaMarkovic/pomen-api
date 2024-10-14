@@ -32,5 +32,5 @@ export class UpdateCertificateDto {
   location: string;
 
   @IsNumber()
-  cementeryId: number;
+  cemeteryId: number;
 }

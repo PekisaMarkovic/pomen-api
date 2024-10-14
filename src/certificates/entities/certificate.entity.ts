@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Cemetery } from 'src/cemeteries/entities/cementery.entity';
+import { pointTransformer } from 'src/common/helpers/point.helpers';
 import { File } from 'src/files/entities/file.entity';
 import { Gethering } from 'src/getherings/entities/gethering.entity';
 import { Order } from 'src/orders/entities/order.entity';
@@ -23,7 +24,7 @@ export class Certificate {
   certificateId: number;
 
   @ApiProperty()
-  @Column({ unique: true, length: 100 })
+  @Column({ unique: true, length: 255, nullable: true })
   slug: string;
 
   @ApiProperty()
@@ -63,8 +64,8 @@ export class Certificate {
   biography: string;
 
   @ApiProperty()
-  @Column({ type: 'point' })
-  location: string;
+  @Column({ type: 'point', transformer: pointTransformer })
+  location: { x: number; y: number };
 
   @ApiProperty()
   @Column({ type: 'date', name: 'created_at', default: new Date() })
@@ -80,7 +81,7 @@ export class Certificate {
 
   @ApiProperty()
   @Column({ name: 'cemetery_id' })
-  cementeryId: number;
+  cemeteryId: number;
 
   @ApiProperty({ type: () => Cemetery })
   @ManyToOne(() => Cemetery, (cemetery) => cemetery.certificates)

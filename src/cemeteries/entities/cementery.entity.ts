@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Certificate } from 'src/certificates/entities/certificate.entity';
 import { City } from 'src/cities/entities/city.entity';
+import { pointTransformer } from 'src/common/helpers/point.helpers';
 import {
   Column,
   Entity,
@@ -14,7 +15,7 @@ import {
 export class Cemetery {
   @ApiProperty()
   @PrimaryGeneratedColumn({ name: 'cemetery_id' })
-  cementeryId: number;
+  cemeteryId: number;
 
   @ApiProperty()
   @Column({ length: 100 })
@@ -27,6 +28,10 @@ export class Cemetery {
   @ApiProperty()
   @Column({ length: 100 })
   name: string;
+
+  @ApiProperty()
+  @Column({ type: 'point', transformer: pointTransformer })
+  location: { x: number; y: number };
 
   @ApiProperty()
   @Column({ type: 'date', name: 'created_at', default: new Date() })

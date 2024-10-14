@@ -63,6 +63,18 @@ export class CountryController {
   }
 
   @Public()
+  @Get('/options')
+  @ApiOperation({ summary: 'Get all countries options' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the options.',
+    type: [DropdownCountryDto],
+  })
+  getCountriesOptions() {
+    return this.countryService.getCountriesOptions();
+  }
+
+  @Public()
   @Get(':id')
   @ApiOperation({ summary: 'Get a country by id' })
   @ApiResponse({
@@ -94,18 +106,6 @@ export class CountryController {
   })
   getCountryBySlug(@Param('slug') slug: string) {
     return this.countryService.getCountryBySlug(slug);
-  }
-
-  @Public()
-  @Get('/options')
-  @ApiOperation({ summary: 'Get all countries options' })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'Return the options.',
-    type: [DropdownCountryDto],
-  })
-  getCountriesOptions() {
-    return this.countryService.getCountriesOptions();
   }
 
   @Patch('/:id')

@@ -37,7 +37,7 @@ export class GetheringsService {
 
   /**
    * Find all getherings by cemetery id
-   * @param cementeryId - The id of the cemetery to find
+   * @param cemeteryId - The id of the cemetery to find
    * @returns The found getherings
    *
    */
