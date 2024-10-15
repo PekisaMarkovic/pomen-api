@@ -26,7 +26,7 @@ export class AppSeederService implements OnModuleInit {
         break;
 
       case 'local':
-        await this.resetDatabase();
+        // await this.resetDatabase();
         break;
 
       default:

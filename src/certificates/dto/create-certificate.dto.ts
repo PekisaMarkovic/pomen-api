@@ -111,4 +111,9 @@ export class CreateCertificateAndUserDto {
   @ApiProperty()
   @IsNumber()
   cemeteryId: number;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsNumber()
+  cityId: number;
 }
