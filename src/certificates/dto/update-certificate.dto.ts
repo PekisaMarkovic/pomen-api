@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateCertificateDto {
   @IsString()
@@ -22,15 +22,21 @@ export class UpdateCertificateDto {
   @IsString()
   placeOfDeath: string;
 
+  @IsOptional()
   @IsNumber()
   timeOfDeath: number;
 
   @IsString()
-  Biography: string;
+  biography: string;
 
+  @IsOptional()
   @IsString()
   location: string;
 
   @IsNumber()
   cemeteryId: number;
+
+  @IsOptional()
+  @IsNumber()
+  cityId: number;
 }

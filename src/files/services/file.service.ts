@@ -27,17 +27,27 @@ export class FileService {
     certificateId: number,
     createImageDto: CreateFileDto,
   ) {
-    const certification = await this.certificateRepository.findOne({
+    const certificate = await this.certificateRepository.findOne({
       where: { certificateId },
     });
 
-    if (!certification) {
+    if (!certificate) {
       throw new NotFoundException();
+    }
+
+    if (certificate.certificateProfileId) {
+      await this.certificateRepository.save({
+        ...certificate,
+        certificateProfileId: null,
+        profileImage: null,
+      });
+
+      await this.removeImage(certificate.certificateProfileId);
     }
 
     const profile = this.fileRepository.create({
       ...createImageDto,
-      certificateProfile: certification,
+      certificateProfile: certificate,
     });
 
     await this.fileRepository.save(profile);

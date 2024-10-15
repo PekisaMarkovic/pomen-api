@@ -11,7 +11,7 @@ export const mappCloundleryToFile = (
     height: clFile.height,
     publicId: clFile.public_id,
     url: clFile.url,
-    wight: clFile.width,
+    width: clFile.width,
     certificate: null,
     certificateId: 0,
     fileId: 0,

@@ -27,7 +27,7 @@ export class File {
 
   @ApiProperty()
   @Column({ type: 'int4' })
-  wight: number;
+  width: number;
 
   @ApiProperty()
   @Column({ length: '255' })

@@ -76,7 +76,7 @@ export class FileController {
     return uploadResults.map((image) => mappCloundleryToFile(image, body.type));
   }
 
-  @Post('/:certificateId')
+  @Post('/certificate-profile/:certificateId')
   @ApiOperation({ summary: 'Create a new file' })
   @ApiResponse({
     status: 201,
@@ -98,7 +98,7 @@ export class FileController {
     );
   }
 
-  @Patch('/:certificateId')
+  @Patch('/certificate-files/:certificateId')
   @ApiOperation({ summary: 'Create new files' })
   @ApiResponse({
     status: HttpStatus.ACCEPTED,

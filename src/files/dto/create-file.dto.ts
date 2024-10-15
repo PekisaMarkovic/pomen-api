@@ -8,6 +8,7 @@ import {
 } from 'class-validator';
 import { FileTypeEnum } from '../enums/file-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 export class CreateColudnleryDto {
   @ApiProperty()
@@ -40,7 +41,7 @@ export class CreateFileDto {
 
   @ApiProperty()
   @IsNumber()
-  wight: number;
+  width: number;
 
   @ApiProperty()
   @IsString()
@@ -49,6 +50,10 @@ export class CreateFileDto {
   @ApiProperty()
   @IsString()
   publicId: string;
+
+  @ApiProperty()
+  @IsString()
+  fileExtension: string;
 
   @ApiProperty()
   @IsEnum(FileTypeEnum, {
@@ -61,6 +66,7 @@ export class CreateFileBodyDto {
   @ApiProperty()
   @IsArray()
   @ValidateNested({ each: true })
+  @Type(() => CreateFileDto)
   filesToAdd: CreateFileDto[];
 
   @ApiProperty()
