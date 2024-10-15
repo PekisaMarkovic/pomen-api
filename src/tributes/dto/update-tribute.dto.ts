@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsString } from 'class-validator';
+import { TributeStatusEnum } from '../enums/tribute-status.enum';
 
 export class UpdateTributeDto {
   @ApiProperty()
@@ -17,4 +18,13 @@ export class UpdateTributeDto {
   @ApiProperty()
   @IsEmail()
   email: string;
+}
+
+export class UpdateTributeStatusDto {
+  @ApiProperty()
+  @ApiProperty()
+  @IsEnum(TributeStatusEnum, {
+    message: 'Status must be one of the following: allowed, denied, pending',
+  })
+  status: TributeStatusEnum;
 }

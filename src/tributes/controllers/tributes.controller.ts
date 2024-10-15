@@ -19,7 +19,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateTributeDto } from '../dto/create-tribute.dto';
-import { UpdateTributeDto } from '../dto/update-tribute.dto';
+import {
+  UpdateTributeDto,
+  UpdateTributeStatusDto,
+} from '../dto/update-tribute.dto';
 import { Tribute } from '../entities/tribute.entity';
 import { TributesService } from '../services/tributes.service';
 import { Public } from 'src/auth/decorators/public.decorator';
@@ -102,6 +105,28 @@ export class TributesController {
       page,
       limit,
     });
+  }
+
+  @Patch('/:id/status')
+  @ApiOperation({ summary: 'Update a tribute with id' })
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Return the tribute.',
+    type: Tribute,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throws exception if city/tribute.',
+    type: NotFoundException,
+  })
+  updateTributeStatus(
+    @Param('id') id: string,
+    @Body() updateTributeStatusDto: UpdateTributeStatusDto,
+  ) {
+    return this.tributesService.updateTributeStatus(
+      +id,
+      updateTributeStatusDto,
+    );
   }
 
   @Patch('/:id')

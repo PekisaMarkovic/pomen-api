@@ -7,7 +7,10 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { UpdateTributeDto } from '../dto/update-tribute.dto';
+import {
+  UpdateTributeDto,
+  UpdateTributeStatusDto,
+} from '../dto/update-tribute.dto';
 import { CreateTributeDto } from '../dto/create-tribute.dto';
 import { Certificate } from 'src/certificates/entities/certificate.entity';
 
@@ -98,6 +101,33 @@ export class TributesService {
   }
 
   /**
+   * Update a tribute
+   * @param tributeId - The id of the tribute to update
+   * @param UpdateTributeStatusDto - The data to update the tribute
+   * @returns The updated tribute
+   * @throws NotFoundException if the tribute is not found
+   *
+   */
+  async updateTributeStatus(
+    tributeId: number,
+    { status }: UpdateTributeStatusDto,
+  ) {
+    const tribute = await this.tributeRepository.findOne({
+      where: { tributeId, deletedAt: null },
+    });
+
+    if (!tribute) {
+      throw new NotFoundException();
+    }
+
+    tribute.updatedAt = new Date();
+
+    tribute.status = status;
+
+    return this.tributeRepository.save(tribute);
+  }
+
+  /**
    * Remove a tribute
    * @param tributeId - The id of the tribute to remove
    * @returns The removed tribute
@@ -126,7 +156,7 @@ export class TributesService {
    *
    */
   async createTribute(createTributeDto: CreateTributeDto) {
-    const { description, email, firstName, lastName, certificateId } =
+    const { description, email, firstName, lastName, certificateId, status } =
       createTributeDto;
 
     const certificate = await this.certificateRepository.findOne({
@@ -143,6 +173,7 @@ export class TributesService {
       firstName,
       lastName,
       certificate,
+      status,
     });
 
     return this.tributeRepository.save(tribute);
