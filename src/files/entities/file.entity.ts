@@ -34,6 +34,10 @@ export class File {
   url: string;
 
   @ApiProperty()
+  @Column({ length: '10', nullable: true })
+  fileExtension: string;
+
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: FileTypeEnum,

@@ -19,7 +19,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateOrderDto } from '../dto/create-order.dto';
-import { UpdateOrderDto } from '../dto/update-order.dto';
+import { UpdateOrderDto, UpdateOrderStatusDto } from '../dto/update-order.dto';
 import { Order } from '../entities/order.entity';
 import { OrderService } from '../services/order.service';
 
@@ -89,6 +89,25 @@ export class OrderController {
   })
   getOrdersByCertificateId(@Param('certificateId') certificateId: string) {
     return this.orderService.getOrdersByCertificateId(+certificateId);
+  }
+
+  @Patch('/:id/status')
+  @ApiOperation({ summary: 'Update a order with id' })
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Return the order.',
+    type: Order,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throws exception if city/order.',
+    type: NotFoundException,
+  })
+  updateOrderStatus(
+    @Param('id') id: string,
+    @Body() updateOrderStatusDto: UpdateOrderStatusDto,
+  ) {
+    return this.orderService.updateOrderStatus(+id, updateOrderStatusDto);
   }
 
   @Patch('/:id')
