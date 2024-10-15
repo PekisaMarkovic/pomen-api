@@ -85,7 +85,7 @@ export class MailerService {
         recipients,
         'first-time-register.html',
         {
-          link: `${this.configService.get('APP_DOMAIN')}/first-time-register/${data.token}`,
+          link: `${this.configService.get('APP_DASHBOARD')}/first-time-register/${data.token}`,
           current_year: `${new Date().getFullYear()}`,
         },
       );

@@ -170,7 +170,7 @@ export class OrderService {
 
     const order = await this.orderRepository.save(newOrder);
 
-    const fullUrl = `${this.configService.get('APP_DOMAIN')}/docs/${certificate.slug}`;
+    const fullUrl = `${this.configService.get('APP_CLIENT')}/docs/${certificate.slug}`;
 
     qr.toDataURL(fullUrl).then((value) => {
       const qrcode = this.qrcodeRepository.create({

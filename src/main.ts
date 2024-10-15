@@ -9,9 +9,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT', 3000);
-  const origin = configService.get<string>(
-    'APP_DOMAIN',
-    'http://localhost:5173',
+  const client = configService.get<string>(
+    'APP_CLIENT',
+    'http://localhost:5300',
+  );
+
+  const dashboard = configService.get<string>(
+    'APP_DASHBOARD',
+    'http://localhost:5200',
   );
 
   const config = new DocumentBuilder()
@@ -37,7 +42,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.enableCors({
-    origin: [origin],
+    origin: [dashboard, client],
     methods: 'GET,POST,PUT,DELETE,PATCH',
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true,
