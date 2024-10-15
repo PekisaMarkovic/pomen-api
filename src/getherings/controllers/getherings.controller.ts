@@ -91,8 +91,17 @@ export class GetheringsController {
     description: 'Return the cities.',
     type: [Gethering],
   })
-  getGetheringsByCertificateId(@Param('certificateId') certificateId: string) {
-    return this.getheringsService.getGetheringsByCertificateId(+certificateId);
+  getGetheringsByCertificateId(
+    @Param('certificateId') certificateId: string,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.getheringsService.getGetheringsByCertificateId(+certificateId, {
+      page,
+      limit,
+    });
   }
 
   @Patch('/:id')

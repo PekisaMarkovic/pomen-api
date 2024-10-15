@@ -91,8 +91,17 @@ export class TributesController {
     description: 'Return the tributes.',
     type: [Tribute],
   })
-  getTributesByCertificateId(@Param('certificateId') certificateId: string) {
-    return this.tributesService.getTributesByCertificateId(+certificateId);
+  getTributesByCertificateId(
+    @Param('certificateId') certificateId: string,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.tributesService.getTributesByCertificateId(+certificateId, {
+      page,
+      limit,
+    });
   }
 
   @Patch('/:id')

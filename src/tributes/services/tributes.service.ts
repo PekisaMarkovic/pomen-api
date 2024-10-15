@@ -41,10 +41,16 @@ export class TributesService {
    * @returns The found tributes
    *
    */
-  getTributesByCertificateId(certificateId: number): Promise<Tribute[]> {
-    return this.tributeRepository.find({
-      where: { certificateId, deletedAt: null },
-    });
+  getTributesByCertificateId(
+    certificateId: number,
+    options: IPaginationOptions,
+  ): Promise<Pagination<Tribute>> {
+    const query = this.tributeRepository
+      .createQueryBuilder('tribute')
+      .where('tribute.deleted_at IS NULL')
+      .andWhere('tribute.certificateId = :certificateId', { certificateId });
+
+    return paginate<Tribute>(query, options);
   }
 
   /**

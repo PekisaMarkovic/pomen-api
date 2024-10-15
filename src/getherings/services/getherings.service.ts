@@ -41,10 +41,16 @@ export class GetheringsService {
    * @returns The found getherings
    *
    */
-  getGetheringsByCertificateId(certificateId: number): Promise<Gethering[]> {
-    return this.getheringRepository.find({
-      where: { certificateId, deletedAt: null },
-    });
+  getGetheringsByCertificateId(
+    certificateId: number,
+    options: IPaginationOptions,
+  ): Promise<Pagination<Gethering>> {
+    const query = this.getheringRepository
+      .createQueryBuilder('gethering')
+      .where('gethering.deleted_at IS NULL')
+      .andWhere('gethering.certificateId = :certificateId', { certificateId });
+
+    return paginate<Gethering>(query, options);
   }
 
   /**
