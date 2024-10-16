@@ -71,21 +71,7 @@ export class AuthService {
 
     await this.validationTokenService.removeRefreshTokenByEmail(user.email);
 
-    const newAccessToken = this.generateAccessToken(user);
-
-    const { token, ...rest } =
-      await this.validationTokenService.createValidationToken({
-        email: user.email,
-        token: newAccessToken,
-        validationTokenType: ValidationTokenTypeEnums.REFRESH,
-      });
-
-    return {
-      access_token: token,
-      refresh_token: this.jwtService.sign(rest, {
-        expiresIn: this.configService.get('JWT_REFRESH_EXPIRE'),
-      }),
-    };
+    return this.generateTokenByEmail(user.email);
   }
 
   /**
@@ -108,27 +94,9 @@ export class AuthService {
       throw new NotFoundException();
     }
 
-    Object.assign(toUpdate, dto);
-
     await this.usersService.updateFirstTimeRegisterUser(dto);
 
-    const user = await this.usersService.getUserByEmail(dto.email);
-
-    const newAccessToken = this.generateAccessToken(user);
-
-    const { token, ...rest } =
-      await this.validationTokenService.createValidationToken({
-        email: user.email,
-        token: newAccessToken,
-        validationTokenType: ValidationTokenTypeEnums.REFRESH,
-      });
-
-    return {
-      access_token: token,
-      refresh_token: this.jwtService.sign(rest, {
-        expiresIn: this.configService.get('JWT_REFRESH_EXPIRE'),
-      }),
-    };
+    return this.generateTokenByEmail(toUpdate.email);
   }
 
   /**
@@ -186,21 +154,7 @@ export class AuthService {
 
     await this.validationTokenService.removeRefreshTokenByEmail(dbToken.email);
 
-    const accessToken = this.generateAccessToken(user);
-
-    const { token, ...rest } =
-      await this.validationTokenService.createValidationToken({
-        email: user.email,
-        token: accessToken,
-        validationTokenType: ValidationTokenTypeEnums.REFRESH,
-      });
-
-    return {
-      access_token: token,
-      refresh_token: this.jwtService.sign(rest, {
-        expiresIn: this.configService.get('JWT_REFRESH_EXPIRE'),
-      }),
-    };
+    return this.generateTokenByEmail(user.email);
   }
 
   /**
@@ -220,4 +174,24 @@ export class AuthService {
       expires: new Date().getTime() + 3600000,
     });
   };
+
+  private async generateTokenByEmail(email: string) {
+    const user = await this.usersService.getUserByEmail(email);
+
+    const newAccessToken = this.generateAccessToken(user);
+
+    const { token, ...rest } =
+      await this.validationTokenService.createValidationToken({
+        email: user.email,
+        token: newAccessToken,
+        validationTokenType: ValidationTokenTypeEnums.REFRESH,
+      });
+
+    return {
+      access_token: token,
+      refresh_token: this.jwtService.sign(rest, {
+        expiresIn: this.configService.get('JWT_REFRESH_EXPIRE'),
+      }),
+    };
+  }
 }

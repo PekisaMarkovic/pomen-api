@@ -238,6 +238,7 @@ export class UsersService {
     const hashedPassword = await bcrypt.hash(dto.password, salt);
 
     user.password = hashedPassword;
+    user.isEmailConfirmed = true;
 
     return await this.userRepository.save(user);
   }
