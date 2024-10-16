@@ -3,6 +3,7 @@ import {
   Controller,
   HttpStatus,
   NotFoundException,
+  Patch,
   Post,
   Req,
   UnauthorizedException,
@@ -25,6 +26,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { TokenDto } from '../dto/login.dto';
+import { UpdateFirstTimeRegisterUserDto } from 'src/users/dto/user.dto';
 
 @Controller('auth')
 @ApiBearerAuth('access-token')
@@ -39,7 +41,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiOperation({
-    summary: 'Logins in user in our platform, generate token and refresh token',
+    summary: 'Log in in user in our platform, generate token and refresh token',
   })
   @ApiResponse({
     status: HttpStatus.ACCEPTED,
@@ -94,6 +96,25 @@ export class AuthController {
     return this.usersService.registerUser(body, {
       roles: [ClientRoleEnums.USER],
     });
+  }
+
+  @Public()
+  @Patch('update-fist-time-register')
+  @ApiOperation({
+    summary: 'Log in in user in our platform, generate token and refresh token',
+  })
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Return the tokens.',
+    type: TokenDto,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throws exception if user is not found.',
+    type: NotFoundException,
+  })
+  updateFirstTimeRegisterUser(@Body() dto: UpdateFirstTimeRegisterUserDto) {
+    return this.authService.updateFirstTimeRegisterUser(dto);
   }
 
   @Public()

@@ -23,6 +23,11 @@ export class ValidationTokenService {
     let expirationDate = new Date().getTime();
 
     switch (createValidationToken.validationTokenType) {
+      case ValidationTokenTypeEnums.FIRST_TIME_REGISTER:
+        expirationDate = expirationDate + 48 * 60 * 1000;
+
+        break;
+
       default:
         expirationDate = expirationDate + 3 * 60 * 1000;
 
@@ -98,6 +103,26 @@ export class ValidationTokenService {
     const tokens = await this.validationRepository.findBy({
       email,
       validationTokenType: ValidationTokenTypeEnums.REFRESH,
+    });
+
+    if (!tokens) {
+      throw new NotFoundException();
+    }
+
+    return this.validationRepository.remove(tokens);
+  }
+
+  /**
+   * Remove a first time token by email
+   * @param email - The email of the first time token to find
+   * @returns The founds token
+   * @throws NotFoundException if the token is not found
+   *
+   */
+  async removeFirstTimeRegisterTokenByEmail(email: string) {
+    const tokens = await this.validationRepository.findBy({
+      email,
+      validationTokenType: ValidationTokenTypeEnums.FIRST_TIME_REGISTER,
     });
 
     if (!tokens) {

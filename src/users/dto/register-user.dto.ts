@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 import { ClientRoleEnums } from 'src/auth/enums/role.enum';
 
 export class RegisterUserDto {
@@ -20,7 +20,7 @@ export class RegisterUserDto {
   password: string;
 
   @ApiProperty()
-  @IsPhoneNumber()
+  @IsString()
   @IsOptional()
   phone?: string;
 }

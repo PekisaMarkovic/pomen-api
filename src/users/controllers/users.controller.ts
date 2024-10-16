@@ -1,15 +1,20 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { User } from '../entities/user.entity';
-import { ClientRoleEnums } from 'src/auth/enums/role.enum';
-import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { Public } from 'src/auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { ClientRoleEnums } from 'src/auth/enums/role.enum';
+import {
+  CheckFirstTimeRegisterTokenValidDto,
+  FirstTimeRegisterDto,
+} from '../dto/user.dto';
+import { User } from '../entities/user.entity';
+import { UsersService } from '../services/users.service';
 
 @Controller('users')
 @ApiTags('Users')
@@ -27,6 +32,20 @@ export class UsersController {
   })
   getUsers() {
     return this.usersService.getUsers();
+  }
+
+  @Public()
+  @Post('/is-fist-time-register-token-valid')
+  isFirstTimeRegisterTokenValid(
+    @Body() dto: CheckFirstTimeRegisterTokenValidDto,
+  ) {
+    return this.usersService.isFirstTimeRegisterTokenValid(dto.token);
+  }
+
+  @Public()
+  @Post('resend-first-time-registration')
+  resendFirstTimeRegisterDto(@Body() dto: FirstTimeRegisterDto) {
+    return this.usersService.resendFirstTimeRegisterDto(dto);
   }
 
   @Get('profile')

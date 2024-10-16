@@ -1,16 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcryptjs';
+import { Role } from 'src/auth/entities/role.entity';
+import { Nullable } from 'src/common/interface/general';
+import { MailerService } from 'src/mailer/services/mailer.service';
+import { ValidationTokenTypeEnums } from 'src/validation-token/enums/VerificationTokenType';
+import { ValidationTokenService } from 'src/validation-token/services/validation-token.service';
+import { Repository } from 'typeorm';
 import {
   RegisterUserDto,
   RegisterUserOptionsDto,
 } from '../dto/register-user.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
-import { Repository } from 'typeorm';
-import * as bcrypt from 'bcryptjs';
-import { Nullable } from 'src/common/interface/general';
-import { LoginUser } from '../interface/user';
 import { UserRolesAndPermisssionsDto } from '../dto/user-roles-and-permisssions.dto';
-import { Role } from 'src/auth/entities/role.entity';
+import { FirstTimeRegisterDto } from '../dto/user.dto';
+import { User } from '../entities/user.entity';
+import { LoginUser } from '../interface/user';
 
 @Injectable()
 export class UsersService {
@@ -19,6 +24,10 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
+
+    private readonly jwtService: JwtService,
+    private readonly mailerService: MailerService,
+    private readonly validationTokenService: ValidationTokenService,
   ) {}
 
   /**
@@ -80,6 +89,45 @@ export class UsersService {
       .leftJoinAndSelect('user.permissions', 'permission');
 
     return query.getMany();
+  }
+
+  /**
+   * Check if fist time register token is valid
+   * @param token - The token to check
+   * @returns boolean
+   *
+   */
+  async isFirstTimeRegisterTokenValid(token: string) {
+    try {
+      await this.jwtService.verifyAsync(token);
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async resendFirstTimeRegisterDto(dto: FirstTimeRegisterDto) {
+    const token = this.jwtService.sign({ email: dto.email });
+
+    await this.validationTokenService.removeFirstTimeRegisterTokenByEmail(
+      dto.email,
+    );
+
+    await this.validationTokenService.createValidationToken({
+      email: dto.email,
+      token,
+      validationTokenType: ValidationTokenTypeEnums.FIRST_TIME_REGISTER,
+    });
+
+    await this.mailerService.sendFirstTimeRegisterMail({
+      data: { token },
+      recipients: [{ name: '', address: dto.email }],
+    });
+
+    return {
+      registration_token: token,
+    };
   }
 
   /**
@@ -163,6 +211,33 @@ export class UsersService {
 
     user.roles = roles ?? user.roles;
     user.permissions = permissions ?? user.permissions;
+
+    return await this.userRepository.save(user);
+  }
+
+  /**
+   * Update a user
+   * @param userId - The id of the user to update
+   * @param updateFirstTimeRegisterUserDto - The data to update the user
+   * @returns The updated user
+   * @throws NotFoundException if the city/user is not found
+   *
+   */
+  async updateFirstTimeRegisterUser(dto: UserRolesAndPermisssionsDto) {
+    const user = await this.userRepository.findOne({
+      where: { email: dto.email },
+    });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    Object.assign(user, dto);
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(dto.password, salt);
+
+    user.password = hashedPassword;
 
     return await this.userRepository.save(user);
   }

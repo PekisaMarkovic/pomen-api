@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from 'src/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -9,6 +13,7 @@ import { ConfigService } from '@nestjs/config';
 import { User } from 'src/users/entities/user.entity';
 import { LoginDto } from '../dto/login.dto';
 import { Nullable } from '../../common/interface/general';
+import { UpdateFirstTimeRegisterUserDto } from 'src/users/dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -65,6 +70,49 @@ export class AuthService {
     }
 
     await this.validationTokenService.removeRefreshTokenByEmail(user.email);
+
+    const newAccessToken = this.generateAccessToken(user);
+
+    const { token, ...rest } =
+      await this.validationTokenService.createValidationToken({
+        email: user.email,
+        token: newAccessToken,
+        validationTokenType: ValidationTokenTypeEnums.REFRESH,
+      });
+
+    return {
+      access_token: token,
+      refresh_token: this.jwtService.sign(rest, {
+        expiresIn: this.configService.get('JWT_REFRESH_EXPIRE'),
+      }),
+    };
+  }
+
+  /**
+   * Login user throgh email
+   * @param UpdateFirstTimeRegisterUserDto - The data need to have email
+   * @return The object that containes { access_token, refresh_token }
+   * @throws Throws exception if there is no user
+   *
+   */
+  async updateFirstTimeRegisterUser(dto: UpdateFirstTimeRegisterUserDto) {
+    const isTokenValid = await await this.jwtService.verifyAsync(dto.token);
+
+    if (!isTokenValid) {
+      throw new UnauthorizedException();
+    }
+
+    const toUpdate = await this.usersService.getUserByEmail(dto.email);
+
+    if (!toUpdate) {
+      throw new NotFoundException();
+    }
+
+    Object.assign(toUpdate, dto);
+
+    await this.usersService.updateFirstTimeRegisterUser(dto);
+
+    const user = await this.usersService.getUserByEmail(dto.email);
 
     const newAccessToken = this.generateAccessToken(user);
 
