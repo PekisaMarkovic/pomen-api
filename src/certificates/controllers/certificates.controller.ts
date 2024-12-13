@@ -27,6 +27,7 @@ import { Certificate } from '../entities/certificate.entity';
 import { CertificatesService } from '../services/certificates.service';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { DropdownCertificateDto } from '../dto/dropdown-certificate.dto';
+import { SearchCertificateDto } from '../dto/search-certificate.dto';
 
 @Controller('certificates')
 @ApiTags('Certificates')
@@ -91,6 +92,30 @@ export class CertificatesController {
   }
 
   @Public()
+  @Post('/search')
+  @ApiOperation({ summary: 'Get all certificates' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return all certificates.',
+    type: [Certificate],
+  })
+  getCertificatesSearch(
+    @Body()
+    { limit, page, ...restSearchCertificateDto }: SearchCertificateDto,
+  ) {
+    return this.certificatesService.getCertificatesSearch(
+      {
+        page,
+        limit,
+      },
+      restSearchCertificateDto.firstName,
+      restSearchCertificateDto.lastName,
+      restSearchCertificateDto.cemeteryId,
+      restSearchCertificateDto.cityId,
+    );
+  }
+
+  @Public()
   @Get('/options')
   @ApiOperation({ summary: 'Get all certificate options' })
   @ApiResponse({
@@ -115,8 +140,8 @@ export class CertificatesController {
     description: 'Throws exception if certificate is not found.',
     type: NotFoundException,
   })
-  getCertificateById(@Param('id') id: string) {
-    return this.certificatesService.getCertificateById(+id);
+  getCertificateById(@Param('id', ParseIntPipe) id: number) {
+    return this.certificatesService.getCertificateById(id);
   }
 
   @Public()
@@ -147,8 +172,10 @@ export class CertificatesController {
     description: 'Throws exception if certificate is not found.',
     type: NotFoundException,
   })
-  getCertificatesBycemeteryId(@Param('cemeteryId') cemeteryId: string) {
-    return this.certificatesService.getCertificatesBycemeteryId(+cemeteryId);
+  getCertificatesBycemeteryId(
+    @Param('cemeteryId', ParseIntPipe) cemeteryId: number,
+  ) {
+    return this.certificatesService.getCertificatesBycemeteryId(cemeteryId);
   }
 
   @Patch('/:id')
@@ -164,13 +191,10 @@ export class CertificatesController {
     type: NotFoundException,
   })
   updateCertificate(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCertificateDto: UpdateCertificateDto,
   ) {
-    return this.certificatesService.updateCertificate(
-      +id,
-      updateCertificateDto,
-    );
+    return this.certificatesService.updateCertificate(id, updateCertificateDto);
   }
 
   @Delete('/:id')
@@ -185,7 +209,7 @@ export class CertificatesController {
     description: 'Throws exception if certificate is not found.',
     type: NotFoundException,
   })
-  removeCertificate(@Param('id') id: string) {
-    return this.certificatesService.removeCertificate(+id);
+  removeCertificate(@Param('id', ParseIntPipe) id: number) {
+    return this.certificatesService.removeCertificate(id);
   }
 }

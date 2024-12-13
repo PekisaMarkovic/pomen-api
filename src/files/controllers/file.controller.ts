@@ -79,7 +79,7 @@ export class FileController {
   @Post('/certificate-profile/:certificateId')
   @ApiOperation({ summary: 'Create a new file' })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: 'The file has been successfully created.',
     type: File,
   })

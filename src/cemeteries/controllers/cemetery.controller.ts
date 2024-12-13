@@ -34,7 +34,7 @@ export class CemeteryController {
   @Post()
   @ApiOperation({ summary: 'Create a new cemetery' })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: 'The cemetery has been successfully created.',
     type: Cemetery,
   })

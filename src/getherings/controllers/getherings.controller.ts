@@ -33,7 +33,7 @@ export class GetheringsController {
   @Post()
   @ApiOperation({ summary: 'Create a new gethering' })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: 'The gethering has been successfully created.',
     type: Gethering,
   })

@@ -20,6 +20,7 @@ import { TributesModule } from './tributes/tributes.module';
 import { UsersModule } from './users/users.module';
 import { ValidationTokenModule } from './validation-token/validation-token.module';
 import { SeederModule } from './seeder/seeder.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { SeederModule } from './seeder/seeder.module';
     UsersModule,
     ValidationTokenModule,
     SeederModule,
+    ContactsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },

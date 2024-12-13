@@ -34,7 +34,7 @@ export class CityController {
   @Post()
   @ApiOperation({ summary: 'Create a new city' })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: 'The city has been successfully created.',
     type: City,
   })

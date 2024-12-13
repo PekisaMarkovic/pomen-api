@@ -34,7 +34,7 @@ export class CountryController {
   @Post()
   @ApiOperation({ summary: 'Create a new country' })
   @ApiResponse({
-    status: 201,
+    status: HttpStatus.CREATED,
     description: 'The country has been successfully created.',
     type: Country,
   })

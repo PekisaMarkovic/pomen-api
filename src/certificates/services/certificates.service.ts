@@ -72,6 +72,49 @@ export class CertificatesService {
   }
 
   /**
+   * Find all certificates with pagination
+   * @param IPaginationOptions - The pagination parameters
+   * @param cemeteryId - The cemeteryId of the certificates to find
+   * @param cityId - The cityId of the certificates to find
+   * @param firstName - The first name of the certificates to find
+   * @param lastName - The last name of the certificates to find
+   * @returns An array of certificates and the total count
+   *
+   */
+  getCertificatesSearch(
+    options: IPaginationOptions,
+    firstName: string,
+    lastName?: string,
+    cemeteryId?: number,
+    cityId?: number,
+  ): Promise<Pagination<Certificate>> {
+    const query = this.certificateRepository
+      .createQueryBuilder('certificate')
+      .where('certificate.deleted_at IS NULL')
+      .andWhere('certificate.first_name ILIKE :firstName', {
+        firstName: `%${firstName}%`,
+      })
+      .leftJoinAndSelect('certificate.profileImage', 'file')
+      .leftJoinAndSelect('certificate.cemetery', 'cemetery');
+
+    if (cemeteryId) {
+      query.andWhere('cemetery.id = :cemeteryId', { cemeteryId });
+    }
+
+    if (cityId) {
+      query.andWhere('cemetery.cityId = :cityId', { cityId });
+    }
+
+    if (lastName) {
+      query.andWhere('certificate.last_name ILIKE :lastName', {
+        lastName: `%${lastName}%`,
+      });
+    }
+
+    return paginate<Certificate>(query, options);
+  }
+
+  /**
    * Find all certificates by Cementery id
    * @param cemeteryId - The cemeteryId of the certificates to find
    * @returns The found certificates

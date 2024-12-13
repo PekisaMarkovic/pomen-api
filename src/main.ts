@@ -5,7 +5,9 @@ import * as bodyParser from 'body-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+// http://localhost:3200/api
 async function bootstrap() {
+  const baseUrl = 'api';
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT', 3200);
@@ -24,7 +26,7 @@ async function bootstrap() {
     .setDescription(
       'Our API provides a seamless way to create and manage memorial profiles. It allows developers to integrate features for storing and sharing memories, uploading photos and videos, and locating memorial sites. With built-in search functionality, users can easily find profiles by name and explore their biographies, family connections, and important life events. The API supports personalization options, including profile updates and interaction with guestbooks. Designed for scalability and ease of use, our API empowers developers to build meaningful experiences around preserving memories and honoring loved ones.',
     )
-    .setBasePath('api')
+    .setBasePath(baseUrl)
     .setVersion('1.0')
     .addBearerAuth(
       {
@@ -36,10 +38,11 @@ async function bootstrap() {
     )
     .build();
 
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix(baseUrl);
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+
+  SwaggerModule.setup(baseUrl, app, document);
 
   app.enableCors({
     origin: [dashboard, client],
