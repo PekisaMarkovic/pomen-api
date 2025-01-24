@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
-import { CertificatesService } from './services/certificates.service';
-import { CertificatesController } from './controllers/certificates.controller';
+import { CertificatesService } from '@/certificates/services/certificates.service';
+import { CertificatesController } from '@/certificates/controllers/certificates.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Certificate } from './entities/certificate.entity';
-import { Cemetery } from 'src/cemeteries/entities/cementery.entity';
-import { Role } from 'src/auth/entities/role.entity';
-import { User } from 'src/users/entities/user.entity';
-import { MailerModule } from 'src/mailer/mailer.module';
-import { ValidationTokenModule } from 'src/validation-token/validation-token.module';
+import { Certificate } from '@/certificates/entities/certificate.entity';
+import { Cemetery } from '@/cemeteries/entities/cementery.entity';
+import { Role } from '@/auth/entities/role.entity';
+import { User } from '@/users/entities/user.entity';
+import { MailerModule } from '@/mailer/mailer.module';
+import { ValidationTokenModule } from '@/validation-token/validation-token.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Order } from 'src/orders/entities/order.entity';
-import { City } from 'src/cities/entities/city.entity';
-import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
+import { Order } from '@/orders/entities/order.entity';
+import { City } from '@/cities/entities/city.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 
 @Module({
   imports: [

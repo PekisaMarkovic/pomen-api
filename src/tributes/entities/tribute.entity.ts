@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 import {
   Column,
   Entity,
@@ -7,7 +7,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TributeStatusEnum } from '../enums/tribute-status.enum';
+import { TributeStatusEnum } from '@/tributes/enums/tribute-status.enum';
 
 @Entity({ name: 'tributes' })
 export class Tribute {

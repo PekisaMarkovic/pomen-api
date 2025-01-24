@@ -18,10 +18,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateOrderDto } from '../dto/create-order.dto';
-import { UpdateOrderDto, UpdateOrderStatusDto } from '../dto/update-order.dto';
-import { Order } from '../entities/order.entity';
-import { OrderService } from '../services/order.service';
+import { CreateOrderDto } from '@/orders/dto/create-order.dto';
+import {
+  UpdateOrderDto,
+  UpdateOrderStatusDto,
+} from '@/orders/dto/update-order.dto';
+import { Order } from '@/orders/entities/order.entity';
+import { OrderService } from '@/orders/services/order.service';
 
 @Controller('orders')
 @ApiTags('Orders')
@@ -76,8 +79,8 @@ export class OrderController {
     description: 'Throws exception if order.',
     type: NotFoundException,
   })
-  getOrderById(@Param('id') id: string) {
-    return this.orderService.getOrderById(+id);
+  getOrderById(@Param('id', ParseIntPipe) id: number) {
+    return this.orderService.getOrderById(id);
   }
 
   @Get('/certificates/:certificateId')
@@ -87,8 +90,10 @@ export class OrderController {
     description: 'Return the order.',
     type: [Order],
   })
-  getOrdersByCertificateId(@Param('certificateId') certificateId: string) {
-    return this.orderService.getOrdersByCertificateId(+certificateId);
+  getOrdersByCertificateId(
+    @Param('certificateId', ParseIntPipe) certificateId: number,
+  ) {
+    return this.orderService.getOrdersByCertificateId(certificateId);
   }
 
   @Patch('/:id/status')
@@ -104,10 +109,10 @@ export class OrderController {
     type: NotFoundException,
   })
   updateOrderStatus(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateOrderStatusDto: UpdateOrderStatusDto,
   ) {
-    return this.orderService.updateOrderStatus(+id, updateOrderStatusDto);
+    return this.orderService.updateOrderStatus(id, updateOrderStatusDto);
   }
 
   @Patch('/:id')
@@ -122,8 +127,11 @@ export class OrderController {
     description: 'Throws exception if city/order.',
     type: NotFoundException,
   })
-  updateOrder(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.orderService.updateOrder(+id, updateOrderDto);
+  updateOrder(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateOrderDto: UpdateOrderDto,
+  ) {
+    return this.orderService.updateOrder(id, updateOrderDto);
   }
 
   @Delete('/:id')
@@ -138,7 +146,7 @@ export class OrderController {
     description: 'Throws exception if order.',
     type: NotFoundException,
   })
-  removeOrder(@Param('id') id: string) {
-    return this.orderService.removeOrder(+id);
+  removeOrder(@Param('id', ParseIntPipe) id: number) {
+    return this.orderService.removeOrder(id);
   }
 }

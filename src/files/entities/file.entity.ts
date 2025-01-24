@@ -1,4 +1,4 @@
-import { User } from 'src/users/entities/user.entity';
+import { User } from '@/users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -7,8 +7,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { FileTypeEnum } from '../enums/file-type.enum';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
+import { FileTypeEnum } from '@/files/enums/file-type.enum';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'files' })

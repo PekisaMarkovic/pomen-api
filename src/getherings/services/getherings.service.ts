@@ -5,11 +5,11 @@ import {
   Pagination,
 } from 'nestjs-typeorm-paginate';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 import { Repository } from 'typeorm';
-import { Gethering } from '../entities/gethering.entity';
-import { UpdateGetheringDto } from '../dto/update-gethering.dto';
-import { CreateGetheringDto } from '../dto/create-gethering.dto';
+import { Gethering } from '@/getherings/entities/gethering.entity';
+import { UpdateGetheringDto } from '@/getherings/dto/update-gethering.dto';
+import { CreateGetheringDto } from '@/getherings/dto/create-gethering.dto';
 
 @Injectable()
 export class GetheringsService {

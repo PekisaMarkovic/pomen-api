@@ -6,28 +6,28 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { Role } from 'src/auth/entities/role.entity';
-import { ClientRoleEnums } from 'src/auth/enums/role.enum';
-import { Cemetery } from 'src/cemeteries/entities/cementery.entity';
-import { MailerService } from 'src/mailer/services/mailer.service';
-import { Order } from 'src/orders/entities/order.entity';
-import { User } from 'src/users/entities/user.entity';
-import { ValidationTokenTypeEnums } from 'src/validation-token/enums/VerificationTokenType';
-import { ValidationTokenService } from 'src/validation-token/services/validation-token.service';
+import { Role } from '@/auth/entities/role.entity';
+import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { Cemetery } from '@/cemeteries/entities/cementery.entity';
+import { MailerService } from '@/mailer/services/mailer.service';
+import { Order } from '@/orders/entities/order.entity';
+import { User } from '@/users/entities/user.entity';
+import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
+import { ValidationTokenService } from '@/validation-token/services/validation-token.service';
 import { Repository } from 'typeorm';
 import {
   CreateCertificateAndUserDto,
   CreateCertificateDto,
-} from '../dto/create-certificate.dto';
-import { DropdownCertificateDto } from '../dto/dropdown-certificate.dto';
-import { UpdateCertificateDto } from '../dto/update-certificate.dto';
-import { Certificate } from '../entities/certificate.entity';
-import { City } from 'src/cities/entities/city.entity';
-import { slugify } from 'src/common/helpers/slug.helpers';
+} from '@/certificates/dto/create-certificate.dto';
+import { DropdownCertificateDto } from '@/certificates/dto/dropdown-certificate.dto';
+import { UpdateCertificateDto } from '@/certificates/dto/update-certificate.dto';
+import { Certificate } from '@/certificates/entities/certificate.entity';
+import { City } from '@/cities/entities/city.entity';
+import { slugify } from '@/common/helpers/slug.helpers';
 import { ConfigService } from '@nestjs/config';
-import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import * as qr from 'qrcode';
-import { formatDateYearMonthDay } from 'src/common/utils/date';
+import { formatDateYearMonthDay } from '@/common/utils/date';
 
 @Injectable()
 export class CertificatesService {
@@ -98,7 +98,7 @@ export class CertificatesService {
       .leftJoinAndSelect('certificate.cemetery', 'cemetery');
 
     if (cemeteryId) {
-      query.andWhere('cemetery.id = :cemeteryId', { cemeteryId });
+      query.andWhere('cemetery.cemeteryId = :cemeteryId', { cemeteryId });
     }
 
     if (cityId) {
@@ -190,17 +190,18 @@ export class CertificatesService {
    *
    */
   async getCertificateBySlug(slug: string): Promise<Certificate> {
-    const certificate = await this.certificateRepository.findOne({
-      where: { slug, deletedAt: null },
-      relations: [
-        'user',
-        'qrcode',
-        'getherings',
-        'tributes',
-        'cemetery',
-        'profileImage',
-      ],
-    });
+    const certificate = await this.certificateRepository
+      .createQueryBuilder('certificate')
+      .leftJoinAndSelect('certificate.user', 'user')
+      .leftJoinAndSelect('certificate.qrcode', 'qrcode')
+      .leftJoinAndSelect('certificate.getherings', 'getherings')
+      .leftJoinAndSelect('certificate.tributes', 'tributes')
+      .leftJoinAndSelect('certificate.cemetery', 'cemetery')
+      .leftJoinAndSelect('cemetery.city', 'city')
+      .leftJoinAndSelect('certificate.profileImage', 'profileImage')
+      .where('certificate.slug = :slug', { slug })
+      .andWhere('certificate.deletedAt IS NULL')
+      .getOne();
 
     if (!certificate) {
       throw new NotFoundException();

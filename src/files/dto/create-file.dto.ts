@@ -6,7 +6,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { FileTypeEnum } from '../enums/file-type.enum';
+import { FileTypeEnum } from '@/files/enums/file-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 

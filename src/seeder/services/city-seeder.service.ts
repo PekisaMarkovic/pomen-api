@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-
-import { CityService } from 'src/cities/services/city.service';
-import { SERBIAN_CITIES } from '../jsons/cities';
+import { CityService } from '@/cities/services/city.service';
+import { SERBIAN_CITIES } from '@/seeder/jsons/cities';
 
 @Injectable()
 export class CitySeederService {

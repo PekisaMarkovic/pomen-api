@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Cemetery } from 'src/cemeteries/entities/cementery.entity';
-import { pointTransformer } from 'src/common/helpers/point.helpers';
-import { File } from 'src/files/entities/file.entity';
-import { Gethering } from 'src/getherings/entities/gethering.entity';
-import { Order } from 'src/orders/entities/order.entity';
-import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
-import { Tribute } from 'src/tributes/entities/tribute.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Cemetery } from '@/cemeteries/entities/cementery.entity';
+import { pointTransformer } from '@/common/helpers/point.helpers';
+import { File } from '@/files/entities/file.entity';
+import { Gethering } from '@/getherings/entities/gethering.entity';
+import { Order } from '@/orders/entities/order.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
+import { Tribute } from '@/tributes/entities/tribute.entity';
+import { User } from '@/users/entities/user.entity';
 import {
   Column,
   Entity,

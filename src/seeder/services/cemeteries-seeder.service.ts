@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-
-import { CementeryService } from 'src/cemeteries/services/cementery.service';
-import { City } from 'src/cities/entities/city.entity';
-import { SERBIAN_CITIES_CEMETEREIS } from '../jsons/cemeteries';
+import { CementeryService } from '@/cemeteries/services/cementery.service';
+import { City } from '@/cities/entities/city.entity';
+import { SERBIAN_CITIES_CEMETEREIS } from '@/seeder/jsons/cemeteries';
 
 @Injectable()
 export class CemeteriesSeederService {

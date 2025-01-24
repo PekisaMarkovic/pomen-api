@@ -18,11 +18,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateGetheringDto } from '../dto/create-gethering.dto';
-import { UpdateGetheringDto } from '../dto/update-gethering.dto';
-import { Gethering } from '../entities/gethering.entity';
-import { GetheringsService } from '../services/getherings.service';
-import { Public } from 'src/auth/decorators/public.decorator';
+import { CreateGetheringDto } from '@/getherings/dto/create-gethering.dto';
+import { UpdateGetheringDto } from '@/getherings/dto/update-gethering.dto';
+import { Gethering } from '@/getherings/entities/gethering.entity';
+import { GetheringsService } from '@/getherings/services/getherings.service';
+import { Public } from '@/auth/decorators/public.decorator';
 
 @Controller('getherings')
 @ApiTags('Getherings')
@@ -79,8 +79,8 @@ export class GetheringsController {
     description: 'Throw exception if the gethering is not found',
     type: NotFoundException,
   })
-  getGetheringById(@Param('id') id: string) {
-    return this.getheringsService.getGetheringById(+id);
+  getGetheringById(@Param('id', ParseIntPipe) id: number) {
+    return this.getheringsService.getGetheringById(id);
   }
 
   @Public()
@@ -117,7 +117,7 @@ export class GetheringsController {
     type: NotFoundException,
   })
   updateCity(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateGetheringDto: UpdateGetheringDto,
   ) {
     return this.getheringsService.updateGethering(+id, updateGetheringDto);
@@ -135,7 +135,7 @@ export class GetheringsController {
     description: 'Throw exception if the gethering is not found',
     type: NotFoundException,
   })
-  removeGethering(@Param('id') id: string) {
-    return this.getheringsService.removeGethering(+id);
+  removeGethering(@Param('id', ParseIntPipe) id: number) {
+    return this.getheringsService.removeGethering(id);
   }
 }

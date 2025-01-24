@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { LocationPointDto } from 'src/common/dto/location-point.dto';
+import { LocationPointDto } from '@/common/dto/location-point.dto';
 
 export class CreateCertificateDto {
   @ApiProperty()

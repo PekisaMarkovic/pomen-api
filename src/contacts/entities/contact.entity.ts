@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ContactStatusEnum } from '../enums/contact-status.enum';
+import { ContactStatusEnum } from '@/contacts/enums/contact-status.enum';
 
 @Entity({ name: 'contacts' })
 export class Contact {

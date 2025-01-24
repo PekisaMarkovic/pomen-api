@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ClientPermissionEnums } from '../enums/permission.enum';
+import { ClientPermissionEnums } from '@/auth/enums/permission.enum';
 
 @Entity()
 export class Permission {

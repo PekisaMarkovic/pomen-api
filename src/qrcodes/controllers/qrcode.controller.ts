@@ -15,8 +15,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Qrcode } from '../entities/qrcode.entity';
-import { QrcodeService } from '../services/qrcode.service';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
+import { QrcodeService } from '@/qrcodes/services/qrcode.service';
 
 @Controller('qrcodes')
 @ApiTags('Qrcodes')
@@ -55,8 +55,8 @@ export class QrcodeController {
     description: 'Throws exception if qrcode.',
     type: NotFoundException,
   })
-  getQRcodeById(@Param('id') id: string) {
-    return this.qrcodeService.getQRcodeById(+id);
+  getQRcodeById(@Param('id', ParseIntPipe) id: number) {
+    return this.qrcodeService.getQRcodeById(id);
   }
 
   @Get('/certificates/:certificateId')
@@ -66,8 +66,10 @@ export class QrcodeController {
     description: 'Return the qrcodes.',
     type: [Qrcode],
   })
-  getQRcodesByCertificateId(@Param('certificateId') certificateId: string) {
-    return this.qrcodeService.getQRcodesByCertificateId(+certificateId);
+  getQRcodesByCertificateId(
+    @Param('certificateId', ParseIntPipe) certificateId: number,
+  ) {
+    return this.qrcodeService.getQRcodesByCertificateId(certificateId);
   }
 
   @Delete('/:id')
@@ -82,7 +84,7 @@ export class QrcodeController {
     description: 'Throws exception if qrcode.',
     type: NotFoundException,
   })
-  removeQRcode(@Param('id') id: string) {
-    return this.qrcodeService.removeQRcode(+id);
+  removeQRcode(@Param('id', ParseIntPipe) id: number) {
+    return this.qrcodeService.removeQRcode(id);
   }
 }

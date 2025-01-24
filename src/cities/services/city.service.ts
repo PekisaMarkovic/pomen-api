@@ -5,13 +5,13 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { slugify } from 'src/common/helpers/slug.helpers';
-import { Country } from 'src/countries/entities/country.entity';
+import { slugify } from '@/common/helpers/slug.helpers';
+import { Country } from '@/countries/entities/country.entity';
 import { Repository } from 'typeorm';
-import { CreateCityDto } from '../dto/create-city.dto';
-import { DropdownCityDto } from '../dto/dropdown-city.dto';
-import { UpdateCityDto } from '../dto/update-city.dto';
-import { City } from '../entities/city.entity';
+import { CreateCityDto } from '@/cities/dto/create-city.dto';
+import { DropdownCityDto } from '@/cities/dto/dropdown-city.dto';
+import { UpdateCityDto } from '@/cities/dto/update-city.dto';
+import { City } from '@/cities/entities/city.entity';
 
 @Injectable()
 export class CityService {

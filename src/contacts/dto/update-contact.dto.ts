@@ -1,7 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { CreateContactDto } from './create-contact.dto';
+import { CreateContactDto } from '@/contacts/dto/create-contact.dto';
 import { IsEnum } from 'class-validator';
-import { ContactStatusEnum } from '../enums/contact-status.enum';
+import { ContactStatusEnum } from '@/contacts/enums/contact-status.enum';
 
 export class UpdateContactDto extends PartialType(CreateContactDto) {}
 

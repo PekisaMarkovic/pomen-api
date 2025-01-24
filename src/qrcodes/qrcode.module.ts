@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { QrcodeController } from './controllers/qrcode.controller';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
-import { Qrcode } from './entities/qrcode.entity';
-import { QrcodeService } from './services/qrcode.service';
+import { QrcodeController } from '@/qrcodes/controllers/qrcode.controller';
+import { Certificate } from '@/certificates/entities/certificate.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
+import { QrcodeService } from '@/qrcodes/services/qrcode.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({

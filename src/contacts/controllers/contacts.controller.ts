@@ -13,14 +13,14 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateContactDto } from '../dto/create-contact.dto';
+import { CreateContactDto } from '@/contacts/dto/create-contact.dto';
 import {
   UpdateContactDto,
   UpdateContactStatusEnumDto,
-} from '../dto/update-contact.dto';
-import { ContactsService } from '../services/contacts.service';
-import { Public } from 'src/auth/decorators/public.decorator';
-import { Contact } from '../entities/contact.entity';
+} from '@/contacts/dto/update-contact.dto';
+import { ContactsService } from '@/contacts/services/contacts.service';
+import { Public } from '@/auth/decorators/public.decorator';
+import { Contact } from '@/contacts/entities/contact.entity';
 
 @Controller('contacts')
 @ApiTags('Contacts')
@@ -29,7 +29,7 @@ export class ContactsController {
 
   @Public()
   @Post()
-  @ApiOperation({ summary: 'Create a new contacy' })
+  @ApiOperation({ summary: 'Create a new contact' })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'The contacy has been successfully created.',
@@ -75,8 +75,8 @@ export class ContactsController {
     description: 'Throw exception if the contact is not found',
     type: NotFoundException,
   })
-  getContactById(@Param('id') id: string) {
-    return this.contactsService.getContactById(+id);
+  getContactById(@Param('id', ParseIntPipe) id: number) {
+    return this.contactsService.getContactById(id);
   }
 
   @Patch('/:id')
@@ -91,8 +91,11 @@ export class ContactsController {
     description: 'Throw exception if the contact is not found',
     type: NotFoundException,
   })
-  updateContact(@Param('id') id: string, @Body() dto: UpdateContactDto) {
-    return this.contactsService.updateContact(+id, dto);
+  updateContact(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateContactDto,
+  ) {
+    return this.contactsService.updateContact(id, dto);
   }
 
   @Patch('/:id')
@@ -108,10 +111,10 @@ export class ContactsController {
     type: NotFoundException,
   })
   updateContactStatus(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateContactStatusEnumDto,
   ) {
-    return this.contactsService.updateContactStatus(+id, dto);
+    return this.contactsService.updateContactStatus(id, dto);
   }
 
   @Delete('/:id')
@@ -126,7 +129,7 @@ export class ContactsController {
     description: 'Throw exception if the contact is not found',
     type: NotFoundException,
   })
-  removeContact(@Param('id') id: string) {
-    return this.contactsService.removeContact(+id);
+  removeContact(@Param('id', ParseIntPipe) id: number) {
+    return this.contactsService.removeContact(id);
   }
 }

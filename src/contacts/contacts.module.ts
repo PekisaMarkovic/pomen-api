@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ContactsController } from './controllers/contacts.controller';
-import { ContactsService } from './services/contacts.service';
+import { ContactsController } from '@/contacts/controllers/contacts.controller';
+import { ContactsService } from '@/contacts/services/contacts.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Contact } from './entities/contact.entity';
+import { Contact } from '@/contacts/entities/contact.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Contact])],

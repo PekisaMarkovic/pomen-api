@@ -2,20 +2,20 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
-import { Role } from 'src/auth/entities/role.entity';
-import { Nullable } from 'src/common/interface/general';
-import { MailerService } from 'src/mailer/services/mailer.service';
-import { ValidationTokenTypeEnums } from 'src/validation-token/enums/VerificationTokenType';
-import { ValidationTokenService } from 'src/validation-token/services/validation-token.service';
+import { Role } from '@/auth/entities/role.entity';
+import { Nullable } from '@/common/interface/general';
+import { MailerService } from '@/mailer/services/mailer.service';
+import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
+import { ValidationTokenService } from '@/validation-token/services/validation-token.service';
 import { Repository } from 'typeorm';
 import {
   RegisterUserDto,
   RegisterUserOptionsDto,
 } from '../dto/register-user.dto';
-import { UserRolesAndPermisssionsDto } from '../dto/user-roles-and-permisssions.dto';
-import { FirstTimeRegisterDto } from '../dto/user.dto';
-import { User } from '../entities/user.entity';
-import { LoginUser } from '../interface/user';
+import { UserRolesAndPermisssionsDto } from '@/users/dto/user-roles-and-permisssions.dto';
+import { FirstTimeRegisterDto } from '@/users/dto/user.dto';
+import { User } from '@/users/entities/user.entity';
+import { LoginUser } from '@/users/interface/user';
 
 @Injectable()
 export class UsersService {

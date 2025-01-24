@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Tribute } from '../entities/tribute.entity';
+import { Tribute } from '@/tributes/entities/tribute.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
@@ -10,9 +10,9 @@ import {
 import {
   UpdateTributeDto,
   UpdateTributeStatusDto,
-} from '../dto/update-tribute.dto';
-import { CreateTributeDto } from '../dto/create-tribute.dto';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
+} from '@/tributes/dto/update-tribute.dto';
+import { CreateTributeDto } from '@/tributes/dto/create-tribute.dto';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 
 @Injectable()
 export class TributesService {

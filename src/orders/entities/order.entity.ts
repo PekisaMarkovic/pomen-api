@@ -5,10 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { OrderStatusEnum } from '../enums/order-status.enum';
-import { City } from 'src/cities/entities/city.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
+import { OrderStatusEnum } from '@/orders/enums/order-status.enum';
+import { City } from '@/cities/entities/city.entity';
+import { User } from '@/users/entities/user.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'orders' })

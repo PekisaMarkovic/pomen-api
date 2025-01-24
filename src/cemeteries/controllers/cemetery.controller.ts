@@ -92,8 +92,8 @@ export class CemeteryController {
     description: 'Throws exception if cemetery.',
     type: NotFoundException,
   })
-  getCemeteryById(@Param('id') id: string) {
-    return this.cementeryService.getCemeteryById(+id);
+  getCemeteryById(@Param('id', ParseIntPipe) id: number) {
+    return this.cementeryService.getCemeteryById(id);
   }
 
   @Public()
@@ -138,10 +138,10 @@ export class CemeteryController {
     type: NotFoundException,
   })
   updateCemetery(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCemeteryDto: updateCemeteryDto,
   ) {
-    return this.cementeryService.updateCemetery(+id, updateCemeteryDto);
+    return this.cementeryService.updateCemetery(id, updateCemeteryDto);
   }
 
   @Delete('/:id')
@@ -156,7 +156,7 @@ export class CemeteryController {
     description: 'Throws exception if cemetery.',
     type: NotFoundException,
   })
-  removeCemetery(@Param('id') id: string) {
-    return this.cementeryService.removeCemetery(+id);
+  removeCemetery(@Param('id', ParseIntPipe) id: number) {
+    return this.cementeryService.removeCemetery(id);
   }
 }

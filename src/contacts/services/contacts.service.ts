@@ -6,12 +6,12 @@ import {
   Pagination,
 } from 'nestjs-typeorm-paginate';
 import { Repository } from 'typeorm';
-import { Contact } from '../entities/contact.entity';
-import { CreateContactDto } from '../dto/create-contact.dto';
+import { Contact } from '@/contacts/entities/contact.entity';
+import { CreateContactDto } from '@/contacts/dto/create-contact.dto';
 import {
   UpdateContactDto,
   UpdateContactStatusEnumDto,
-} from '../dto/update-contact.dto';
+} from '@/contacts/dto/update-contact.dto';
 
 @Injectable()
 export class ContactsService {

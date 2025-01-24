@@ -1,4 +1,4 @@
-import { LocationPointDto } from '../dto/location-point.dto';
+import { LocationPointDto } from '@/common/dto/location-point.dto';
 
 export const pointTransformer = {
   to(value: LocationPointDto): string {

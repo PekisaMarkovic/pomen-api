@@ -18,14 +18,14 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateTributeDto } from '../dto/create-tribute.dto';
+import { CreateTributeDto } from '@/tributes/dto/create-tribute.dto';
 import {
   UpdateTributeDto,
   UpdateTributeStatusDto,
-} from '../dto/update-tribute.dto';
-import { Tribute } from '../entities/tribute.entity';
-import { TributesService } from '../services/tributes.service';
-import { Public } from 'src/auth/decorators/public.decorator';
+} from '@/tributes/dto/update-tribute.dto';
+import { Tribute } from '@/tributes/entities/tribute.entity';
+import { TributesService } from '@/tributes/services/tributes.service';
+import { Public } from '@/auth/decorators/public.decorator';
 
 @Controller('tributes')
 @ApiTags('Tributes')
@@ -82,8 +82,8 @@ export class TributesController {
     description: 'Throws exception if tribute.',
     type: NotFoundException,
   })
-  getTributeById(@Param('id') id: string) {
-    return this.tributesService.getTributeById(+id);
+  getTributeById(@Param('id', ParseIntPipe) id: number) {
+    return this.tributesService.getTributeById(id);
   }
 
   @Public()
@@ -95,13 +95,13 @@ export class TributesController {
     type: [Tribute],
   })
   getTributesByCertificateId(
-    @Param('certificateId') certificateId: string,
+    @Param('certificateId', ParseIntPipe) certificateId: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
   ) {
     limit = limit > 100 ? 100 : limit;
 
-    return this.tributesService.getTributesByCertificateId(+certificateId, {
+    return this.tributesService.getTributesByCertificateId(certificateId, {
       page,
       limit,
     });
@@ -120,13 +120,10 @@ export class TributesController {
     type: NotFoundException,
   })
   updateTributeStatus(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateTributeStatusDto: UpdateTributeStatusDto,
   ) {
-    return this.tributesService.updateTributeStatus(
-      +id,
-      updateTributeStatusDto,
-    );
+    return this.tributesService.updateTributeStatus(id, updateTributeStatusDto);
   }
 
   @Patch('/:id')
@@ -142,10 +139,10 @@ export class TributesController {
     type: NotFoundException,
   })
   updateQRcode(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateTributeDto: UpdateTributeDto,
   ) {
-    return this.tributesService.updateTribute(+id, updateTributeDto);
+    return this.tributesService.updateTribute(id, updateTributeDto);
   }
 
   @Delete('/:id')
@@ -160,7 +157,7 @@ export class TributesController {
     description: 'Throws exception if tribute.',
     type: NotFoundException,
   })
-  removeTribute(@Param('id') id: string) {
-    return this.tributesService.removeTribute(+id);
+  removeTribute(@Param('id', ParseIntPipe) id: number) {
+    return this.tributesService.removeTribute(id);
   }
 }

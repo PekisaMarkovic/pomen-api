@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsString } from 'class-validator';
-import { TributeStatusEnum } from '../enums/tribute-status.enum';
+import { TributeStatusEnum } from '@/tributes/enums/tribute-status.enum';
 
 export class UpdateTributeDto {
   @ApiProperty()

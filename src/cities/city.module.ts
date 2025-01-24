@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CityService } from './services/city.service';
-import { CityController } from './controllers/city.controller';
+import { CityService } from '@/cities/services/city.service';
+import { CityController } from '@/cities/controllers/city.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { City } from './entities/city.entity';
-import { Country } from 'src/countries/entities/country.entity';
+import { City } from '@/cities/entities/city.entity';
+import { Country } from '@/countries/entities/country.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([City, Country])],

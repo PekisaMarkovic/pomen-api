@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNumber, IsString } from 'class-validator';
-import { LocationPointDto } from 'src/common/dto/location-point.dto';
+import { LocationPointDto } from '@/common/dto/location-point.dto';
 
 export class CreateCemeteryDto {
   @ApiProperty()

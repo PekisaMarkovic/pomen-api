@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ValidationTokenService } from './services/validation-token.service';
+import { ValidationTokenService } from '@/validation-token/services/validation-token.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ValidationToken } from './entities/validation-token.entity';
+import { ValidationToken } from '@/validation-token/entities/validation-token.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ValidationToken])],

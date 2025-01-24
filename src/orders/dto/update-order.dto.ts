@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsString } from 'class-validator';
-import { OrderStatusEnum } from '../enums/order-status.enum';
+import { OrderStatusEnum } from '@/orders/enums/order-status.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateOrderDto {

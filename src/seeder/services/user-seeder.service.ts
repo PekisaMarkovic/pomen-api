@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-import { ClientRoleEnums } from 'src/auth/enums/role.enum';
-import { ClientPermissionEnums } from 'src/auth/enums/permission.enum';
-import { UsersService } from 'src/users/services/users.service';
-import { User } from 'src/users/entities/user.entity';
-import { Permission } from 'src/auth/entities/permission.entity';
-import { Role } from 'src/auth/entities/role.entity';
+import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { ClientPermissionEnums } from '@/auth/enums/permission.enum';
+import { UsersService } from '@/users/services/users.service';
+import { User } from '@/users/entities/user.entity';
+import { Permission } from '@/auth/entities/permission.entity';
+import { Role } from '@/auth/entities/role.entity';
 
 @Injectable()
 export class UserSeederService {

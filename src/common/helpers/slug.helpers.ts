@@ -1,8 +1,8 @@
-function removeDiacritics(str: string) {
+function removeDiacritics(str: string): string {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-function cleanUpString(text: string) {
+function cleanUpString(text: string): string {
   return removeDiacritics(text)
     .toString()
     .toLowerCase()
@@ -13,19 +13,19 @@ function cleanUpString(text: string) {
     .replace(/-+$/, ''); // Trim - from end of text
 }
 
-function truncateString(str: string, len: number) {
+function truncateString(str: string, len: number): string {
   if (str.length > len) {
     return str.substring(0, len);
   }
   return str;
 }
 
-export const slugify = ({
+export function slugify({
   text,
   truncate,
 }: {
   text: string;
   truncate?: number;
-}) => {
+}): string {
   return cleanUpString(truncate ? truncateString(text, truncate) : text);
-};
+}

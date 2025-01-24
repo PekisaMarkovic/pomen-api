@@ -6,9 +6,9 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 import { Repository } from 'typeorm';
-import { Qrcode } from '../entities/qrcode.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 
 @Injectable()
 export class QrcodeService {

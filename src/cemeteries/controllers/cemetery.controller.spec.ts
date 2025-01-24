@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CementeryService } from '../services/cementery.service';
-import { CemeteryController } from './cemetery.controller';
+import { CementeryService } from '@/cemeteries/services/cementery.service';
+import { CemeteryController } from '@/cemeteries/controllers/cemetery.controller';
 
 describe('CemeteryController', () => {
   let controller: CemeteryController;

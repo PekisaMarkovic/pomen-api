@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './services/users.service';
-import { UsersController } from './controllers/users.controller';
+import { UsersService } from '@/users/services/users.service';
+import { UsersController } from '@/users/controllers/users.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
-import { Role } from 'src/auth/entities/role.entity';
+import { User } from '@/users/entities/user.entity';
+import { Role } from '@/auth/entities/role.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ValidationTokenModule } from 'src/validation-token/validation-token.module';
-import { MailerModule } from 'src/mailer/mailer.module';
+import { ValidationTokenModule } from '@/validation-token/validation-token.module';
+import { MailerModule } from '@/mailer/mailer.module';
 
 @Module({
   imports: [

@@ -18,12 +18,12 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Public } from 'src/auth/decorators/public.decorator';
-import { CreateCountryDto } from '../dto/create-country.dto';
-import { DropdownCountryDto } from '../dto/dropdown-country.dto';
-import { UpdateCountryDto } from '../dto/update-country.dto';
-import { Country } from '../entities/country.entity';
-import { CountryService } from '../services/country.service';
+import { Public } from '@/auth/decorators/public.decorator';
+import { CreateCountryDto } from '@/countries/dto/create-country.dto';
+import { DropdownCountryDto } from '@/countries/dto/dropdown-country.dto';
+import { UpdateCountryDto } from '@/countries/dto/update-country.dto';
+import { Country } from '@/countries/entities/country.entity';
+import { CountryService } from '@/countries/services/country.service';
 
 @Controller('countries')
 @ApiTags('Countries')
@@ -87,8 +87,8 @@ export class CountryController {
     description: 'Throw exception if the country is not found',
     type: NotFoundException,
   })
-  getCountryById(@Param('id') id: string) {
-    return this.countryService.getCountryById(+id);
+  getCountryById(@Param('id', ParseIntPipe) id: number) {
+    return this.countryService.getCountryById(id);
   }
 
   @Public()
@@ -121,10 +121,10 @@ export class CountryController {
     type: NotFoundException,
   })
   updateCountry(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCountryDto: UpdateCountryDto,
   ) {
-    return this.countryService.updateCountry(+id, updateCountryDto);
+    return this.countryService.updateCountry(id, updateCountryDto);
   }
 
   @Delete('/:id')
@@ -139,7 +139,7 @@ export class CountryController {
     description: 'Throw exception if the country is not found',
     type: NotFoundException,
   })
-  removeCountry(@Param('id') id: string) {
-    return this.countryService.removeCountry(+id);
+  removeCountry(@Param('id', ParseIntPipe) id: number) {
+    return this.countryService.removeCountry(id);
   }
 }

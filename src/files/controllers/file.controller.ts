@@ -9,8 +9,9 @@ import {
   Patch,
   UseInterceptors,
   Post,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { FileService } from '../services/file.service';
+import { FileService } from '@/files/services/file.service';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -22,12 +23,13 @@ import {
   CreateFileBodyDto,
   CreateFileDto,
   CreateMultyCludnleryDto,
-} from '../dto/create-file.dto';
+} from '@/files/dto/create-file.dto';
 import * as cloudinary from 'cloudinary';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
-import { mappCloundleryToFile } from '../utils/map';
-import { FileTypeEnum } from '../enums/file-type.enum';
+import { mappCloundleryToFile } from '@/files/utils/map';
+import { FileTypeEnum } from '@/files/enums/file-type.enum';
+import { Public } from '@/auth/decorators/public.decorator';
 
 @Controller('files')
 @ApiTags('Files')
@@ -89,11 +91,11 @@ export class FileController {
     type: NotFoundException,
   })
   createCertificateProfile(
-    @Param('certificateId') certificateId: string,
+    @Param('certificateId', ParseIntPipe) certificateId: number,
     @Body() createFileDto: CreateFileDto,
   ) {
     return this.fileService.createCertificateProfile(
-      +certificateId,
+      certificateId,
       createFileDto,
     );
   }
@@ -111,11 +113,11 @@ export class FileController {
     type: NotFoundException,
   })
   createCertificateFiles(
-    @Param('certificateId') certificateId: string,
+    @Param('certificateId', ParseIntPipe) certificateId: number,
     @Body() createFileBodyDto: CreateFileBodyDto,
   ) {
     return this.fileService.createCertificateFiles(
-      +certificateId,
+      certificateId,
       createFileBodyDto.filesToAdd,
       createFileBodyDto.filesToRemove,
     );
@@ -149,10 +151,11 @@ export class FileController {
     description: 'Throw exception if the file is not found',
     type: NotFoundException,
   })
-  getFileById(@Param('id') id: string) {
-    return this.fileService.getFileById(+id);
+  getFileById(@Param('id', ParseIntPipe) id: number) {
+    return this.fileService.getFileById(id);
   }
 
+  @Public()
   @Get('certificates/:certificateId')
   @ApiOperation({ summary: 'Get a files by certificate id' })
   @ApiResponse({
@@ -165,8 +168,27 @@ export class FileController {
     description: 'Throw exception if the file is not found',
     type: NotFoundException,
   })
-  getFilesByCertificateId(@Param('certificateId') certificateId: string) {
-    return this.fileService.getFilesByCertificateId(+certificateId);
+  getFilesByCertificateId(
+    @Param('certificateId', ParseIntPipe) certificateId: number,
+  ) {
+    return this.fileService.getFilesByCertificateId(certificateId);
+  }
+
+  @Public()
+  @Get('certificates/slug/:slug')
+  @ApiOperation({ summary: 'Get a files by slug' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the files.',
+    type: File,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throw exception if the file is not found',
+    type: NotFoundException,
+  })
+  getFilesBySlug(@Param('slug') slug: string) {
+    return this.fileService.getFilesBySlug(slug);
   }
 
   @Delete('/:id')
@@ -181,7 +203,7 @@ export class FileController {
     description: 'Throw exception if the file is not found',
     type: NotFoundException,
   })
-  removeImage(@Param('id') id: string) {
-    return this.fileService.removeImage(+id);
+  removeImage(@Param('id', ParseIntPipe) id: number) {
+    return this.fileService.removeImage(id);
   }
 }

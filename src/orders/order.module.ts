@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { OrderService } from './services/order.service';
-import { OrderController } from './controllers/order.controller';
+import { OrderService } from '@/orders/services/order.service';
+import { OrderController } from '@/orders/controllers/order.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from './entities/order.entity';
-import { City } from 'src/cities/entities/city.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Certificate } from 'crypto';
-import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
+import { Order } from '@/orders/entities/order.entity';
+import { City } from '@/cities/entities/city.entity';
+import { User } from '@/users/entities/user.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Order, City, User, Certificate, Qrcode])],

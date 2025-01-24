@@ -4,16 +4,16 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
-import { UsersService } from 'src/users/services/users.service';
+import { UsersService } from '@/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { LoginUser } from 'src/users/interface/user';
-import { ValidationTokenService } from 'src/validation-token/services/validation-token.service';
-import { ValidationTokenTypeEnums } from 'src/validation-token/enums/VerificationTokenType';
+import { LoginUser } from '@/users/interface/user';
+import { ValidationTokenService } from '@/validation-token/services/validation-token.service';
+import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/users/entities/user.entity';
-import { LoginDto } from '../dto/login.dto';
-import { Nullable } from '../../common/interface/general';
-import { UpdateFirstTimeRegisterUserDto } from 'src/users/dto/user.dto';
+import { User } from '@/users/entities/user.entity';
+import { LoginDto } from '@/auth/dto/login.dto';
+import { Nullable } from '@/common/interface/general';
+import { UpdateFirstTimeRegisterUserDto } from '@/users/dto/user.dto';
 
 @Injectable()
 export class AuthService {

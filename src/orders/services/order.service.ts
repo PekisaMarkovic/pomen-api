@@ -5,15 +5,18 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
-import { City } from 'src/cities/entities/city.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
+import { City } from '@/cities/entities/city.entity';
+import { User } from '@/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import { CreateOrderDto } from '../dto/create-order.dto';
-import { UpdateOrderDto, UpdateOrderStatusDto } from '../dto/update-order.dto';
-import { Order } from '../entities/order.entity';
+import { CreateOrderDto } from '@/orders/dto/create-order.dto';
+import {
+  UpdateOrderDto,
+  UpdateOrderStatusDto,
+} from '@/orders/dto/update-order.dto';
+import { Order } from '@/orders/entities/order.entity';
 import * as qr from 'qrcode';
-import { Qrcode } from 'src/qrcodes/entities/qrcode.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()

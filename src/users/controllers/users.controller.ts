@@ -5,16 +5,16 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { Public } from 'src/auth/decorators/public.decorator';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { ClientRoleEnums } from 'src/auth/enums/role.enum';
+import { CurrentUser } from '@/auth/decorators/current-user.decorator';
+import { Public } from '@/auth/decorators/public.decorator';
+import { Roles } from '@/auth/decorators/roles.decorator';
+import { ClientRoleEnums } from '@/auth/enums/role.enum';
 import {
   CheckFirstTimeRegisterTokenValidDto,
   FirstTimeRegisterDto,
-} from '../dto/user.dto';
-import { User } from '../entities/user.entity';
-import { UsersService } from '../services/users.service';
+} from '@/users/dto/user.dto';
+import { User } from '@/users/entities/user.entity';
+import { UsersService } from '@/users/services/users.service';
 
 @Controller('users')
 @ApiTags('Users')

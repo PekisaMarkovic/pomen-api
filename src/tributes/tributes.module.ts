@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TributesController } from './controllers/tributes.controller';
+import { TributesController } from '@/tributes/controllers/tributes.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Tribute } from './entities/tribute.entity';
-import { TributesService } from './services/tributes.service';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
+import { Tribute } from '@/tributes/entities/tribute.entity';
+import { TributesService } from '@/tributes/services/tributes.service';
+import { Certificate } from '@/certificates/entities/certificate.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Tribute, Certificate])],

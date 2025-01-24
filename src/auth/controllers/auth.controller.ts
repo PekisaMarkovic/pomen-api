@@ -9,16 +9,16 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { LoginUserDto } from 'src/users/dto/login-user.dto';
-import { RegisterUserDto } from 'src/users/dto/register-user.dto';
-import { RefreshTokenDto } from 'src/users/dto/tokens.dto';
-import { User } from 'src/users/entities/user.entity';
-import { UsersService } from 'src/users/services/users.service';
-import { CurrentUser } from '../decorators/current-user.decorator';
-import { Public } from '../decorators/public.decorator';
-import { ClientRoleEnums } from '../enums/role.enum';
-import { LocalAuthGuard } from '../guards/local-auth.guard';
-import { AuthService } from '../services/auth.service';
+import { LoginUserDto } from '@/users/dto/login-user.dto';
+import { RegisterUserDto } from '@/users/dto/register-user.dto';
+import { RefreshTokenDto } from '@/users/dto/tokens.dto';
+import { User } from '@/users/entities/user.entity';
+import { UsersService } from '@/users/services/users.service';
+import { CurrentUser } from '@/auth/decorators/current-user.decorator';
+import { Public } from '@/auth/decorators/public.decorator';
+import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { LocalAuthGuard } from '@/auth/guards/local-auth.guard';
+import { AuthService } from '@/auth/services/auth.service';
 import {
   ApiBearerAuth,
   ApiOperation,

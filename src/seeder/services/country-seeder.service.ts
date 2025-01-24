@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-
-import { CountryService } from 'src/countries/services/country.service';
-import { COUNTRIES } from '../jsons/countries';
+import { CountryService } from '@/countries/services/country.service';
+import { COUNTRIES } from '@/seeder/jsons/countries';
 @Injectable()
 export class CountrySeederService {
   constructor(private countryService: CountryService) {}

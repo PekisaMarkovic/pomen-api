@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { File } from '../entities/file.entity';
+import { File } from '@/files/entities/file.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
-import { FileTypeEnum } from '../enums/file-type.enum';
-import { CreateFileDto } from '../dto/create-file.dto';
+import { Certificate } from '@/certificates/entities/certificate.entity';
+import { FileTypeEnum } from '@/files/enums/file-type.enum';
+import { CreateFileDto } from '@/files/dto/create-file.dto';
 
 @Injectable()
 export class FileService {
@@ -153,10 +153,61 @@ export class FileService {
       where: { certificateId },
     });
 
-    let profile = null;
-    const images = [];
-    const videos = [];
-    const document = [];
+    let profile: File = null;
+    const images: File[] = [];
+    const videos: File[] = [];
+    const document: File[] = [];
+
+    certificateFiles.forEach((file) => {
+      if (file.fileId === certification.certificateProfileId) {
+        profile = file;
+      } else {
+        switch (file.type) {
+          case FileTypeEnum.DOCUMENT:
+            document.push(file);
+            break;
+          case FileTypeEnum.IMAGE:
+            images.push(file);
+            break;
+          case FileTypeEnum.VIDEO:
+            videos.push(file);
+            break;
+        }
+      }
+    });
+
+    return {
+      profile,
+      images,
+      videos,
+      document,
+    };
+  }
+
+  /**
+   * Find all files by slug
+   * @param certificateId - The slug of the files to find
+   * @returns The found files
+   * @throws NotFoundException if certificate file is not found
+   *
+   */
+  async getFilesBySlug(slug: string) {
+    const certification = await this.certificateRepository.findOne({
+      where: { slug },
+    });
+
+    if (!certification) {
+      throw new NotFoundException();
+    }
+
+    const certificateFiles = await this.fileRepository.find({
+      where: { certificateId: certification.certificateId },
+    });
+
+    let profile: File = null;
+    const images: File[] = [];
+    const videos: File[] = [];
+    const document: File[] = [];
 
     certificateFiles.forEach((file) => {
       if (file.fileId === certification.certificateProfileId) {

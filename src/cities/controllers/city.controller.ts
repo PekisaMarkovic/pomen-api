@@ -18,12 +18,12 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateCityDto } from '../dto/create-city.dto';
-import { DropdownCityDto } from '../dto/dropdown-city.dto';
-import { UpdateCityDto } from '../dto/update-city.dto';
-import { City } from '../entities/city.entity';
-import { CityService } from '../services/city.service';
-import { Public } from 'src/auth/decorators/public.decorator';
+import { CreateCityDto } from '@/cities/dto/create-city.dto';
+import { DropdownCityDto } from '@/cities/dto/dropdown-city.dto';
+import { UpdateCityDto } from '@/cities/dto/update-city.dto';
+import { City } from '@/cities/entities/city.entity';
+import { CityService } from '@/cities/services/city.service';
+import { Public } from '@/auth/decorators/public.decorator';
 
 @Controller('cities')
 @ApiTags('Cities')
@@ -92,8 +92,8 @@ export class CityController {
     description: 'Throw exception if the city is not found',
     type: NotFoundException,
   })
-  getCityById(@Param('id') id: string) {
-    return this.cityService.getCityById(+id);
+  getCityById(@Param('id', ParseIntPipe) id: number) {
+    return this.cityService.getCityById(id);
   }
 
   @Public()
@@ -121,8 +121,8 @@ export class CityController {
     description: 'Return the cities.',
     type: [City],
   })
-  getCitiesByCountryId(@Param('countryId') countryId: string) {
-    return this.cityService.getCitiesByCountryId(+countryId);
+  getCitiesByCountryId(@Param('countryId', ParseIntPipe) countryId: number) {
+    return this.cityService.getCitiesByCountryId(countryId);
   }
 
   @Patch('/:id')
@@ -137,8 +137,11 @@ export class CityController {
     description: 'Throw exception if the city/country is not found',
     type: NotFoundException,
   })
-  updateCity(@Param('id') id: string, @Body() updateCityDto: UpdateCityDto) {
-    return this.cityService.updateCity(+id, updateCityDto);
+  updateCity(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateCityDto: UpdateCityDto,
+  ) {
+    return this.cityService.updateCity(id, updateCityDto);
   }
 
   @Delete('/:id')
@@ -153,7 +156,7 @@ export class CityController {
     description: 'Throw exception if the city is not found',
     type: NotFoundException,
   })
-  removeCity(@Param('id') id: string) {
-    return this.cityService.removeCity(+id);
+  removeCity(@Param('id', ParseIntPipe) id: number) {
+    return this.cityService.removeCity(id);
   }
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ValidationTokenTypeEnums } from '../enums/VerificationTokenType';
+import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
 
 export class CreateValidationToken {
   @ApiProperty()

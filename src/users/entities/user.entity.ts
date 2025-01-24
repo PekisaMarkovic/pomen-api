@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Permission } from 'src/auth/entities/permission.entity';
-import { Role } from 'src/auth/entities/role.entity';
-import { Certificate } from 'src/certificates/entities/certificate.entity';
-import { File } from 'src/files/entities/file.entity';
-import { Order } from 'src/orders/entities/order.entity';
+import { Permission } from '@/auth/entities/permission.entity';
+import { Role } from '@/auth/entities/role.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
+import { File } from '@/files/entities/file.entity';
+import { Order } from '@/orders/entities/order.entity';
 import {
   Column,
   Entity,

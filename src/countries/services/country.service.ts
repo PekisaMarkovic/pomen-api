@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCountryDto } from '../dto/create-country.dto';
+import { CreateCountryDto } from '@/countries/dto/create-country.dto';
 import { slugify } from 'src/common/helpers/slug.helpers';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Country } from '../entities/country.entity';
+import { Country } from '@/countries/entities/country.entity';
 import { Repository } from 'typeorm';
-import { DropdownCountryDto } from '../dto/dropdown-country.dto';
-import { UpdateCountryDto } from '../dto/update-country.dto';
+import { DropdownCountryDto } from '@/countries/dto/dropdown-country.dto';
+import { UpdateCountryDto } from '@/countries/dto/update-country.dto';
 import {
   paginate,
   Pagination,

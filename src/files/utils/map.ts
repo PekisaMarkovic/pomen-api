@@ -1,6 +1,6 @@
 import * as cloudinary from 'cloudinary';
-import { File } from '../entities/file.entity';
-import { FileTypeEnum } from '../enums/file-type.enum';
+import { File } from '@/files/entities/file.entity';
+import { FileTypeEnum } from '@/files/enums/file-type.enum';
 
 export const mappCloundleryToFile = (
   clFile: cloudinary.UploadApiResponse,

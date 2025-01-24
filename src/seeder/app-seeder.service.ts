@@ -2,10 +2,10 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectConnection } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { CountrySeederService } from './services/country-seeder.service';
-import { UserSeederService } from './services/user-seeder.service';
-import { CitySeederService } from './services/city-seeder.service';
-import { CemeteriesSeederService } from './services/cemeteries-seeder.service';
+import { CountrySeederService } from '@/seeder/services/country-seeder.service';
+import { UserSeederService } from '@/seeder/services/user-seeder.service';
+import { CitySeederService } from '@/seeder/services/city-seeder.service';
+import { CemeteriesSeederService } from '@/seeder/services/cemeteries-seeder.service';
 
 @Injectable()
 export class AppSeederService implements OnModuleInit {
