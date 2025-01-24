@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '@/auth/guards/roles.guard';
@@ -21,6 +20,19 @@ import { UsersModule } from '@/users/users.module';
 import { ValidationTokenModule } from '@/validation-token/validation-token.module';
 import { SeederModule } from '@/seeder/seeder.module';
 import { ContactsModule } from '@/contacts/contacts.module';
+import { City } from '@/cities/entities/city.entity';
+import { Country } from '@/countries/entities/country.entity';
+import { Cemetery } from '@/cemeteries/entities/cementery.entity';
+import { Certificate } from '@/certificates/entities/certificate.entity';
+import { User } from '@/users/entities/user.entity';
+import { File } from '@/files/entities/file.entity';
+import { Role } from '@/auth/entities/role.entity';
+import { Permission } from '@/auth/entities/permission.entity';
+import { Order } from '@/orders/entities/order.entity';
+import { Gethering } from '@/getherings/entities/gethering.entity';
+import { Tribute } from '@/tributes/entities/tribute.entity';
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
+import { Contact } from '@/contacts/entities/contact.entity';
 
 @Module({
   imports: [
@@ -35,7 +47,21 @@ import { ContactsModule } from '@/contacts/contacts.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [join(process.cwd(), 'dist/**/*.entity.js')],
+        entities: [
+          City,
+          Country,
+          Cemetery,
+          Certificate,
+          User,
+          File,
+          Role,
+          Permission,
+          Order,
+          Gethering,
+          Tribute,
+          Qrcode,
+          Contact,
+        ],
         synchronize: true,
       }),
     }),
