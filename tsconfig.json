@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -8,11 +7,13 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
-    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     },
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "module": "CommonJS",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
