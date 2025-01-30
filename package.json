@@ -5,11 +5,9 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "_moduleAliases": {
-    "@": "./dist"
-  },
   "scripts": {
-    "build": "pnpm install nest build",
+    "build": "nest build",
+    "vercel-build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start",
