@@ -5,6 +5,9 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "_moduleAliases": {
+    "@": "./dist"
+  },
   "scripts": {
     "build": "pnpm install nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -37,6 +40,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cloudinary": "^2.5.0",
+    "module-alias": "^2.2.3",
     "multer": "1.4.5-lts.1",
     "nest": "^0.1.6",
     "nestjs-typeorm-paginate": "^4.0.4",
