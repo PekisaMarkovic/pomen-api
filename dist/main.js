@@ -3979,6 +3979,7 @@ exports.AuthController = AuthController;
 __decorate([
     (0, decorators_1.Public)(),
     (0, common_1.Post)('login'),
+    (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, swagger_1.ApiOperation)({
         summary: 'Log in in user in our platform, generate token and refresh token',
     }),
@@ -3999,7 +4000,6 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('refresh'),
-    (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Generates new token and new refresh token.' }),
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.ACCEPTED,
@@ -4512,6 +4512,7 @@ let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)
     }
     async validate(email, password) {
         const user = await this.authService.validateUser({ email, password });
+        console.log('tu sam');
         if (!user) {
             throw new common_1.UnauthorizedException();
         }

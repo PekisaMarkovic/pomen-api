@@ -38,6 +38,7 @@ export class AuthController {
 
   @Public()
   @Post('login')
+  @UseGuards(LocalAuthGuard)
   @ApiOperation({
     summary: 'Log in in user in our platform, generate token and refresh token',
   })
@@ -56,7 +57,6 @@ export class AuthController {
   }
 
   @Post('refresh')
-  @UseGuards(LocalAuthGuard)
   @ApiOperation({ summary: 'Generates new token and new refresh token.' })
   @ApiResponse({
     status: HttpStatus.ACCEPTED,
