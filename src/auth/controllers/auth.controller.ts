@@ -7,6 +7,7 @@ import {
   Post,
   Req,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { LoginUserDto } from '@/users/dto/login-user.dto';
 import { RegisterUserDto } from '@/users/dto/register-user.dto';
@@ -16,6 +17,7 @@ import { TokenDto } from '@/auth/dto/login.dto';
 import { UsersService } from '@/users/services/users.service';
 import { Public, CurrentUser } from '@/auth/decorators';
 import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { LocalAuthGuard } from '@/auth/guards/local-auth.guard';
 import { AuthService } from '@/auth/services/auth.service';
 import {
   ApiBearerAuth,
@@ -54,6 +56,7 @@ export class AuthController {
   }
 
   @Post('refresh')
+  @UseGuards(LocalAuthGuard)
   @ApiOperation({ summary: 'Generates new token and new refresh token.' })
   @ApiResponse({
     status: HttpStatus.ACCEPTED,

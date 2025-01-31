@@ -43,17 +43,17 @@ const mailer_module_1 = __webpack_require__(16);
 const cemetery_module_1 = __webpack_require__(25);
 const certificates_module_1 = __webpack_require__(55);
 const auth_module_1 = __webpack_require__(69);
-const city_module_1 = __webpack_require__(85);
-const country_module_1 = __webpack_require__(91);
-const file_module_1 = __webpack_require__(97);
-const getherings_module_1 = __webpack_require__(104);
-const order_module_1 = __webpack_require__(109);
-const qrcode_module_1 = __webpack_require__(114);
-const tributes_module_1 = __webpack_require__(117);
-const users_module_1 = __webpack_require__(79);
+const city_module_1 = __webpack_require__(86);
+const country_module_1 = __webpack_require__(92);
+const file_module_1 = __webpack_require__(98);
+const getherings_module_1 = __webpack_require__(105);
+const order_module_1 = __webpack_require__(110);
+const qrcode_module_1 = __webpack_require__(115);
+const tributes_module_1 = __webpack_require__(118);
+const users_module_1 = __webpack_require__(80);
 const validation_token_module_1 = __webpack_require__(68);
-const seeder_module_1 = __webpack_require__(122);
-const contacts_module_1 = __webpack_require__(131);
+const seeder_module_1 = __webpack_require__(123);
+const contacts_module_1 = __webpack_require__(132);
 const city_entity_1 = __webpack_require__(28);
 const country_entity_1 = __webpack_require__(45);
 const cementery_entity_1 = __webpack_require__(29);
@@ -66,7 +66,7 @@ const order_entity_1 = __webpack_require__(38);
 const gethering_entity_1 = __webpack_require__(41);
 const tribute_entity_1 = __webpack_require__(43);
 const qrcode_entity_1 = __webpack_require__(42);
-const contact_entity_1 = __webpack_require__(137);
+const contact_entity_1 = __webpack_require__(138);
 const validation_token_entity_1 = __webpack_require__(60);
 let AppModule = class AppModule {
 };
@@ -3544,12 +3544,12 @@ exports.AuthModule = void 0;
 const common_1 = __webpack_require__(5);
 const auth_service_1 = __webpack_require__(70);
 const auth_controller_1 = __webpack_require__(73);
-const users_module_1 = __webpack_require__(79);
+const users_module_1 = __webpack_require__(80);
 const config_1 = __webpack_require__(6);
 const passport_1 = __webpack_require__(9);
 const jwt_1 = __webpack_require__(57);
-const local_strategy_1 = __webpack_require__(81);
-const jwt_strategy_1 = __webpack_require__(83);
+const local_strategy_1 = __webpack_require__(82);
+const jwt_strategy_1 = __webpack_require__(84);
 const validation_token_module_1 = __webpack_require__(68);
 let AuthModule = class AuthModule {
 };
@@ -3933,9 +3933,10 @@ const login_dto_1 = __webpack_require__(77);
 const users_service_1 = __webpack_require__(72);
 const decorators_1 = __webpack_require__(22);
 const role_enum_1 = __webpack_require__(37);
+const local_auth_guard_1 = __webpack_require__(78);
 const auth_service_1 = __webpack_require__(70);
 const swagger_1 = __webpack_require__(3);
-const user_dto_1 = __webpack_require__(78);
+const user_dto_1 = __webpack_require__(79);
 let AuthController = class AuthController {
     constructor(authService, usersService) {
         this.authService = authService;
@@ -3998,6 +3999,7 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('refresh'),
+    (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Generates new token and new refresh token.' }),
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.ACCEPTED,
@@ -4257,6 +4259,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LocalAuthGuard = void 0;
+const common_1 = __webpack_require__(5);
+const passport_1 = __webpack_require__(9);
+let LocalAuthGuard = class LocalAuthGuard extends (0, passport_1.AuthGuard)('local') {
+};
+exports.LocalAuthGuard = LocalAuthGuard;
+exports.LocalAuthGuard = LocalAuthGuard = __decorate([
+    (0, common_1.Injectable)()
+], LocalAuthGuard);
+
+
+/***/ }),
+/* 79 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
@@ -4317,7 +4342,7 @@ __decorate([
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4331,7 +4356,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersModule = void 0;
 const common_1 = __webpack_require__(5);
 const users_service_1 = __webpack_require__(72);
-const users_controller_1 = __webpack_require__(80);
+const users_controller_1 = __webpack_require__(81);
 const typeorm_1 = __webpack_require__(7);
 const user_entity_1 = __webpack_require__(33);
 const role_entity_1 = __webpack_require__(36);
@@ -4365,7 +4390,7 @@ exports.UsersModule = UsersModule = __decorate([
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4388,7 +4413,7 @@ const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const decorators_1 = __webpack_require__(22);
 const role_enum_1 = __webpack_require__(37);
-const user_dto_1 = __webpack_require__(78);
+const user_dto_1 = __webpack_require__(79);
 const user_entity_1 = __webpack_require__(33);
 const users_service_1 = __webpack_require__(72);
 let UsersController = class UsersController {
@@ -4460,7 +4485,7 @@ exports.UsersController = UsersController = __decorate([
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4478,7 +4503,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocalStrategy = void 0;
 const common_1 = __webpack_require__(5);
 const passport_1 = __webpack_require__(9);
-const passport_local_1 = __webpack_require__(82);
+const passport_local_1 = __webpack_require__(83);
 const auth_service_1 = __webpack_require__(70);
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
@@ -4501,13 +4526,13 @@ exports.LocalStrategy = LocalStrategy = __decorate([
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ ((module) => {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4526,7 +4551,7 @@ exports.JwtStrategy = void 0;
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const passport_1 = __webpack_require__(9);
-const passport_jwt_1 = __webpack_require__(84);
+const passport_jwt_1 = __webpack_require__(85);
 const users_service_1 = __webpack_require__(72);
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(configService, usersService) {
@@ -4554,13 +4579,13 @@ exports.JwtStrategy = JwtStrategy = __decorate([
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ ((module) => {
 
 module.exports = require("passport-jwt");
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4573,8 +4598,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CityModule = void 0;
 const common_1 = __webpack_require__(5);
-const city_service_1 = __webpack_require__(86);
-const city_controller_1 = __webpack_require__(87);
+const city_service_1 = __webpack_require__(87);
+const city_controller_1 = __webpack_require__(88);
 const typeorm_1 = __webpack_require__(7);
 const city_entity_1 = __webpack_require__(28);
 const country_entity_1 = __webpack_require__(45);
@@ -4592,7 +4617,7 @@ exports.CityModule = CityModule = __decorate([
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4724,7 +4749,7 @@ exports.CityService = CityService = __decorate([
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4745,11 +4770,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CityController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const create_city_dto_1 = __webpack_require__(88);
-const dropdown_city_dto_1 = __webpack_require__(89);
-const update_city_dto_1 = __webpack_require__(90);
+const create_city_dto_1 = __webpack_require__(89);
+const dropdown_city_dto_1 = __webpack_require__(90);
+const update_city_dto_1 = __webpack_require__(91);
 const city_entity_1 = __webpack_require__(28);
-const city_service_1 = __webpack_require__(86);
+const city_service_1 = __webpack_require__(87);
 const decorators_1 = __webpack_require__(22);
 let CityController = class CityController {
     constructor(cityService) {
@@ -4929,7 +4954,7 @@ exports.CityController = CityController = __decorate([
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4967,7 +4992,7 @@ __decorate([
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5005,7 +5030,7 @@ __decorate([
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5043,7 +5068,7 @@ __decorate([
 
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5056,8 +5081,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CountryModule = void 0;
 const common_1 = __webpack_require__(5);
-const country_service_1 = __webpack_require__(92);
-const country_controller_1 = __webpack_require__(93);
+const country_service_1 = __webpack_require__(93);
+const country_controller_1 = __webpack_require__(94);
 const typeorm_1 = __webpack_require__(7);
 const country_entity_1 = __webpack_require__(45);
 let CountryModule = class CountryModule {
@@ -5074,7 +5099,7 @@ exports.CountryModule = CountryModule = __decorate([
 
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5184,7 +5209,7 @@ exports.CountryService = CountryService = __decorate([
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5206,11 +5231,11 @@ exports.CountryController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const decorators_1 = __webpack_require__(22);
-const create_country_dto_1 = __webpack_require__(94);
-const dropdown_country_dto_1 = __webpack_require__(95);
-const update_country_dto_1 = __webpack_require__(96);
+const create_country_dto_1 = __webpack_require__(95);
+const dropdown_country_dto_1 = __webpack_require__(96);
+const update_country_dto_1 = __webpack_require__(97);
 const country_entity_1 = __webpack_require__(45);
-const country_service_1 = __webpack_require__(92);
+const country_service_1 = __webpack_require__(93);
 let CountryController = class CountryController {
     constructor(countryService) {
         this.countryService = countryService;
@@ -5367,7 +5392,7 @@ exports.CountryController = CountryController = __decorate([
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5405,7 +5430,7 @@ __decorate([
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5439,7 +5464,7 @@ __decorate([
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5472,7 +5497,7 @@ __decorate([
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5485,8 +5510,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FileModule = void 0;
 const common_1 = __webpack_require__(5);
-const file_service_1 = __webpack_require__(98);
-const file_controller_1 = __webpack_require__(99);
+const file_service_1 = __webpack_require__(99);
+const file_controller_1 = __webpack_require__(100);
 const typeorm_1 = __webpack_require__(7);
 const file_entity_1 = __webpack_require__(32);
 const certificate_entity_1 = __webpack_require__(30);
@@ -5504,7 +5529,7 @@ exports.FileModule = FileModule = __decorate([
 
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5692,7 +5717,7 @@ exports.FileService = FileService = __decorate([
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5712,13 +5737,13 @@ var _a, _b, _c, _d, _e, _f;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FileController = void 0;
 const common_1 = __webpack_require__(5);
-const file_service_1 = __webpack_require__(98);
+const file_service_1 = __webpack_require__(99);
 const swagger_1 = __webpack_require__(3);
-const create_file_dto_1 = __webpack_require__(100);
-const cloudinary = __webpack_require__(101);
-const platform_express_1 = __webpack_require__(102);
+const create_file_dto_1 = __webpack_require__(101);
+const cloudinary = __webpack_require__(102);
+const platform_express_1 = __webpack_require__(103);
 const config_1 = __webpack_require__(6);
-const map_1 = __webpack_require__(103);
+const map_1 = __webpack_require__(104);
 const file_type_enum_1 = __webpack_require__(40);
 const decorators_1 = __webpack_require__(22);
 let FileController = class FileController {
@@ -5929,7 +5954,7 @@ exports.FileController = FileController = __decorate([
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6033,19 +6058,19 @@ __decorate([
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ ((module) => {
 
 module.exports = require("cloudinary");
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -6070,7 +6095,7 @@ exports.mappCloundleryToFile = mappCloundleryToFile;
 
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6083,11 +6108,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GetheringsModule = void 0;
 const common_1 = __webpack_require__(5);
-const getherings_controller_1 = __webpack_require__(105);
+const getherings_controller_1 = __webpack_require__(106);
 const typeorm_1 = __webpack_require__(7);
 const gethering_entity_1 = __webpack_require__(41);
 const certificate_entity_1 = __webpack_require__(30);
-const getherings_service_1 = __webpack_require__(108);
+const getherings_service_1 = __webpack_require__(109);
 let GetheringsModule = class GetheringsModule {
 };
 exports.GetheringsModule = GetheringsModule;
@@ -6102,7 +6127,7 @@ exports.GetheringsModule = GetheringsModule = __decorate([
 
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6123,10 +6148,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GetheringsController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const create_gethering_dto_1 = __webpack_require__(106);
-const update_gethering_dto_1 = __webpack_require__(107);
+const create_gethering_dto_1 = __webpack_require__(107);
+const update_gethering_dto_1 = __webpack_require__(108);
 const gethering_entity_1 = __webpack_require__(41);
-const getherings_service_1 = __webpack_require__(108);
+const getherings_service_1 = __webpack_require__(109);
 const decorators_1 = __webpack_require__(22);
 let GetheringsController = class GetheringsController {
     constructor(getheringsService) {
@@ -6274,7 +6299,7 @@ exports.GetheringsController = GetheringsController = __decorate([
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6320,7 +6345,7 @@ __decorate([
 
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6361,7 +6386,7 @@ __decorate([
 
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6463,7 +6488,7 @@ exports.GetheringsService = GetheringsService = __decorate([
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6476,8 +6501,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrderModule = void 0;
 const common_1 = __webpack_require__(5);
-const order_service_1 = __webpack_require__(110);
-const order_controller_1 = __webpack_require__(111);
+const order_service_1 = __webpack_require__(111);
+const order_controller_1 = __webpack_require__(112);
 const typeorm_1 = __webpack_require__(7);
 const order_entity_1 = __webpack_require__(38);
 const city_entity_1 = __webpack_require__(28);
@@ -6498,7 +6523,7 @@ exports.OrderModule = OrderModule = __decorate([
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6654,7 +6679,7 @@ exports.OrderService = OrderService = __decorate([
 
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6675,10 +6700,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrderController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const create_order_dto_1 = __webpack_require__(112);
-const update_order_dto_1 = __webpack_require__(113);
+const create_order_dto_1 = __webpack_require__(113);
+const update_order_dto_1 = __webpack_require__(114);
 const order_entity_1 = __webpack_require__(38);
-const order_service_1 = __webpack_require__(110);
+const order_service_1 = __webpack_require__(111);
 let OrderController = class OrderController {
     constructor(orderService) {
         this.orderService = orderService;
@@ -6838,7 +6863,7 @@ exports.OrderController = OrderController = __decorate([
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6896,7 +6921,7 @@ __decorate([
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6966,7 +6991,7 @@ __decorate([
 
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6979,10 +7004,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QrcodeModule = void 0;
 const common_1 = __webpack_require__(5);
-const qrcode_controller_1 = __webpack_require__(115);
+const qrcode_controller_1 = __webpack_require__(116);
 const certificate_entity_1 = __webpack_require__(30);
 const qrcode_entity_1 = __webpack_require__(42);
-const qrcode_service_1 = __webpack_require__(116);
+const qrcode_service_1 = __webpack_require__(117);
 const typeorm_1 = __webpack_require__(7);
 let QrcodeModule = class QrcodeModule {
 };
@@ -6998,7 +7023,7 @@ exports.QrcodeModule = QrcodeModule = __decorate([
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7020,7 +7045,7 @@ exports.QrcodeController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const qrcode_entity_1 = __webpack_require__(42);
-const qrcode_service_1 = __webpack_require__(116);
+const qrcode_service_1 = __webpack_require__(117);
 let QrcodeController = class QrcodeController {
     constructor(qrcodeService) {
         this.qrcodeService = qrcodeService;
@@ -7115,7 +7140,7 @@ exports.QrcodeController = QrcodeController = __decorate([
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7190,7 +7215,7 @@ exports.QrcodeService = QrcodeService = __decorate([
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7203,10 +7228,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TributesModule = void 0;
 const common_1 = __webpack_require__(5);
-const tributes_controller_1 = __webpack_require__(118);
+const tributes_controller_1 = __webpack_require__(119);
 const typeorm_1 = __webpack_require__(7);
 const tribute_entity_1 = __webpack_require__(43);
-const tributes_service_1 = __webpack_require__(121);
+const tributes_service_1 = __webpack_require__(122);
 const certificate_entity_1 = __webpack_require__(30);
 let TributesModule = class TributesModule {
 };
@@ -7222,7 +7247,7 @@ exports.TributesModule = TributesModule = __decorate([
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7243,10 +7268,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TributesController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const create_tribute_dto_1 = __webpack_require__(119);
-const update_tribute_dto_1 = __webpack_require__(120);
+const create_tribute_dto_1 = __webpack_require__(120);
+const update_tribute_dto_1 = __webpack_require__(121);
 const tribute_entity_1 = __webpack_require__(43);
-const tributes_service_1 = __webpack_require__(121);
+const tributes_service_1 = __webpack_require__(122);
 const decorators_1 = __webpack_require__(22);
 let TributesController = class TributesController {
     constructor(tributesService) {
@@ -7416,7 +7441,7 @@ exports.TributesController = TributesController = __decorate([
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7474,7 +7499,7 @@ __decorate([
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7530,7 +7555,7 @@ __decorate([
 
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7645,7 +7670,7 @@ exports.TributesService = TributesService = __decorate([
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7661,14 +7686,14 @@ const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
 const permission_entity_1 = __webpack_require__(34);
 const role_entity_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(79);
-const app_seeder_service_1 = __webpack_require__(123);
-const city_module_1 = __webpack_require__(85);
-const country_module_1 = __webpack_require__(91);
-const city_seeder_service_1 = __webpack_require__(127);
-const country_seeder_service_1 = __webpack_require__(124);
-const user_seeder_service_1 = __webpack_require__(126);
-const cemeteries_seeder_service_1 = __webpack_require__(129);
+const users_module_1 = __webpack_require__(80);
+const app_seeder_service_1 = __webpack_require__(124);
+const city_module_1 = __webpack_require__(86);
+const country_module_1 = __webpack_require__(92);
+const city_seeder_service_1 = __webpack_require__(128);
+const country_seeder_service_1 = __webpack_require__(125);
+const user_seeder_service_1 = __webpack_require__(127);
+const cemeteries_seeder_service_1 = __webpack_require__(130);
 const cemetery_module_1 = __webpack_require__(25);
 let SeederModule = class SeederModule {
 };
@@ -7694,7 +7719,7 @@ exports.SeederModule = SeederModule = __decorate([
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7717,10 +7742,10 @@ const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const typeorm_1 = __webpack_require__(7);
 const typeorm_2 = __webpack_require__(27);
-const country_seeder_service_1 = __webpack_require__(124);
-const user_seeder_service_1 = __webpack_require__(126);
-const city_seeder_service_1 = __webpack_require__(127);
-const cemeteries_seeder_service_1 = __webpack_require__(129);
+const country_seeder_service_1 = __webpack_require__(125);
+const user_seeder_service_1 = __webpack_require__(127);
+const city_seeder_service_1 = __webpack_require__(128);
+const cemeteries_seeder_service_1 = __webpack_require__(130);
 let AppSeederService = class AppSeederService {
     constructor(countrySeederService, citySeederService, cemeteriesSeederService, userSeederService, configService, connection) {
         this.countrySeederService = countrySeederService;
@@ -7788,7 +7813,7 @@ exports.AppSeederService = AppSeederService = __decorate([
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7805,8 +7830,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CountrySeederService = void 0;
 const common_1 = __webpack_require__(5);
-const country_service_1 = __webpack_require__(92);
-const countries_1 = __webpack_require__(125);
+const country_service_1 = __webpack_require__(93);
+const countries_1 = __webpack_require__(126);
 let CountrySeederService = class CountrySeederService {
     constructor(countryService) {
         this.countryService = countryService;
@@ -7832,7 +7857,7 @@ exports.CountrySeederService = CountrySeederService = __decorate([
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -7842,7 +7867,7 @@ exports.COUNTRIES = [{ name: 'Serbia', code: '381', iso: 'RS / SRB' }];
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8002,7 +8027,7 @@ exports.UserSeederService = UserSeederService = __decorate([
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8019,8 +8044,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CitySeederService = void 0;
 const common_1 = __webpack_require__(5);
-const city_service_1 = __webpack_require__(86);
-const cities_1 = __webpack_require__(128);
+const city_service_1 = __webpack_require__(87);
+const cities_1 = __webpack_require__(129);
 let CitySeederService = class CitySeederService {
     constructor(cityService) {
         this.cityService = cityService;
@@ -8045,7 +8070,7 @@ exports.CitySeederService = CitySeederService = __decorate([
 
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -8077,7 +8102,7 @@ exports.SERBIAN_CITIES = [
 
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8095,7 +8120,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CemeteriesSeederService = void 0;
 const common_1 = __webpack_require__(5);
 const cementery_service_1 = __webpack_require__(26);
-const cemeteries_1 = __webpack_require__(130);
+const cemeteries_1 = __webpack_require__(131);
 let CemeteriesSeederService = class CemeteriesSeederService {
     constructor(cementeryService) {
         this.cementeryService = cementeryService;
@@ -8131,7 +8156,7 @@ exports.CemeteriesSeederService = CemeteriesSeederService = __decorate([
 
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -8814,7 +8839,7 @@ exports.SERBIAN_CITIES_CEMETEREIS = [
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8827,10 +8852,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContactsModule = void 0;
 const common_1 = __webpack_require__(5);
-const contacts_controller_1 = __webpack_require__(132);
-const contacts_service_1 = __webpack_require__(136);
+const contacts_controller_1 = __webpack_require__(133);
+const contacts_service_1 = __webpack_require__(137);
 const typeorm_1 = __webpack_require__(7);
-const contact_entity_1 = __webpack_require__(137);
+const contact_entity_1 = __webpack_require__(138);
 let ContactsModule = class ContactsModule {
 };
 exports.ContactsModule = ContactsModule;
@@ -8844,7 +8869,7 @@ exports.ContactsModule = ContactsModule = __decorate([
 
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8865,11 +8890,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContactsController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const create_contact_dto_1 = __webpack_require__(133);
-const update_contact_dto_1 = __webpack_require__(134);
-const contacts_service_1 = __webpack_require__(136);
+const create_contact_dto_1 = __webpack_require__(134);
+const update_contact_dto_1 = __webpack_require__(135);
+const contacts_service_1 = __webpack_require__(137);
 const decorators_1 = __webpack_require__(22);
-const contact_entity_1 = __webpack_require__(137);
+const contact_entity_1 = __webpack_require__(138);
 let ContactsController = class ContactsController {
     constructor(contactsService) {
         this.contactsService = contactsService;
@@ -9013,7 +9038,7 @@ exports.ContactsController = ContactsController = __decorate([
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9051,7 +9076,7 @@ __decorate([
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9068,9 +9093,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateContactStatusEnumDto = exports.UpdateContactDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const create_contact_dto_1 = __webpack_require__(133);
+const create_contact_dto_1 = __webpack_require__(134);
 const class_validator_1 = __webpack_require__(51);
-const contact_status_enum_1 = __webpack_require__(135);
+const contact_status_enum_1 = __webpack_require__(136);
 class UpdateContactDto extends (0, swagger_1.PartialType)(create_contact_dto_1.CreateContactDto) {
 }
 exports.UpdateContactDto = UpdateContactDto;
@@ -9087,7 +9112,7 @@ __decorate([
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -9106,7 +9131,7 @@ var ContactStatusEnum;
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9129,7 +9154,7 @@ const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
 const nestjs_typeorm_paginate_1 = __webpack_require__(46);
 const typeorm_2 = __webpack_require__(27);
-const contact_entity_1 = __webpack_require__(137);
+const contact_entity_1 = __webpack_require__(138);
 let ContactsService = class ContactsService {
     constructor(contactRepository) {
         this.contactRepository = contactRepository;
@@ -9199,7 +9224,7 @@ exports.ContactsService = ContactsService = __decorate([
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9217,7 +9242,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Contact = void 0;
 const swagger_1 = __webpack_require__(3);
 const typeorm_1 = __webpack_require__(27);
-const contact_status_enum_1 = __webpack_require__(135);
+const contact_status_enum_1 = __webpack_require__(136);
 let Contact = class Contact {
 };
 exports.Contact = Contact;
@@ -9271,7 +9296,7 @@ exports.Contact = Contact = __decorate([
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ ((module) => {
 
 module.exports = require("body-parser");
@@ -9314,7 +9339,7 @@ __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const swagger_1 = __webpack_require__(3);
 const app_module_1 = __webpack_require__(4);
-const bodyParser = __webpack_require__(138);
+const bodyParser = __webpack_require__(139);
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 async function bootstrap() {
