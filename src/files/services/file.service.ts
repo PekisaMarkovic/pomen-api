@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { FileTypeEnum } from '@/files/enums/file-type.enum';
-import { CreateFileDto } from '@/files/dto/create-file.dto';
+import { CreateFileDto } from '@/files/dto';
 
 @Injectable()
 export class FileService {

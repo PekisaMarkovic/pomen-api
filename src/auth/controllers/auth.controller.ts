@@ -9,15 +9,18 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { LoginUserDto } from '@/users/dto/login-user.dto';
-import { RegisterUserDto } from '@/users/dto/register-user.dto';
-import { RefreshTokenDto } from '@/users/dto/tokens.dto';
+import {
+  RefreshTokenDto,
+  RegisterUserDto,
+  LoginUserDto,
+  UpdateFirstTimeRegisterUserDto,
+} from '@/users/dto';
 import { User } from '@/users/entities/user.entity';
-import { TokenDto } from '@/auth/dto/login.dto';
+import { TokenDto } from '@/auth/dto';
 import { UsersService } from '@/users/services/users.service';
 import { Public, CurrentUser } from '@/auth/decorators';
-import { ClientRoleEnums } from '@/auth/enums/role.enum';
-import { LocalAuthGuard } from '@/auth/guards/local-auth.guard';
+import { ClientRoleEnums } from '@/auth/enums';
+import { LocalAuthGuard } from '@/auth/guards';
 import { AuthService } from '@/auth/services/auth.service';
 import {
   ApiBearerAuth,
@@ -25,7 +28,6 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { UpdateFirstTimeRegisterUserDto } from 'src/users/dto/user.dto';
 
 @Controller('auth')
 @ApiBearerAuth('access-token')

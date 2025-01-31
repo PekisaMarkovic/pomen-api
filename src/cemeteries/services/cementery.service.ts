@@ -1,17 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCemeteryDto } from '../dto/create-cemetery.dto';
-import { updateCemeteryDto } from '../dto/update-cementery.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { City } from 'src/cities/entities/city.entity';
-import { Cemetery } from '../entities/cementery.entity';
+import { City } from '@/cities/entities/city.entity';
+import { Cemetery } from '@/cemeteries/entities/cementery.entity';
 import {
   IPaginationOptions,
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { DropdownCementeryDto } from '../dto/dropdown-cementery.dto';
-import { slugify } from 'src/common/helpers/slug.helpers';
+import { slugify } from '@/common/helpers';
+import {
+  UpdateCemeteryDto,
+  DropdownCementeryDto,
+  CreateCemeteryDto,
+} from '@/cemeteries/dto';
 
 @Injectable()
 export class CementeryService {
@@ -111,7 +113,7 @@ export class CementeryService {
    */
   async updateCemetery(
     cemeteryId: number,
-    updateCemeteryDto: updateCemeteryDto,
+    updateCemeteryDto: UpdateCemeteryDto,
   ) {
     const cemetery = await this.cemeteryRepository.findOne({
       where: { cemeteryId, deletedAt: null },

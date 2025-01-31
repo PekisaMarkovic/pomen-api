@@ -1,6 +1,6 @@
 import { Controller, Get, HttpException, HttpStatus } from '@nestjs/common';
 import { MailerService } from '@/mailer/services/mailer.service';
-import { SendMailDto } from '@/mailer/dto/send-mail.dto';
+import { SendMailDto } from '@/mailer/dto';
 import { Public } from '@/auth/decorators';
 import {
   ApiBearerAuth,

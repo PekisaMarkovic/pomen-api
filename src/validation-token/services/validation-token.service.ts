@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ValidationToken } from '@/validation-token/entities/validation-token.entity';
-import { CreateValidationToken } from '@/validation-token/dto/create-validation-token.dto';
+import { CreateValidationToken } from '@/validation-token/dto';
 import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
 
 @Injectable()

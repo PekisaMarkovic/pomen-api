@@ -9,11 +9,11 @@ import { Certificate } from '@/certificates/entities/certificate.entity';
 import { City } from '@/cities/entities/city.entity';
 import { User } from '@/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import { CreateOrderDto } from '@/orders/dto/create-order.dto';
 import {
   UpdateOrderDto,
   UpdateOrderStatusDto,
-} from '@/orders/dto/update-order.dto';
+  CreateOrderDto,
+} from '@/orders/dto';
 import { Order } from '@/orders/entities/order.entity';
 import * as qr from 'qrcode';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';

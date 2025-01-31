@@ -6,11 +6,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Roles, Public, CurrentUser } from '@/auth/decorators';
-import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { ClientRoleEnums } from '@/auth/enums';
 import {
   CheckFirstTimeRegisterTokenValidDto,
   FirstTimeRegisterDto,
-} from '@/users/dto/user.dto';
+} from '@/users/dto';
 import { User } from '@/users/entities/user.entity';
 import { UsersService } from '@/users/services/users.service';
 

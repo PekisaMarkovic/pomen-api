@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
-import { SendMailDto } from '@/mailer/dto/send-mail.dto';
+import { SendMailDto } from '@/mailer/dto';
 import Mail from 'nodemailer/lib/mailer';
 import { promises as fs } from 'fs';
 import * as path from 'path';

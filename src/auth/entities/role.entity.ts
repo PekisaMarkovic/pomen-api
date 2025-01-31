@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { User } from '@/users/entities/user.entity';
 import { Permission } from '@/auth/entities/permission.entity';
-import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { ClientRoleEnums } from '@/auth/enums';
 
 @Entity()
 export class Role {

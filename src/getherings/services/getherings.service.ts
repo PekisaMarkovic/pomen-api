@@ -8,8 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { Repository } from 'typeorm';
 import { Gethering } from '@/getherings/entities/gethering.entity';
-import { UpdateGetheringDto } from '@/getherings/dto/update-gethering.dto';
-import { CreateGetheringDto } from '@/getherings/dto/create-gethering.dto';
+import { UpdateGetheringDto, CreateGetheringDto } from '@/getherings/dto';
 
 @Injectable()
 export class GetheringsService {

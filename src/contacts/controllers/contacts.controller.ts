@@ -13,11 +13,11 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateContactDto } from '@/contacts/dto/create-contact.dto';
 import {
   UpdateContactDto,
+  CreateContactDto,
   UpdateContactStatusEnumDto,
-} from '@/contacts/dto/update-contact.dto';
+} from '@/contacts/dto';
 import { ContactsService } from '@/contacts/services/contacts.service';
 import { Public } from '@/auth/decorators';
 import { Contact } from '@/contacts/entities/contact.entity';

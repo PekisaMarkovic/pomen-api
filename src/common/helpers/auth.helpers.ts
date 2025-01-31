@@ -1,4 +1,4 @@
-import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { ClientRoleEnums } from '@/auth/enums';
 import { User } from '@/users/entities/user.entity';
 
 export function getClientPermissions(user: Partial<User>): Set<string> {

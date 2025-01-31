@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Cemetery } from '@/cemeteries/entities/cementery.entity';
-import { pointTransformer } from '@/common/helpers/point.helpers';
+import { pointTransformer } from '@/common/helpers';
 import { File } from '@/files/entities/file.entity';
 import { Gethering } from '@/getherings/entities/gethering.entity';
 import { Order } from '@/orders/entities/order.entity';

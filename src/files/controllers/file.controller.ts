@@ -23,7 +23,7 @@ import {
   CreateFileBodyDto,
   CreateFileDto,
   CreateMultyCludnleryDto,
-} from '@/files/dto/create-file.dto';
+} from '@/files/dto';
 import * as cloudinary from 'cloudinary';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';

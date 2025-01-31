@@ -18,11 +18,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateTributeDto } from '@/tributes/dto/create-tribute.dto';
 import {
   UpdateTributeDto,
   UpdateTributeStatusDto,
-} from '@/tributes/dto/update-tribute.dto';
+  CreateTributeDto,
+} from '@/tributes/dto';
 import { Tribute } from '@/tributes/entities/tribute.entity';
 import { TributesService } from '@/tributes/services/tributes.service';
 import { Public } from '@/auth/decorators';

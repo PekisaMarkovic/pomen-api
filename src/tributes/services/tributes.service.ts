@@ -8,10 +8,10 @@ import {
   Pagination,
 } from 'nestjs-typeorm-paginate';
 import {
+  CreateTributeDto,
   UpdateTributeDto,
   UpdateTributeStatusDto,
-} from '@/tributes/dto/update-tribute.dto';
-import { CreateTributeDto } from '@/tributes/dto/create-tribute.dto';
+} from '@/tributes/dto';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 
 @Injectable()

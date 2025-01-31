@@ -18,11 +18,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateOrderDto } from '@/orders/dto/create-order.dto';
 import {
   UpdateOrderDto,
   UpdateOrderStatusDto,
-} from '@/orders/dto/update-order.dto';
+  CreateOrderDto,
+} from '@/orders/dto';
 import { Order } from '@/orders/entities/order.entity';
 import { OrderService } from '@/orders/services/order.service';
 

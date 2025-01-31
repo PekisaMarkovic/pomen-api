@@ -11,9 +11,9 @@ import { ValidationTokenService } from '@/validation-token/services/validation-t
 import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
 import { ConfigService } from '@nestjs/config';
 import { User } from '@/users/entities/user.entity';
-import { LoginDto } from '@/auth/dto/login.dto';
-import { Nullable } from '@/common/interface/general';
-import { UpdateFirstTimeRegisterUserDto } from '@/users/dto/user.dto';
+import { LoginDto } from '@/auth/dto';
+import { Nullable } from '@/common/interface';
+import { UpdateFirstTimeRegisterUserDto } from '@/users/dto';
 
 @Injectable()
 export class AuthService {

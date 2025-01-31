@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
 
-export class updateCemeteryDto {
+export class UpdateCemeteryDto {
   @ApiProperty()
   @IsNumber()
   cityId: number;

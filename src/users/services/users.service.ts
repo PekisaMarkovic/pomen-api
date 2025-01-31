@@ -3,17 +3,17 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Role } from '@/auth/entities/role.entity';
-import { Nullable } from '@/common/interface/general';
+import { Nullable } from '@/common/interface';
 import { MailerService } from '@/mailer/services/mailer.service';
 import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
 import { ValidationTokenService } from '@/validation-token/services/validation-token.service';
 import { Repository } from 'typeorm';
 import {
+  UserRolesAndPermisssionsDto,
+  FirstTimeRegisterDto,
   RegisterUserDto,
   RegisterUserOptionsDto,
-} from '../dto/register-user.dto';
-import { UserRolesAndPermisssionsDto } from '@/users/dto/user-roles-and-permisssions.dto';
-import { FirstTimeRegisterDto } from '@/users/dto/user.dto';
+} from '@/users/dto';
 import { User } from '@/users/entities/user.entity';
 import { LoginUser } from '@/users/interface/user';
 

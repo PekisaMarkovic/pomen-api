@@ -12,18 +12,20 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { CementeryService } from '../services/cementery.service';
+import { CementeryService } from '@/cemeteries/services/cementery.service';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateCemeteryDto } from '../dto/create-cemetery.dto';
-import { Cemetery } from '../entities/cementery.entity';
-import { updateCemeteryDto } from '../dto/update-cementery.dto';
-import { DropdownCementeryDto } from '../dto/dropdown-cementery.dto';
-import { Public } from 'src/auth/decorators/public.decorator';
+import {
+  CreateCemeteryDto,
+  UpdateCemeteryDto,
+  DropdownCementeryDto,
+} from '@/cemeteries/dto';
+import { Cemetery } from '@/cemeteries/entities/cementery.entity';
+import { Public } from '@/auth/decorators';
 
 @Controller('cemeteries')
 @ApiTags('Cemeteries')
@@ -139,7 +141,7 @@ export class CemeteryController {
   })
   updateCemetery(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateCemeteryDto: updateCemeteryDto,
+    @Body() updateCemeteryDto: UpdateCemeteryDto,
   ) {
     return this.cementeryService.updateCemetery(id, updateCemeteryDto);
   }

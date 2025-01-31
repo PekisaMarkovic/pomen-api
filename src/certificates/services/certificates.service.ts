@@ -7,7 +7,7 @@ import {
   Pagination,
 } from 'nestjs-typeorm-paginate';
 import { Role } from '@/auth/entities/role.entity';
-import { ClientRoleEnums } from '@/auth/enums/role.enum';
+import { ClientRoleEnums } from '@/auth/enums';
 import { Cemetery } from '@/cemeteries/entities/cementery.entity';
 import { MailerService } from '@/mailer/services/mailer.service';
 import { Order } from '@/orders/entities/order.entity';
@@ -18,16 +18,16 @@ import { Repository } from 'typeorm';
 import {
   CreateCertificateAndUserDto,
   CreateCertificateDto,
-} from '@/certificates/dto/create-certificate.dto';
-import { DropdownCertificateDto } from '@/certificates/dto/dropdown-certificate.dto';
-import { UpdateCertificateDto } from '@/certificates/dto/update-certificate.dto';
+  DropdownCertificateDto,
+  UpdateCertificateDto,
+} from '@/certificates/dto';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { City } from '@/cities/entities/city.entity';
-import { slugify } from '@/common/helpers/slug.helpers';
+import { slugify } from '@/common/helpers';
 import { ConfigService } from '@nestjs/config';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import * as qr from 'qrcode';
-import { formatDateYearMonthDay } from '@/common/utils/date';
+import { formatDateYearMonthDay } from '@/common/utils';
 
 @Injectable()
 export class CertificatesService {

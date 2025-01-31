@@ -21,13 +21,13 @@ import {
 import {
   CreateCertificateAndUserDto,
   CreateCertificateDto,
-} from '@/certificates/dto/create-certificate.dto';
-import { UpdateCertificateDto } from '@/certificates/dto/update-certificate.dto';
+  UpdateCertificateDto,
+  SearchCertificateDto,
+  DropdownCertificateDto,
+} from '@/certificates/dto';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { CertificatesService } from '@/certificates/services/certificates.service';
 import { Public } from '@/auth/decorators';
-import { DropdownCertificateDto } from '@/certificates/dto/dropdown-certificate.dto';
-import { SearchCertificateDto } from '@/certificates/dto/search-certificate.dto';
 
 @Controller('certificates')
 @ApiTags('Certificates')

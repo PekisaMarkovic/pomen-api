@@ -7,11 +7,11 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { Repository } from 'typeorm';
 import { Contact } from '@/contacts/entities/contact.entity';
-import { CreateContactDto } from '@/contacts/dto/create-contact.dto';
 import {
   UpdateContactDto,
   UpdateContactStatusEnumDto,
-} from '@/contacts/dto/update-contact.dto';
+  CreateContactDto,
+} from '@/contacts/dto';
 
 @Injectable()
 export class ContactsService {

@@ -18,9 +18,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateCityDto } from '@/cities/dto/create-city.dto';
-import { DropdownCityDto } from '@/cities/dto/dropdown-city.dto';
-import { UpdateCityDto } from '@/cities/dto/update-city.dto';
+import { CreateCityDto, DropdownCityDto, UpdateCityDto } from '@/cities/dto';
 import { City } from '@/cities/entities/city.entity';
 import { CityService } from '@/cities/services/city.service';
 import { Public } from '@/auth/decorators';
