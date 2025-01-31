@@ -7,17 +7,15 @@ import {
   Post,
   Req,
   UnauthorizedException,
-  UseGuards,
 } from '@nestjs/common';
 import { LoginUserDto } from '@/users/dto/login-user.dto';
 import { RegisterUserDto } from '@/users/dto/register-user.dto';
 import { RefreshTokenDto } from '@/users/dto/tokens.dto';
 import { User } from '@/users/entities/user.entity';
+import { TokenDto } from '@/auth/dto/login.dto';
 import { UsersService } from '@/users/services/users.service';
-import { CurrentUser } from '@/auth/decorators/current-user.decorator';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public, CurrentUser } from '@/auth/decorators';
 import { ClientRoleEnums } from '@/auth/enums/role.enum';
-import { LocalAuthGuard } from '@/auth/guards/local-auth.guard';
 import { AuthService } from '@/auth/services/auth.service';
 import {
   ApiBearerAuth,
@@ -25,7 +23,6 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { TokenDto } from '../dto/login.dto';
 import { UpdateFirstTimeRegisterUserDto } from 'src/users/dto/user.dto';
 
 @Controller('auth')
@@ -38,7 +35,6 @@ export class AuthController {
   ) {}
 
   @Public()
-  @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiOperation({
     summary: 'Log in in user in our platform, generate token and refresh token',
@@ -54,7 +50,7 @@ export class AuthController {
     type: NotFoundException,
   })
   async login(@Body() body: LoginUserDto) {
-    return await this.authService.login(body);
+    return this.authService.login(body);
   }
 
   @Post('refresh')

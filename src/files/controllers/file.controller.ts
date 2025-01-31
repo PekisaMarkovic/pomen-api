@@ -29,7 +29,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { mappCloundleryToFile } from '@/files/utils/map';
 import { FileTypeEnum } from '@/files/enums/file-type.enum';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public } from '@/auth/decorators';
 
 @Controller('files')
 @ApiTags('Files')

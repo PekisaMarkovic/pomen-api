@@ -18,7 +18,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public } from '@/auth/decorators';
 import { CreateCountryDto } from '@/countries/dto/create-country.dto';
 import { DropdownCountryDto } from '@/countries/dto/dropdown-country.dto';
 import { UpdateCountryDto } from '@/countries/dto/update-country.dto';

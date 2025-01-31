@@ -5,9 +5,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CurrentUser } from '@/auth/decorators/current-user.decorator';
-import { Public } from '@/auth/decorators/public.decorator';
-import { Roles } from '@/auth/decorators/roles.decorator';
+import { Roles, Public, CurrentUser } from '@/auth/decorators';
 import { ClientRoleEnums } from '@/auth/enums/role.enum';
 import {
   CheckFirstTimeRegisterTokenValidDto,

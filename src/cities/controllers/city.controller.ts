@@ -23,7 +23,7 @@ import { DropdownCityDto } from '@/cities/dto/dropdown-city.dto';
 import { UpdateCityDto } from '@/cities/dto/update-city.dto';
 import { City } from '@/cities/entities/city.entity';
 import { CityService } from '@/cities/services/city.service';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public } from '@/auth/decorators';
 
 @Controller('cities')
 @ApiTags('Cities')

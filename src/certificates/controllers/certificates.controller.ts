@@ -25,7 +25,7 @@ import {
 import { UpdateCertificateDto } from '@/certificates/dto/update-certificate.dto';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { CertificatesService } from '@/certificates/services/certificates.service';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public } from '@/auth/decorators';
 import { DropdownCertificateDto } from '@/certificates/dto/dropdown-certificate.dto';
 import { SearchCertificateDto } from '@/certificates/dto/search-certificate.dto';
 

@@ -33,6 +33,7 @@ import { Gethering } from '@/getherings/entities/gethering.entity';
 import { Tribute } from '@/tributes/entities/tribute.entity';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import { Contact } from '@/contacts/entities/contact.entity';
+import { ValidationToken } from '@/validation-token/entities/validation-token.entity';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { Contact } from '@/contacts/entities/contact.entity';
           Tribute,
           Qrcode,
           Contact,
+          ValidationToken,
         ],
         synchronize: true,
       }),

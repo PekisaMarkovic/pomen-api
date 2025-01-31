@@ -25,7 +25,7 @@ import {
 } from '@/tributes/dto/update-tribute.dto';
 import { Tribute } from '@/tributes/entities/tribute.entity';
 import { TributesService } from '@/tributes/services/tributes.service';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public } from '@/auth/decorators';
 
 @Controller('tributes')
 @ApiTags('Tributes')

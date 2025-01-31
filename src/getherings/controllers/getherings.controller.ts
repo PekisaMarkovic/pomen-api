@@ -22,7 +22,7 @@ import { CreateGetheringDto } from '@/getherings/dto/create-gethering.dto';
 import { UpdateGetheringDto } from '@/getherings/dto/update-gethering.dto';
 import { Gethering } from '@/getherings/entities/gethering.entity';
 import { GetheringsService } from '@/getherings/services/getherings.service';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public } from '@/auth/decorators';
 
 @Controller('getherings')
 @ApiTags('Getherings')

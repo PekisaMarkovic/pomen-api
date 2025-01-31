@@ -40,9 +40,9 @@ const jwt_auth_guard_1 = __webpack_require__(8);
 const roles_guard_1 = __webpack_require__(11);
 const permissions_guard_1 = __webpack_require__(13);
 const mailer_module_1 = __webpack_require__(16);
-const cemetery_module_1 = __webpack_require__(23);
-const certificates_module_1 = __webpack_require__(53);
-const auth_module_1 = __webpack_require__(67);
+const cemetery_module_1 = __webpack_require__(25);
+const certificates_module_1 = __webpack_require__(55);
+const auth_module_1 = __webpack_require__(69);
 const city_module_1 = __webpack_require__(85);
 const country_module_1 = __webpack_require__(91);
 const file_module_1 = __webpack_require__(97);
@@ -51,22 +51,23 @@ const order_module_1 = __webpack_require__(109);
 const qrcode_module_1 = __webpack_require__(114);
 const tributes_module_1 = __webpack_require__(117);
 const users_module_1 = __webpack_require__(79);
-const validation_token_module_1 = __webpack_require__(66);
+const validation_token_module_1 = __webpack_require__(68);
 const seeder_module_1 = __webpack_require__(122);
 const contacts_module_1 = __webpack_require__(131);
-const city_entity_1 = __webpack_require__(26);
-const country_entity_1 = __webpack_require__(43);
-const cementery_entity_1 = __webpack_require__(27);
-const certificate_entity_1 = __webpack_require__(28);
-const user_entity_1 = __webpack_require__(31);
-const file_entity_1 = __webpack_require__(30);
-const role_entity_1 = __webpack_require__(34);
-const permission_entity_1 = __webpack_require__(32);
-const order_entity_1 = __webpack_require__(36);
-const gethering_entity_1 = __webpack_require__(39);
-const tribute_entity_1 = __webpack_require__(41);
-const qrcode_entity_1 = __webpack_require__(40);
+const city_entity_1 = __webpack_require__(28);
+const country_entity_1 = __webpack_require__(45);
+const cementery_entity_1 = __webpack_require__(29);
+const certificate_entity_1 = __webpack_require__(30);
+const user_entity_1 = __webpack_require__(33);
+const file_entity_1 = __webpack_require__(32);
+const role_entity_1 = __webpack_require__(36);
+const permission_entity_1 = __webpack_require__(34);
+const order_entity_1 = __webpack_require__(38);
+const gethering_entity_1 = __webpack_require__(41);
+const tribute_entity_1 = __webpack_require__(43);
+const qrcode_entity_1 = __webpack_require__(42);
 const contact_entity_1 = __webpack_require__(137);
+const validation_token_entity_1 = __webpack_require__(60);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -98,6 +99,7 @@ exports.AppModule = AppModule = __decorate([
                         tribute_entity_1.Tribute,
                         qrcode_entity_1.Qrcode,
                         contact_entity_1.Contact,
+                        validation_token_entity_1.ValidationToken,
                     ],
                     synchronize: true,
                 }),
@@ -496,9 +498,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MailerController = void 0;
 const common_1 = __webpack_require__(5);
 const mailer_service_1 = __webpack_require__(17);
-const public_decorator_1 = __webpack_require__(10);
+const decorators_1 = __webpack_require__(22);
 const swagger_1 = __webpack_require__(3);
-const smtp_transport_1 = __webpack_require__(22);
+const smtp_transport_1 = __webpack_require__(24);
 let MailerController = class MailerController {
     constructor(mailerService) {
         this.mailerService = mailerService;
@@ -515,7 +517,7 @@ let MailerController = class MailerController {
 };
 exports.MailerController = MailerController;
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('test-register-organization'),
     (0, swagger_1.ApiOperation)({ summary: 'Send a first time registe4r email' }),
     (0, swagger_1.ApiResponse)({
@@ -542,12 +544,52 @@ exports.MailerController = MailerController = __decorate([
 
 /***/ }),
 /* 22 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(23), exports);
+__exportStar(__webpack_require__(14), exports);
+__exportStar(__webpack_require__(10), exports);
+__exportStar(__webpack_require__(12), exports);
+
+
+/***/ }),
+/* 23 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CurrentUser = void 0;
+const common_1 = __webpack_require__(5);
+exports.CurrentUser = (0, common_1.createParamDecorator)((data, ctx) => {
+    const request = ctx.switchToHttp().getRequest();
+    return request.user;
+});
+
+
+/***/ }),
+/* 24 */
 /***/ ((module) => {
 
 module.exports = require("nodemailer/lib/smtp-transport");
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -560,11 +602,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CemeteryModule = void 0;
 const common_1 = __webpack_require__(5);
-const cementery_service_1 = __webpack_require__(24);
-const city_entity_1 = __webpack_require__(26);
+const cementery_service_1 = __webpack_require__(26);
+const city_entity_1 = __webpack_require__(28);
 const typeorm_1 = __webpack_require__(7);
-const cemetery_controller_1 = __webpack_require__(46);
-const cementery_entity_1 = __webpack_require__(27);
+const cemetery_controller_1 = __webpack_require__(48);
+const cementery_entity_1 = __webpack_require__(29);
 let CemeteryModule = class CemeteryModule {
 };
 exports.CemeteryModule = CemeteryModule;
@@ -579,7 +621,7 @@ exports.CemeteryModule = CemeteryModule = __decorate([
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -600,11 +642,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CementeryService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const typeorm_2 = __webpack_require__(25);
-const city_entity_1 = __webpack_require__(26);
-const cementery_entity_1 = __webpack_require__(27);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
-const slug_helpers_1 = __webpack_require__(45);
+const typeorm_2 = __webpack_require__(27);
+const city_entity_1 = __webpack_require__(28);
+const cementery_entity_1 = __webpack_require__(29);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
+const slug_helpers_1 = __webpack_require__(47);
 let CementeryService = class CementeryService {
     constructor(cemeteryRepository, cityRepository) {
         this.cemeteryRepository = cemeteryRepository;
@@ -714,13 +756,13 @@ exports.CementeryService = CementeryService = __decorate([
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ ((module) => {
 
 module.exports = require("typeorm");
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -737,10 +779,10 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.City = void 0;
 const swagger_1 = __webpack_require__(3);
-const cementery_entity_1 = __webpack_require__(27);
-const country_entity_1 = __webpack_require__(43);
-const order_entity_1 = __webpack_require__(36);
-const typeorm_1 = __webpack_require__(25);
+const cementery_entity_1 = __webpack_require__(29);
+const country_entity_1 = __webpack_require__(45);
+const order_entity_1 = __webpack_require__(38);
+const typeorm_1 = __webpack_require__(27);
 let City = class City {
 };
 exports.City = City;
@@ -806,7 +848,7 @@ exports.City = City = __decorate([
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -823,10 +865,10 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Cemetery = void 0;
 const swagger_1 = __webpack_require__(3);
-const certificate_entity_1 = __webpack_require__(28);
-const city_entity_1 = __webpack_require__(26);
-const point_helpers_1 = __webpack_require__(29);
-const typeorm_1 = __webpack_require__(25);
+const certificate_entity_1 = __webpack_require__(30);
+const city_entity_1 = __webpack_require__(28);
+const point_helpers_1 = __webpack_require__(31);
+const typeorm_1 = __webpack_require__(27);
 let Cemetery = class Cemetery {
 };
 exports.Cemetery = Cemetery;
@@ -892,7 +934,7 @@ exports.Cemetery = Cemetery = __decorate([
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -909,15 +951,15 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Certificate = void 0;
 const swagger_1 = __webpack_require__(3);
-const cementery_entity_1 = __webpack_require__(27);
-const point_helpers_1 = __webpack_require__(29);
-const file_entity_1 = __webpack_require__(30);
-const gethering_entity_1 = __webpack_require__(39);
-const order_entity_1 = __webpack_require__(36);
-const qrcode_entity_1 = __webpack_require__(40);
-const tribute_entity_1 = __webpack_require__(41);
-const user_entity_1 = __webpack_require__(31);
-const typeorm_1 = __webpack_require__(25);
+const cementery_entity_1 = __webpack_require__(29);
+const point_helpers_1 = __webpack_require__(31);
+const file_entity_1 = __webpack_require__(32);
+const gethering_entity_1 = __webpack_require__(41);
+const order_entity_1 = __webpack_require__(38);
+const qrcode_entity_1 = __webpack_require__(42);
+const tribute_entity_1 = __webpack_require__(43);
+const user_entity_1 = __webpack_require__(33);
+const typeorm_1 = __webpack_require__(27);
 let Certificate = class Certificate {
 };
 exports.Certificate = Certificate;
@@ -1059,7 +1101,7 @@ exports.Certificate = Certificate = __decorate([
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1076,7 +1118,7 @@ exports.pointTransformer = {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1092,10 +1134,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.File = void 0;
-const user_entity_1 = __webpack_require__(31);
-const typeorm_1 = __webpack_require__(25);
-const file_type_enum_1 = __webpack_require__(38);
-const certificate_entity_1 = __webpack_require__(28);
+const user_entity_1 = __webpack_require__(33);
+const typeorm_1 = __webpack_require__(27);
+const file_type_enum_1 = __webpack_require__(40);
+const certificate_entity_1 = __webpack_require__(30);
 const swagger_1 = __webpack_require__(3);
 let File = class File {
 };
@@ -1166,7 +1208,7 @@ exports.File = File = __decorate([
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1183,12 +1225,12 @@ var _a, _b, _c, _d, _e, _f;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.User = void 0;
 const swagger_1 = __webpack_require__(3);
-const permission_entity_1 = __webpack_require__(32);
-const role_entity_1 = __webpack_require__(34);
-const certificate_entity_1 = __webpack_require__(28);
-const file_entity_1 = __webpack_require__(30);
-const order_entity_1 = __webpack_require__(36);
-const typeorm_1 = __webpack_require__(25);
+const permission_entity_1 = __webpack_require__(34);
+const role_entity_1 = __webpack_require__(36);
+const certificate_entity_1 = __webpack_require__(30);
+const file_entity_1 = __webpack_require__(32);
+const order_entity_1 = __webpack_require__(38);
+const typeorm_1 = __webpack_require__(27);
 let User = class User {
 };
 exports.User = User;
@@ -1296,7 +1338,7 @@ exports.User = User = __decorate([
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1312,8 +1354,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Permission = void 0;
-const typeorm_1 = __webpack_require__(25);
-const permission_enum_1 = __webpack_require__(33);
+const typeorm_1 = __webpack_require__(27);
+const permission_enum_1 = __webpack_require__(35);
 let Permission = class Permission {
 };
 exports.Permission = Permission;
@@ -1336,7 +1378,7 @@ exports.Permission = Permission = __decorate([
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1354,7 +1396,7 @@ var ClientPermissionEnums;
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1370,10 +1412,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Role = void 0;
-const typeorm_1 = __webpack_require__(25);
-const user_entity_1 = __webpack_require__(31);
-const permission_entity_1 = __webpack_require__(32);
-const role_enum_1 = __webpack_require__(35);
+const typeorm_1 = __webpack_require__(27);
+const user_entity_1 = __webpack_require__(33);
+const permission_entity_1 = __webpack_require__(34);
+const role_enum_1 = __webpack_require__(37);
 let Role = class Role {
 };
 exports.Role = Role;
@@ -1405,7 +1447,7 @@ exports.Role = Role = __decorate([
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1420,7 +1462,7 @@ var ClientRoleEnums;
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1436,11 +1478,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Order = void 0;
-const typeorm_1 = __webpack_require__(25);
-const order_status_enum_1 = __webpack_require__(37);
-const city_entity_1 = __webpack_require__(26);
-const user_entity_1 = __webpack_require__(31);
-const certificate_entity_1 = __webpack_require__(28);
+const typeorm_1 = __webpack_require__(27);
+const order_status_enum_1 = __webpack_require__(39);
+const city_entity_1 = __webpack_require__(28);
+const user_entity_1 = __webpack_require__(33);
+const certificate_entity_1 = __webpack_require__(30);
 const swagger_1 = __webpack_require__(3);
 let Order = class Order {
 };
@@ -1533,7 +1575,7 @@ exports.Order = Order = __decorate([
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1551,7 +1593,7 @@ var OrderStatusEnum;
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1566,7 +1608,7 @@ var FileTypeEnum;
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1583,8 +1625,8 @@ var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Gethering = void 0;
 const swagger_1 = __webpack_require__(3);
-const certificate_entity_1 = __webpack_require__(28);
-const typeorm_1 = __webpack_require__(25);
+const certificate_entity_1 = __webpack_require__(30);
+const typeorm_1 = __webpack_require__(27);
 let Gethering = class Gethering {
 };
 exports.Gethering = Gethering;
@@ -1640,7 +1682,7 @@ exports.Gethering = Gethering = __decorate([
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1657,8 +1699,8 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Qrcode = void 0;
 const swagger_1 = __webpack_require__(3);
-const certificate_entity_1 = __webpack_require__(28);
-const typeorm_1 = __webpack_require__(25);
+const certificate_entity_1 = __webpack_require__(30);
+const typeorm_1 = __webpack_require__(27);
 let Qrcode = class Qrcode {
 };
 exports.Qrcode = Qrcode;
@@ -1704,7 +1746,7 @@ exports.Qrcode = Qrcode = __decorate([
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1721,9 +1763,9 @@ var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Tribute = void 0;
 const swagger_1 = __webpack_require__(3);
-const certificate_entity_1 = __webpack_require__(28);
-const typeorm_1 = __webpack_require__(25);
-const tribute_status_enum_1 = __webpack_require__(42);
+const certificate_entity_1 = __webpack_require__(30);
+const typeorm_1 = __webpack_require__(27);
+const tribute_status_enum_1 = __webpack_require__(44);
 let Tribute = class Tribute {
 };
 exports.Tribute = Tribute;
@@ -1793,7 +1835,7 @@ exports.Tribute = Tribute = __decorate([
 
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1808,7 +1850,7 @@ var TributeStatusEnum;
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1825,8 +1867,8 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Country = void 0;
 const swagger_1 = __webpack_require__(3);
-const city_entity_1 = __webpack_require__(26);
-const typeorm_1 = __webpack_require__(25);
+const city_entity_1 = __webpack_require__(28);
+const typeorm_1 = __webpack_require__(27);
 let Country = class Country {
 };
 exports.Country = Country;
@@ -1881,13 +1923,13 @@ exports.Country = Country = __decorate([
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ ((module) => {
 
 module.exports = require("nestjs-typeorm-paginate");
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1918,7 +1960,7 @@ function slugify({ text, truncate, }) {
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1938,12 +1980,12 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CemeteryController = void 0;
 const common_1 = __webpack_require__(5);
-const cementery_service_1 = __webpack_require__(24);
+const cementery_service_1 = __webpack_require__(26);
 const swagger_1 = __webpack_require__(3);
-const create_cemetery_dto_1 = __webpack_require__(47);
-const cementery_entity_1 = __webpack_require__(27);
-const update_cementery_dto_1 = __webpack_require__(51);
-const dropdown_cementery_dto_1 = __webpack_require__(52);
+const create_cemetery_dto_1 = __webpack_require__(49);
+const cementery_entity_1 = __webpack_require__(29);
+const update_cementery_dto_1 = __webpack_require__(53);
+const dropdown_cementery_dto_1 = __webpack_require__(54);
 const public_decorator_1 = __webpack_require__(10);
 let CemeteryController = class CemeteryController {
     constructor(cementeryService) {
@@ -2123,7 +2165,7 @@ exports.CemeteryController = CemeteryController = __decorate([
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2140,9 +2182,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCemeteryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_transformer_1 = __webpack_require__(48);
-const class_validator_1 = __webpack_require__(49);
-const location_point_dto_1 = __webpack_require__(50);
+const class_transformer_1 = __webpack_require__(50);
+const class_validator_1 = __webpack_require__(51);
+const location_point_dto_1 = __webpack_require__(52);
 class CreateCemeteryDto {
 }
 exports.CreateCemeteryDto = CreateCemeteryDto;
@@ -2168,19 +2210,19 @@ __decorate([
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ ((module) => {
 
 module.exports = require("class-transformer");
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ ((module) => {
 
 module.exports = require("class-validator");
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2196,7 +2238,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocationPointDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class LocationPointDto {
 }
 exports.LocationPointDto = LocationPointDto;
@@ -2213,7 +2255,7 @@ __decorate([
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2229,7 +2271,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.updateCemeteryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class updateCemeteryDto {
 }
 exports.updateCemeteryDto = updateCemeteryDto;
@@ -2251,7 +2293,7 @@ __decorate([
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2289,7 +2331,7 @@ __decorate([
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2302,20 +2344,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CertificatesModule = void 0;
 const common_1 = __webpack_require__(5);
-const certificates_service_1 = __webpack_require__(54);
-const certificates_controller_1 = __webpack_require__(61);
+const certificates_service_1 = __webpack_require__(56);
+const certificates_controller_1 = __webpack_require__(63);
 const typeorm_1 = __webpack_require__(7);
-const certificate_entity_1 = __webpack_require__(28);
-const cementery_entity_1 = __webpack_require__(27);
-const role_entity_1 = __webpack_require__(34);
-const user_entity_1 = __webpack_require__(31);
+const certificate_entity_1 = __webpack_require__(30);
+const cementery_entity_1 = __webpack_require__(29);
+const role_entity_1 = __webpack_require__(36);
+const user_entity_1 = __webpack_require__(33);
 const mailer_module_1 = __webpack_require__(16);
-const validation_token_module_1 = __webpack_require__(66);
-const jwt_1 = __webpack_require__(55);
+const validation_token_module_1 = __webpack_require__(68);
+const jwt_1 = __webpack_require__(57);
 const config_1 = __webpack_require__(6);
-const order_entity_1 = __webpack_require__(36);
-const city_entity_1 = __webpack_require__(26);
-const qrcode_entity_1 = __webpack_require__(40);
+const order_entity_1 = __webpack_require__(38);
+const city_entity_1 = __webpack_require__(28);
+const qrcode_entity_1 = __webpack_require__(42);
 let CertificatesModule = class CertificatesModule {
 };
 exports.CertificatesModule = CertificatesModule;
@@ -2350,7 +2392,7 @@ exports.CertificatesModule = CertificatesModule = __decorate([
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2370,25 +2412,25 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CertificatesService = void 0;
 const common_1 = __webpack_require__(5);
-const jwt_1 = __webpack_require__(55);
+const jwt_1 = __webpack_require__(57);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
-const role_entity_1 = __webpack_require__(34);
-const role_enum_1 = __webpack_require__(35);
-const cementery_entity_1 = __webpack_require__(27);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
+const role_entity_1 = __webpack_require__(36);
+const role_enum_1 = __webpack_require__(37);
+const cementery_entity_1 = __webpack_require__(29);
 const mailer_service_1 = __webpack_require__(17);
-const order_entity_1 = __webpack_require__(36);
-const user_entity_1 = __webpack_require__(31);
-const VerificationTokenType_1 = __webpack_require__(56);
-const validation_token_service_1 = __webpack_require__(57);
-const typeorm_2 = __webpack_require__(25);
-const certificate_entity_1 = __webpack_require__(28);
-const city_entity_1 = __webpack_require__(26);
-const slug_helpers_1 = __webpack_require__(45);
+const order_entity_1 = __webpack_require__(38);
+const user_entity_1 = __webpack_require__(33);
+const VerificationTokenType_1 = __webpack_require__(58);
+const validation_token_service_1 = __webpack_require__(59);
+const typeorm_2 = __webpack_require__(27);
+const certificate_entity_1 = __webpack_require__(30);
+const city_entity_1 = __webpack_require__(28);
+const slug_helpers_1 = __webpack_require__(47);
 const config_1 = __webpack_require__(6);
-const qrcode_entity_1 = __webpack_require__(40);
-const qr = __webpack_require__(59);
-const date_1 = __webpack_require__(60);
+const qrcode_entity_1 = __webpack_require__(42);
+const qr = __webpack_require__(61);
+const date_1 = __webpack_require__(62);
 let CertificatesService = class CertificatesService {
     constructor(certificateRepository, cemeteryRepository, cityRepository, userRepository, roleRepository, orderRepository, qrcodeRepository, mailerService, validationTokenService, jwtService, configService) {
         this.certificateRepository = certificateRepository;
@@ -2671,13 +2713,13 @@ exports.CertificatesService = CertificatesService = __decorate([
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -2691,7 +2733,7 @@ var ValidationTokenTypeEnums;
 
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2712,9 +2754,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationTokenService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const typeorm_2 = __webpack_require__(25);
-const validation_token_entity_1 = __webpack_require__(58);
-const VerificationTokenType_1 = __webpack_require__(56);
+const typeorm_2 = __webpack_require__(27);
+const validation_token_entity_1 = __webpack_require__(60);
+const VerificationTokenType_1 = __webpack_require__(58);
 let ValidationTokenService = class ValidationTokenService {
     constructor(validationRepository) {
         this.validationRepository = validationRepository;
@@ -2785,7 +2827,7 @@ exports.ValidationTokenService = ValidationTokenService = __decorate([
 
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2801,8 +2843,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationToken = void 0;
-const typeorm_1 = __webpack_require__(25);
-const VerificationTokenType_1 = __webpack_require__(56);
+const typeorm_1 = __webpack_require__(27);
+const VerificationTokenType_1 = __webpack_require__(58);
 const swagger_1 = __webpack_require__(3);
 let ValidationToken = class ValidationToken {
 };
@@ -2843,13 +2885,13 @@ exports.ValidationToken = ValidationToken = __decorate([
 
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ ((module) => {
 
 module.exports = require("qrcode");
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -2874,7 +2916,7 @@ function formatDateYearMonthDay(input) {
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2895,13 +2937,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CertificatesController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const create_certificate_dto_1 = __webpack_require__(62);
-const update_certificate_dto_1 = __webpack_require__(63);
-const certificate_entity_1 = __webpack_require__(28);
-const certificates_service_1 = __webpack_require__(54);
-const public_decorator_1 = __webpack_require__(10);
-const dropdown_certificate_dto_1 = __webpack_require__(64);
-const search_certificate_dto_1 = __webpack_require__(65);
+const create_certificate_dto_1 = __webpack_require__(64);
+const update_certificate_dto_1 = __webpack_require__(65);
+const certificate_entity_1 = __webpack_require__(30);
+const certificates_service_1 = __webpack_require__(56);
+const decorators_1 = __webpack_require__(22);
+const dropdown_certificate_dto_1 = __webpack_require__(66);
+const search_certificate_dto_1 = __webpack_require__(67);
 let CertificatesController = class CertificatesController {
     constructor(certificatesService) {
         this.certificatesService = certificatesService;
@@ -2982,7 +3024,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CertificatesController.prototype, "createCertificateAndUser", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all certificates' }),
     (0, swagger_1.ApiResponse)({
@@ -2997,7 +3039,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CertificatesController.prototype, "getCertificates", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Post)('/search'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all certificates' }),
     (0, swagger_1.ApiResponse)({
@@ -3011,7 +3053,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CertificatesController.prototype, "getCertificatesSearch", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/options'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all certificate options' }),
     (0, swagger_1.ApiResponse)({
@@ -3024,7 +3066,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CertificatesController.prototype, "getCertificateOptions", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a certificate by id' }),
     (0, swagger_1.ApiResponse)({
@@ -3043,7 +3085,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CertificatesController.prototype, "getCertificateById", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/slug/:slug'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a certificate by slug' }),
     (0, swagger_1.ApiResponse)({
@@ -3061,7 +3103,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CertificatesController.prototype, "getCertificateBySlug", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/cemeteries/:cemeteryId'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all cemeteries by cementery id' }),
     (0, swagger_1.ApiResponse)({
@@ -3124,7 +3166,7 @@ exports.CertificatesController = CertificatesController = __decorate([
 
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3141,9 +3183,9 @@ var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCertificateAndUserDto = exports.CreateCertificateDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_transformer_1 = __webpack_require__(48);
-const class_validator_1 = __webpack_require__(49);
-const location_point_dto_1 = __webpack_require__(50);
+const class_transformer_1 = __webpack_require__(50);
+const class_validator_1 = __webpack_require__(51);
+const location_point_dto_1 = __webpack_require__(52);
 class CreateCertificateDto {
 }
 exports.CreateCertificateDto = CreateCertificateDto;
@@ -3290,7 +3332,7 @@ __decorate([
 
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3306,8 +3348,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateCertificateDto = void 0;
-const class_transformer_1 = __webpack_require__(48);
-const class_validator_1 = __webpack_require__(49);
+const class_transformer_1 = __webpack_require__(50);
+const class_validator_1 = __webpack_require__(51);
 class UpdateCertificateDto {
 }
 exports.UpdateCertificateDto = UpdateCertificateDto;
@@ -3363,7 +3405,7 @@ __decorate([
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3401,7 +3443,7 @@ __decorate([
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3417,7 +3459,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SearchCertificateDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class SearchCertificateDto {
 }
 exports.SearchCertificateDto = SearchCertificateDto;
@@ -3458,7 +3500,7 @@ __decorate([
 
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3471,9 +3513,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationTokenModule = void 0;
 const common_1 = __webpack_require__(5);
-const validation_token_service_1 = __webpack_require__(57);
+const validation_token_service_1 = __webpack_require__(59);
 const typeorm_1 = __webpack_require__(7);
-const validation_token_entity_1 = __webpack_require__(58);
+const validation_token_entity_1 = __webpack_require__(60);
 let ValidationTokenModule = class ValidationTokenModule {
 };
 exports.ValidationTokenModule = ValidationTokenModule;
@@ -3487,7 +3529,7 @@ exports.ValidationTokenModule = ValidationTokenModule = __decorate([
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3500,15 +3542,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthModule = void 0;
 const common_1 = __webpack_require__(5);
-const auth_service_1 = __webpack_require__(68);
-const auth_controller_1 = __webpack_require__(71);
+const auth_service_1 = __webpack_require__(70);
+const auth_controller_1 = __webpack_require__(73);
 const users_module_1 = __webpack_require__(79);
 const config_1 = __webpack_require__(6);
 const passport_1 = __webpack_require__(9);
-const jwt_1 = __webpack_require__(55);
+const jwt_1 = __webpack_require__(57);
 const local_strategy_1 = __webpack_require__(81);
 const jwt_strategy_1 = __webpack_require__(83);
-const validation_token_module_1 = __webpack_require__(66);
+const validation_token_module_1 = __webpack_require__(68);
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -3534,7 +3576,7 @@ exports.AuthModule = AuthModule = __decorate([
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3551,11 +3593,11 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthService = void 0;
 const common_1 = __webpack_require__(5);
-const bcrypt = __webpack_require__(69);
-const users_service_1 = __webpack_require__(70);
-const jwt_1 = __webpack_require__(55);
-const validation_token_service_1 = __webpack_require__(57);
-const VerificationTokenType_1 = __webpack_require__(56);
+const bcrypt = __webpack_require__(71);
+const users_service_1 = __webpack_require__(72);
+const jwt_1 = __webpack_require__(57);
+const validation_token_service_1 = __webpack_require__(59);
+const VerificationTokenType_1 = __webpack_require__(58);
 const config_1 = __webpack_require__(6);
 let AuthService = class AuthService {
     constructor(usersService, jwtService, validationTokenService, configService) {
@@ -3664,13 +3706,13 @@ exports.AuthService = AuthService = __decorate([
 
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ ((module) => {
 
 module.exports = require("bcryptjs");
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3690,15 +3732,15 @@ var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersService = void 0;
 const common_1 = __webpack_require__(5);
-const jwt_1 = __webpack_require__(55);
+const jwt_1 = __webpack_require__(57);
 const typeorm_1 = __webpack_require__(7);
-const bcrypt = __webpack_require__(69);
-const role_entity_1 = __webpack_require__(34);
+const bcrypt = __webpack_require__(71);
+const role_entity_1 = __webpack_require__(36);
 const mailer_service_1 = __webpack_require__(17);
-const VerificationTokenType_1 = __webpack_require__(56);
-const validation_token_service_1 = __webpack_require__(57);
-const typeorm_2 = __webpack_require__(25);
-const user_entity_1 = __webpack_require__(31);
+const VerificationTokenType_1 = __webpack_require__(58);
+const validation_token_service_1 = __webpack_require__(59);
+const typeorm_2 = __webpack_require__(27);
+const user_entity_1 = __webpack_require__(33);
 let UsersService = class UsersService {
     constructor(userRepository, roleRepository, jwtService, mailerService, validationTokenService) {
         this.userRepository = userRepository;
@@ -3863,7 +3905,7 @@ exports.UsersService = UsersService = __decorate([
 
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3883,18 +3925,16 @@ var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(5);
-const login_user_dto_1 = __webpack_require__(72);
-const register_user_dto_1 = __webpack_require__(73);
-const tokens_dto_1 = __webpack_require__(74);
-const user_entity_1 = __webpack_require__(31);
-const users_service_1 = __webpack_require__(70);
-const current_user_decorator_1 = __webpack_require__(75);
-const public_decorator_1 = __webpack_require__(10);
-const role_enum_1 = __webpack_require__(35);
-const local_auth_guard_1 = __webpack_require__(76);
-const auth_service_1 = __webpack_require__(68);
-const swagger_1 = __webpack_require__(3);
+const login_user_dto_1 = __webpack_require__(74);
+const register_user_dto_1 = __webpack_require__(75);
+const tokens_dto_1 = __webpack_require__(76);
+const user_entity_1 = __webpack_require__(33);
 const login_dto_1 = __webpack_require__(77);
+const users_service_1 = __webpack_require__(72);
+const decorators_1 = __webpack_require__(22);
+const role_enum_1 = __webpack_require__(37);
+const auth_service_1 = __webpack_require__(70);
+const swagger_1 = __webpack_require__(3);
 const user_dto_1 = __webpack_require__(78);
 let AuthController = class AuthController {
     constructor(authService, usersService) {
@@ -3902,7 +3942,7 @@ let AuthController = class AuthController {
         this.usersService = usersService;
     }
     async login(body) {
-        return await this.authService.login(body);
+        return this.authService.login(body);
     }
     async refreshToken(body) {
         const { refreshToken } = body;
@@ -3936,8 +3976,7 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, public_decorator_1.Public)(),
-    (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
+    (0, decorators_1.Public)(),
     (0, common_1.Post)('login'),
     (0, swagger_1.ApiOperation)({
         summary: 'Log in in user in our platform, generate token and refresh token',
@@ -3981,7 +4020,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "refreshToken", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Post)('register'),
     (0, swagger_1.ApiOperation)({ summary: 'Register new user to platform' }),
     (0, swagger_1.ApiResponse)({
@@ -3995,7 +4034,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "register", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Patch)('update-fist-time-register'),
     (0, swagger_1.ApiOperation)({
         summary: 'Log in in user in our platform, generate token and refresh token',
@@ -4016,7 +4055,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "updateFirstTimeRegisterUser", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Post)('is-user-token-valid'),
     (0, swagger_1.ApiOperation)({ summary: 'Check if token is still valid' }),
     (0, swagger_1.ApiResponse)({
@@ -4037,7 +4076,7 @@ __decorate([
         description: 'Return the boolean.',
         type: Boolean,
     }),
-    __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __param(0, (0, decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof user_entity_1.User !== "undefined" && user_entity_1.User) === "function" ? _h : Object]),
     __metadata("design:returntype", Promise)
@@ -4051,7 +4090,7 @@ exports.AuthController = AuthController = __decorate([
 
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4067,7 +4106,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LoginUserDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class LoginUserDto {
 }
 exports.LoginUserDto = LoginUserDto;
@@ -4084,7 +4123,7 @@ __decorate([
 
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4100,7 +4139,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RegisterUserOptionsDto = exports.RegisterUserDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class RegisterUserDto {
 }
 exports.RegisterUserDto = RegisterUserDto;
@@ -4136,7 +4175,7 @@ exports.RegisterUserOptionsDto = RegisterUserOptionsDto;
 
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4152,7 +4191,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RefreshTokenDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class RefreshTokenDto {
 }
 exports.RefreshTokenDto = RefreshTokenDto;
@@ -4161,43 +4200,6 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RefreshTokenDto.prototype, "refreshToken", void 0);
-
-
-/***/ }),
-/* 75 */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CurrentUser = void 0;
-const common_1 = __webpack_require__(5);
-exports.CurrentUser = (0, common_1.createParamDecorator)((data, ctx) => {
-    const request = ctx.switchToHttp().getRequest();
-    return request.user;
-});
-
-
-/***/ }),
-/* 76 */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.LocalAuthGuard = void 0;
-const common_1 = __webpack_require__(5);
-const passport_1 = __webpack_require__(9);
-let LocalAuthGuard = class LocalAuthGuard extends (0, passport_1.AuthGuard)('local') {
-};
-exports.LocalAuthGuard = LocalAuthGuard;
-exports.LocalAuthGuard = LocalAuthGuard = __decorate([
-    (0, common_1.Injectable)()
-], LocalAuthGuard);
 
 
 /***/ }),
@@ -4217,7 +4219,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TokenDto = exports.LoginDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class LoginDto {
 }
 exports.LoginDto = LoginDto;
@@ -4261,7 +4263,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FirstTimeRegisterDto = exports.CheckFirstTimeRegisterTokenValidDto = exports.UpdateFirstTimeRegisterUserDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class UpdateFirstTimeRegisterUserDto {
 }
 exports.UpdateFirstTimeRegisterUserDto = UpdateFirstTimeRegisterUserDto;
@@ -4328,14 +4330,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersModule = void 0;
 const common_1 = __webpack_require__(5);
-const users_service_1 = __webpack_require__(70);
+const users_service_1 = __webpack_require__(72);
 const users_controller_1 = __webpack_require__(80);
 const typeorm_1 = __webpack_require__(7);
-const user_entity_1 = __webpack_require__(31);
-const role_entity_1 = __webpack_require__(34);
-const jwt_1 = __webpack_require__(55);
+const user_entity_1 = __webpack_require__(33);
+const role_entity_1 = __webpack_require__(36);
+const jwt_1 = __webpack_require__(57);
 const config_1 = __webpack_require__(6);
-const validation_token_module_1 = __webpack_require__(66);
+const validation_token_module_1 = __webpack_require__(68);
 const mailer_module_1 = __webpack_require__(16);
 let UsersModule = class UsersModule {
 };
@@ -4384,13 +4386,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const current_user_decorator_1 = __webpack_require__(75);
-const public_decorator_1 = __webpack_require__(10);
-const roles_decorator_1 = __webpack_require__(12);
-const role_enum_1 = __webpack_require__(35);
+const decorators_1 = __webpack_require__(22);
+const role_enum_1 = __webpack_require__(37);
 const user_dto_1 = __webpack_require__(78);
-const user_entity_1 = __webpack_require__(31);
-const users_service_1 = __webpack_require__(70);
+const user_entity_1 = __webpack_require__(33);
+const users_service_1 = __webpack_require__(72);
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -4411,7 +4411,7 @@ let UsersController = class UsersController {
 exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Get)(),
-    (0, roles_decorator_1.Roles)(role_enum_1.ClientRoleEnums.SUPER_ADMIN),
+    (0, decorators_1.Roles)(role_enum_1.ClientRoleEnums.SUPER_ADMIN),
     (0, swagger_1.ApiOperation)({ summary: 'Get a users' }),
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.OK,
@@ -4423,7 +4423,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "getUsers", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Post)('/is-fist-time-register-token-valid'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -4431,7 +4431,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "isFirstTimeRegisterTokenValid", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Post)('resend-first-time-registration'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -4446,7 +4446,7 @@ __decorate([
         description: 'Return the user.',
         type: user_entity_1.User,
     }),
-    __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __param(0, (0, decorators_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof user_entity_1.User !== "undefined" && user_entity_1.User) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
@@ -4479,7 +4479,7 @@ exports.LocalStrategy = void 0;
 const common_1 = __webpack_require__(5);
 const passport_1 = __webpack_require__(9);
 const passport_local_1 = __webpack_require__(82);
-const auth_service_1 = __webpack_require__(68);
+const auth_service_1 = __webpack_require__(70);
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
         super({ usernameField: 'email' });
@@ -4527,7 +4527,7 @@ const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const passport_1 = __webpack_require__(9);
 const passport_jwt_1 = __webpack_require__(84);
-const users_service_1 = __webpack_require__(70);
+const users_service_1 = __webpack_require__(72);
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(configService, usersService) {
         super({
@@ -4576,8 +4576,8 @@ const common_1 = __webpack_require__(5);
 const city_service_1 = __webpack_require__(86);
 const city_controller_1 = __webpack_require__(87);
 const typeorm_1 = __webpack_require__(7);
-const city_entity_1 = __webpack_require__(26);
-const country_entity_1 = __webpack_require__(43);
+const city_entity_1 = __webpack_require__(28);
+const country_entity_1 = __webpack_require__(45);
 let CityModule = class CityModule {
 };
 exports.CityModule = CityModule;
@@ -4613,11 +4613,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CityService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
-const slug_helpers_1 = __webpack_require__(45);
-const country_entity_1 = __webpack_require__(43);
-const typeorm_2 = __webpack_require__(25);
-const city_entity_1 = __webpack_require__(26);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
+const slug_helpers_1 = __webpack_require__(47);
+const country_entity_1 = __webpack_require__(45);
+const typeorm_2 = __webpack_require__(27);
+const city_entity_1 = __webpack_require__(28);
 let CityService = class CityService {
     constructor(cityRepository, countryRepository) {
         this.cityRepository = cityRepository;
@@ -4748,9 +4748,9 @@ const swagger_1 = __webpack_require__(3);
 const create_city_dto_1 = __webpack_require__(88);
 const dropdown_city_dto_1 = __webpack_require__(89);
 const update_city_dto_1 = __webpack_require__(90);
-const city_entity_1 = __webpack_require__(26);
+const city_entity_1 = __webpack_require__(28);
 const city_service_1 = __webpack_require__(86);
-const public_decorator_1 = __webpack_require__(10);
+const decorators_1 = __webpack_require__(22);
 let CityController = class CityController {
     constructor(cityService) {
         this.cityService = cityService;
@@ -4804,7 +4804,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CityController.prototype, "createCity", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all cities paginated' }),
     (0, swagger_1.ApiResponse)({
@@ -4819,7 +4819,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CityController.prototype, "getCities", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/options'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all cities options' }),
     (0, swagger_1.ApiResponse)({
@@ -4832,7 +4832,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CityController.prototype, "getCitiesOptions", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a city by id' }),
     (0, swagger_1.ApiResponse)({
@@ -4851,7 +4851,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CityController.prototype, "getCityById", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/slug/:slug'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a city by slug' }),
     (0, swagger_1.ApiResponse)({
@@ -4870,7 +4870,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CityController.prototype, "getCityBySlug", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/countries/:countryId'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all cities by county id' }),
     (0, swagger_1.ApiResponse)({
@@ -4945,7 +4945,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCityDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class CreateCityDto {
 }
 exports.CreateCityDto = CreateCityDto;
@@ -5021,7 +5021,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateCityDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class UpdateCityDto {
 }
 exports.UpdateCityDto = UpdateCityDto;
@@ -5059,7 +5059,7 @@ const common_1 = __webpack_require__(5);
 const country_service_1 = __webpack_require__(92);
 const country_controller_1 = __webpack_require__(93);
 const typeorm_1 = __webpack_require__(7);
-const country_entity_1 = __webpack_require__(43);
+const country_entity_1 = __webpack_require__(45);
 let CountryModule = class CountryModule {
 };
 exports.CountryModule = CountryModule;
@@ -5094,11 +5094,11 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CountryService = void 0;
 const common_1 = __webpack_require__(5);
-const slug_helpers_1 = __webpack_require__(45);
+const slug_helpers_1 = __webpack_require__(47);
 const typeorm_1 = __webpack_require__(7);
-const country_entity_1 = __webpack_require__(43);
-const typeorm_2 = __webpack_require__(25);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
+const country_entity_1 = __webpack_require__(45);
+const typeorm_2 = __webpack_require__(27);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
 let CountryService = class CountryService {
     constructor(countryRepository) {
         this.countryRepository = countryRepository;
@@ -5205,11 +5205,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CountryController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const public_decorator_1 = __webpack_require__(10);
+const decorators_1 = __webpack_require__(22);
 const create_country_dto_1 = __webpack_require__(94);
 const dropdown_country_dto_1 = __webpack_require__(95);
 const update_country_dto_1 = __webpack_require__(96);
-const country_entity_1 = __webpack_require__(43);
+const country_entity_1 = __webpack_require__(45);
 const country_service_1 = __webpack_require__(92);
 let CountryController = class CountryController {
     constructor(countryService) {
@@ -5256,7 +5256,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CountryController.prototype, "createCountry", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all countries paginated' }),
     (0, swagger_1.ApiResponse)({
@@ -5271,7 +5271,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CountryController.prototype, "getCountries", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/options'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all countries options' }),
     (0, swagger_1.ApiResponse)({
@@ -5284,7 +5284,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CountryController.prototype, "getCountriesOptions", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a country by id' }),
     (0, swagger_1.ApiResponse)({
@@ -5303,7 +5303,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CountryController.prototype, "getCountryById", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/slug/:slug'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a country by slug' }),
     (0, swagger_1.ApiResponse)({
@@ -5383,7 +5383,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCountryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class CreateCountryDto {
 }
 exports.CreateCountryDto = CreateCountryDto;
@@ -5455,7 +5455,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateCountryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class UpdateCountryDto {
 }
 exports.UpdateCountryDto = UpdateCountryDto;
@@ -5488,8 +5488,8 @@ const common_1 = __webpack_require__(5);
 const file_service_1 = __webpack_require__(98);
 const file_controller_1 = __webpack_require__(99);
 const typeorm_1 = __webpack_require__(7);
-const file_entity_1 = __webpack_require__(30);
-const certificate_entity_1 = __webpack_require__(28);
+const file_entity_1 = __webpack_require__(32);
+const certificate_entity_1 = __webpack_require__(30);
 let FileModule = class FileModule {
 };
 exports.FileModule = FileModule;
@@ -5524,11 +5524,11 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FileService = void 0;
 const common_1 = __webpack_require__(5);
-const file_entity_1 = __webpack_require__(30);
+const file_entity_1 = __webpack_require__(32);
 const typeorm_1 = __webpack_require__(7);
-const typeorm_2 = __webpack_require__(25);
-const certificate_entity_1 = __webpack_require__(28);
-const file_type_enum_1 = __webpack_require__(38);
+const typeorm_2 = __webpack_require__(27);
+const certificate_entity_1 = __webpack_require__(30);
+const file_type_enum_1 = __webpack_require__(40);
 let FileService = class FileService {
     constructor(fileRepository, certificateRepository) {
         this.fileRepository = fileRepository;
@@ -5719,8 +5719,8 @@ const cloudinary = __webpack_require__(101);
 const platform_express_1 = __webpack_require__(102);
 const config_1 = __webpack_require__(6);
 const map_1 = __webpack_require__(103);
-const file_type_enum_1 = __webpack_require__(38);
-const public_decorator_1 = __webpack_require__(10);
+const file_type_enum_1 = __webpack_require__(40);
+const decorators_1 = __webpack_require__(22);
 let FileController = class FileController {
     constructor(fileService, configService) {
         this.fileService = fileService;
@@ -5865,7 +5865,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], FileController.prototype, "getFileById", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('certificates/:certificateId'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a files by certificate id' }),
     (0, swagger_1.ApiResponse)({
@@ -5884,7 +5884,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], FileController.prototype, "getFilesByCertificateId", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('certificates/slug/:slug'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a files by slug' }),
     (0, swagger_1.ApiResponse)({
@@ -5945,10 +5945,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateFileBodyDto = exports.CreateFileDto = exports.CreateMultyCludnleryDto = exports.CreateColudnleryDto = void 0;
-const class_validator_1 = __webpack_require__(49);
-const file_type_enum_1 = __webpack_require__(38);
+const class_validator_1 = __webpack_require__(51);
+const file_type_enum_1 = __webpack_require__(40);
 const swagger_1 = __webpack_require__(3);
-const class_transformer_1 = __webpack_require__(48);
+const class_transformer_1 = __webpack_require__(50);
 class CreateColudnleryDto {
 }
 exports.CreateColudnleryDto = CreateColudnleryDto;
@@ -6085,8 +6085,8 @@ exports.GetheringsModule = void 0;
 const common_1 = __webpack_require__(5);
 const getherings_controller_1 = __webpack_require__(105);
 const typeorm_1 = __webpack_require__(7);
-const gethering_entity_1 = __webpack_require__(39);
-const certificate_entity_1 = __webpack_require__(28);
+const gethering_entity_1 = __webpack_require__(41);
+const certificate_entity_1 = __webpack_require__(30);
 const getherings_service_1 = __webpack_require__(108);
 let GetheringsModule = class GetheringsModule {
 };
@@ -6125,9 +6125,9 @@ const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const create_gethering_dto_1 = __webpack_require__(106);
 const update_gethering_dto_1 = __webpack_require__(107);
-const gethering_entity_1 = __webpack_require__(39);
+const gethering_entity_1 = __webpack_require__(41);
 const getherings_service_1 = __webpack_require__(108);
-const public_decorator_1 = __webpack_require__(10);
+const decorators_1 = __webpack_require__(22);
 let GetheringsController = class GetheringsController {
     constructor(getheringsService) {
         this.getheringsService = getheringsService;
@@ -6179,7 +6179,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GetheringsController.prototype, "createGethering", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all getherings paginated' }),
     (0, swagger_1.ApiResponse)({
@@ -6194,7 +6194,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GetheringsController.prototype, "getGetherings", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a gethering by id' }),
     (0, swagger_1.ApiResponse)({
@@ -6213,7 +6213,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GetheringsController.prototype, "getGetheringById", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/certificates/:certificateId'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all cities by county id' }),
     (0, swagger_1.ApiResponse)({
@@ -6290,8 +6290,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateGetheringDto = void 0;
-const class_validator_1 = __webpack_require__(49);
-const class_transformer_1 = __webpack_require__(48);
+const class_validator_1 = __webpack_require__(51);
+const class_transformer_1 = __webpack_require__(50);
 const swagger_1 = __webpack_require__(3);
 class CreateGetheringDto {
 }
@@ -6336,8 +6336,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateGetheringDto = void 0;
-const class_validator_1 = __webpack_require__(49);
-const class_transformer_1 = __webpack_require__(48);
+const class_validator_1 = __webpack_require__(51);
+const class_transformer_1 = __webpack_require__(50);
 const swagger_1 = __webpack_require__(3);
 class UpdateGetheringDto {
 }
@@ -6381,11 +6381,11 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GetheringsService = void 0;
 const common_1 = __webpack_require__(5);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
 const typeorm_1 = __webpack_require__(7);
-const certificate_entity_1 = __webpack_require__(28);
-const typeorm_2 = __webpack_require__(25);
-const gethering_entity_1 = __webpack_require__(39);
+const certificate_entity_1 = __webpack_require__(30);
+const typeorm_2 = __webpack_require__(27);
+const gethering_entity_1 = __webpack_require__(41);
 let GetheringsService = class GetheringsService {
     constructor(getheringRepository, certificateRepository) {
         this.getheringRepository = getheringRepository;
@@ -6479,11 +6479,11 @@ const common_1 = __webpack_require__(5);
 const order_service_1 = __webpack_require__(110);
 const order_controller_1 = __webpack_require__(111);
 const typeorm_1 = __webpack_require__(7);
-const order_entity_1 = __webpack_require__(36);
-const city_entity_1 = __webpack_require__(26);
-const user_entity_1 = __webpack_require__(31);
-const qrcode_entity_1 = __webpack_require__(40);
-const certificate_entity_1 = __webpack_require__(28);
+const order_entity_1 = __webpack_require__(38);
+const city_entity_1 = __webpack_require__(28);
+const user_entity_1 = __webpack_require__(33);
+const qrcode_entity_1 = __webpack_require__(42);
+const certificate_entity_1 = __webpack_require__(30);
 let OrderModule = class OrderModule {
 };
 exports.OrderModule = OrderModule;
@@ -6519,14 +6519,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrderService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
-const certificate_entity_1 = __webpack_require__(28);
-const city_entity_1 = __webpack_require__(26);
-const user_entity_1 = __webpack_require__(31);
-const typeorm_2 = __webpack_require__(25);
-const order_entity_1 = __webpack_require__(36);
-const qr = __webpack_require__(59);
-const qrcode_entity_1 = __webpack_require__(40);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
+const certificate_entity_1 = __webpack_require__(30);
+const city_entity_1 = __webpack_require__(28);
+const user_entity_1 = __webpack_require__(33);
+const typeorm_2 = __webpack_require__(27);
+const order_entity_1 = __webpack_require__(38);
+const qr = __webpack_require__(61);
+const qrcode_entity_1 = __webpack_require__(42);
 const config_1 = __webpack_require__(6);
 let OrderService = class OrderService {
     constructor(orderRepository, qrcodeRepository, certificateRepository, cityRepository, userRepository, configService) {
@@ -6677,7 +6677,7 @@ const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const create_order_dto_1 = __webpack_require__(112);
 const update_order_dto_1 = __webpack_require__(113);
-const order_entity_1 = __webpack_require__(36);
+const order_entity_1 = __webpack_require__(38);
 const order_service_1 = __webpack_require__(110);
 let OrderController = class OrderController {
     constructor(orderService) {
@@ -6854,7 +6854,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateOrderDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class CreateOrderDto {
 }
 exports.CreateOrderDto = CreateOrderDto;
@@ -6912,8 +6912,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateOrderStatusDto = exports.UpdateOrderDto = void 0;
-const class_validator_1 = __webpack_require__(49);
-const order_status_enum_1 = __webpack_require__(37);
+const class_validator_1 = __webpack_require__(51);
+const order_status_enum_1 = __webpack_require__(39);
 const swagger_1 = __webpack_require__(3);
 class UpdateOrderDto {
 }
@@ -6980,8 +6980,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QrcodeModule = void 0;
 const common_1 = __webpack_require__(5);
 const qrcode_controller_1 = __webpack_require__(115);
-const certificate_entity_1 = __webpack_require__(28);
-const qrcode_entity_1 = __webpack_require__(40);
+const certificate_entity_1 = __webpack_require__(30);
+const qrcode_entity_1 = __webpack_require__(42);
 const qrcode_service_1 = __webpack_require__(116);
 const typeorm_1 = __webpack_require__(7);
 let QrcodeModule = class QrcodeModule {
@@ -7019,7 +7019,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QrcodeController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const qrcode_entity_1 = __webpack_require__(40);
+const qrcode_entity_1 = __webpack_require__(42);
 const qrcode_service_1 = __webpack_require__(116);
 let QrcodeController = class QrcodeController {
     constructor(qrcodeService) {
@@ -7137,10 +7137,10 @@ exports.QrcodeService = void 0;
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
-const certificate_entity_1 = __webpack_require__(28);
-const typeorm_2 = __webpack_require__(25);
-const qrcode_entity_1 = __webpack_require__(40);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
+const certificate_entity_1 = __webpack_require__(30);
+const typeorm_2 = __webpack_require__(27);
+const qrcode_entity_1 = __webpack_require__(42);
 let QrcodeService = class QrcodeService {
     constructor(qrcodeRepository, certificateRepository, configService) {
         this.qrcodeRepository = qrcodeRepository;
@@ -7205,9 +7205,9 @@ exports.TributesModule = void 0;
 const common_1 = __webpack_require__(5);
 const tributes_controller_1 = __webpack_require__(118);
 const typeorm_1 = __webpack_require__(7);
-const tribute_entity_1 = __webpack_require__(41);
+const tribute_entity_1 = __webpack_require__(43);
 const tributes_service_1 = __webpack_require__(121);
-const certificate_entity_1 = __webpack_require__(28);
+const certificate_entity_1 = __webpack_require__(30);
 let TributesModule = class TributesModule {
 };
 exports.TributesModule = TributesModule;
@@ -7245,9 +7245,9 @@ const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const create_tribute_dto_1 = __webpack_require__(119);
 const update_tribute_dto_1 = __webpack_require__(120);
-const tribute_entity_1 = __webpack_require__(41);
+const tribute_entity_1 = __webpack_require__(43);
 const tributes_service_1 = __webpack_require__(121);
-const public_decorator_1 = __webpack_require__(10);
+const decorators_1 = __webpack_require__(22);
 let TributesController = class TributesController {
     constructor(tributesService) {
         this.tributesService = tributesService;
@@ -7302,7 +7302,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TributesController.prototype, "createTribute", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get all tributes paginated.' }),
     (0, swagger_1.ApiResponse)({
@@ -7317,7 +7317,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TributesController.prototype, "getTributes", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a tribute by id' }),
     (0, swagger_1.ApiResponse)({
@@ -7336,7 +7336,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TributesController.prototype, "getTributeById", null);
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Get)('/certificates/:certificateId'),
     (0, swagger_1.ApiOperation)({ summary: 'Get all tributes by certificate id' }),
     (0, swagger_1.ApiResponse)({
@@ -7433,8 +7433,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateTributeDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
-const tribute_status_enum_1 = __webpack_require__(42);
+const class_validator_1 = __webpack_require__(51);
+const tribute_status_enum_1 = __webpack_require__(44);
 class CreateTributeDto {
 }
 exports.CreateTributeDto = CreateTributeDto;
@@ -7491,8 +7491,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateTributeStatusDto = exports.UpdateTributeDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
-const tribute_status_enum_1 = __webpack_require__(42);
+const class_validator_1 = __webpack_require__(51);
+const tribute_status_enum_1 = __webpack_require__(44);
 class UpdateTributeDto {
 }
 exports.UpdateTributeDto = UpdateTributeDto;
@@ -7550,11 +7550,11 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TributesService = void 0;
 const common_1 = __webpack_require__(5);
-const tribute_entity_1 = __webpack_require__(41);
+const tribute_entity_1 = __webpack_require__(43);
 const typeorm_1 = __webpack_require__(7);
-const typeorm_2 = __webpack_require__(25);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
-const certificate_entity_1 = __webpack_require__(28);
+const typeorm_2 = __webpack_require__(27);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
+const certificate_entity_1 = __webpack_require__(30);
 let TributesService = class TributesService {
     constructor(tributeRepository, certificateRepository) {
         this.tributeRepository = tributeRepository;
@@ -7659,8 +7659,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SeederModule = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const permission_entity_1 = __webpack_require__(32);
-const role_entity_1 = __webpack_require__(34);
+const permission_entity_1 = __webpack_require__(34);
+const role_entity_1 = __webpack_require__(36);
 const users_module_1 = __webpack_require__(79);
 const app_seeder_service_1 = __webpack_require__(123);
 const city_module_1 = __webpack_require__(85);
@@ -7669,7 +7669,7 @@ const city_seeder_service_1 = __webpack_require__(127);
 const country_seeder_service_1 = __webpack_require__(124);
 const user_seeder_service_1 = __webpack_require__(126);
 const cemeteries_seeder_service_1 = __webpack_require__(129);
-const cemetery_module_1 = __webpack_require__(23);
+const cemetery_module_1 = __webpack_require__(25);
 let SeederModule = class SeederModule {
 };
 exports.SeederModule = SeederModule;
@@ -7716,7 +7716,7 @@ exports.AppSeederService = void 0;
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const typeorm_1 = __webpack_require__(7);
-const typeorm_2 = __webpack_require__(25);
+const typeorm_2 = __webpack_require__(27);
 const country_seeder_service_1 = __webpack_require__(124);
 const user_seeder_service_1 = __webpack_require__(126);
 const city_seeder_service_1 = __webpack_require__(127);
@@ -7863,12 +7863,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserSeederService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const typeorm_2 = __webpack_require__(25);
-const role_enum_1 = __webpack_require__(35);
-const permission_enum_1 = __webpack_require__(33);
-const users_service_1 = __webpack_require__(70);
-const permission_entity_1 = __webpack_require__(32);
-const role_entity_1 = __webpack_require__(34);
+const typeorm_2 = __webpack_require__(27);
+const role_enum_1 = __webpack_require__(37);
+const permission_enum_1 = __webpack_require__(35);
+const users_service_1 = __webpack_require__(72);
+const permission_entity_1 = __webpack_require__(34);
+const role_entity_1 = __webpack_require__(36);
 let UserSeederService = class UserSeederService {
     constructor(usersService, roleRepository, permissionRepository) {
         this.usersService = usersService;
@@ -8094,7 +8094,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CemeteriesSeederService = void 0;
 const common_1 = __webpack_require__(5);
-const cementery_service_1 = __webpack_require__(24);
+const cementery_service_1 = __webpack_require__(26);
 const cemeteries_1 = __webpack_require__(130);
 let CemeteriesSeederService = class CemeteriesSeederService {
     constructor(cementeryService) {
@@ -8868,7 +8868,7 @@ const swagger_1 = __webpack_require__(3);
 const create_contact_dto_1 = __webpack_require__(133);
 const update_contact_dto_1 = __webpack_require__(134);
 const contacts_service_1 = __webpack_require__(136);
-const public_decorator_1 = __webpack_require__(10);
+const decorators_1 = __webpack_require__(22);
 const contact_entity_1 = __webpack_require__(137);
 let ContactsController = class ContactsController {
     constructor(contactsService) {
@@ -8899,7 +8899,7 @@ let ContactsController = class ContactsController {
 };
 exports.ContactsController = ContactsController;
 __decorate([
-    (0, public_decorator_1.Public)(),
+    (0, decorators_1.Public)(),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new contact' }),
     (0, swagger_1.ApiResponse)({
@@ -9029,7 +9029,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateContactDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 class CreateContactDto {
 }
 exports.CreateContactDto = CreateContactDto;
@@ -9069,7 +9069,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateContactStatusEnumDto = exports.UpdateContactDto = void 0;
 const swagger_1 = __webpack_require__(3);
 const create_contact_dto_1 = __webpack_require__(133);
-const class_validator_1 = __webpack_require__(49);
+const class_validator_1 = __webpack_require__(51);
 const contact_status_enum_1 = __webpack_require__(135);
 class UpdateContactDto extends (0, swagger_1.PartialType)(create_contact_dto_1.CreateContactDto) {
 }
@@ -9127,8 +9127,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContactsService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(44);
-const typeorm_2 = __webpack_require__(25);
+const nestjs_typeorm_paginate_1 = __webpack_require__(46);
+const typeorm_2 = __webpack_require__(27);
 const contact_entity_1 = __webpack_require__(137);
 let ContactsService = class ContactsService {
     constructor(contactRepository) {
@@ -9216,7 +9216,7 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Contact = void 0;
 const swagger_1 = __webpack_require__(3);
-const typeorm_1 = __webpack_require__(25);
+const typeorm_1 = __webpack_require__(27);
 const contact_status_enum_1 = __webpack_require__(135);
 let Contact = class Contact {
 };

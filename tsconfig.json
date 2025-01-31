@@ -11,7 +11,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "outDir": "./public/dist",
+    "outDir": "./dist",
     "moduleResolution": "node",
     "module": "CommonJS",
     "incremental": true,

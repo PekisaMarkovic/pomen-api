@@ -19,7 +19,7 @@ import {
   UpdateContactStatusEnumDto,
 } from '@/contacts/dto/update-contact.dto';
 import { ContactsService } from '@/contacts/services/contacts.service';
-import { Public } from '@/auth/decorators/public.decorator';
+import { Public } from '@/auth/decorators';
 import { Contact } from '@/contacts/entities/contact.entity';
 
 @Controller('contacts')
