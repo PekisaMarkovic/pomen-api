@@ -453,7 +453,7 @@ export class CertificatesService {
 
     await this.orderRepository.save(newOrder);
 
-    const fullUrl = `${this.configService.get('APP_CLIENT')}/docs/${certificate.slug}`;
+    const fullUrl = `${this.configService.get('APP_CLIENT')}/profil/${certificate.slug}`;
 
     const qrData = await qr.toDataURL(fullUrl);
 
