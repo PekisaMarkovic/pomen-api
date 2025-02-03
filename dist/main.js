@@ -2826,7 +2826,7 @@ let CertificatesService = class CertificatesService {
             user,
         });
         await this.orderRepository.save(newOrder);
-        const fullUrl = `${this.configService.get('APP_CLIENT')}/docs/${certificate.slug}`;
+        const fullUrl = `${this.configService.get('APP_CLIENT')}/profil/${certificate.slug}`;
         const qrData = await qr.toDataURL(fullUrl);
         const qrcode = this.qrcodeRepository.create({
             value: qrData,
@@ -7008,7 +7008,7 @@ let OrderService = class OrderService {
             user,
         });
         const order = await this.orderRepository.save(newOrder);
-        const fullUrl = `${this.configService.get('APP_CLIENT')}/docs/${certificate.slug}`;
+        const fullUrl = `${this.configService.get('APP_CLIENT')}/profil/${certificate.slug}`;
         qr.toDataURL(fullUrl).then((value) => {
             const qrcode = this.qrcodeRepository.create({
                 value,
