@@ -33,7 +33,12 @@ export class UpdateOrderDto {
 }
 
 export class UpdateOrderStatusDto {
-  @ApiProperty()
+  @ApiProperty({
+    enum: OrderStatusEnum,
+    enumName: 'OrderStatusEnum',
+    description:
+      'Status must be one of the following: canceled, delivered, in.progress',
+  })
   @IsEnum(OrderStatusEnum, {
     message:
       'Status must be one of the following: canceled, delivered, in.progress',

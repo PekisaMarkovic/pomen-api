@@ -100,6 +100,28 @@ export class FileController {
     );
   }
 
+  @Post('/blog-cntent/:blogContentId')
+  @ApiOperation({ summary: 'Create a new file' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'The file has been successfully created.',
+    type: File,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throw exception if the blog content is not found',
+    type: NotFoundException,
+  })
+  createBlogContentImage(
+    @Param('blogContentId', ParseIntPipe) blogContentId: number,
+    @Body() createFileDto: CreateFileDto,
+  ) {
+    return this.fileService.createBlogContentImage(
+      blogContentId,
+      createFileDto,
+    );
+  }
+
   @Patch('/certificate-files/:certificateId')
   @ApiOperation({ summary: 'Create new files' })
   @ApiResponse({

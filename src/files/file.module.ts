@@ -4,9 +4,10 @@ import { FileController } from '@/files/controllers/file.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { File } from '@/files/entities/file.entity';
 import { Certificate } from '@/certificates/entities/certificate.entity';
+import { BlogContent } from '@/blogs/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([File, Certificate])],
+  imports: [TypeOrmModule.forFeature([File, Certificate, BlogContent])],
   controllers: [FileController],
   providers: [FileService],
   exports: [FileService],

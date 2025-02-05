@@ -39,21 +39,21 @@ const core_1 = __webpack_require__(2);
 const guards_1 = __webpack_require__(8);
 const mailer_module_1 = __webpack_require__(23);
 const cemetery_module_1 = __webpack_require__(30);
-const certificates_module_1 = __webpack_require__(61);
-const auth_module_1 = __webpack_require__(77);
-const city_module_1 = __webpack_require__(99);
-const country_module_1 = __webpack_require__(106);
-const file_module_1 = __webpack_require__(113);
-const getherings_module_1 = __webpack_require__(121);
-const order_module_1 = __webpack_require__(127);
-const qrcode_module_1 = __webpack_require__(133);
-const tributes_module_1 = __webpack_require__(136);
-const users_module_1 = __webpack_require__(92);
-const validation_token_module_1 = __webpack_require__(76);
-const seeder_module_1 = __webpack_require__(142);
-const contacts_module_1 = __webpack_require__(151);
+const certificates_module_1 = __webpack_require__(66);
+const auth_module_1 = __webpack_require__(82);
+const city_module_1 = __webpack_require__(104);
+const country_module_1 = __webpack_require__(111);
+const file_module_1 = __webpack_require__(118);
+const getherings_module_1 = __webpack_require__(126);
+const order_module_1 = __webpack_require__(132);
+const qrcode_module_1 = __webpack_require__(138);
+const tributes_module_1 = __webpack_require__(141);
+const users_module_1 = __webpack_require__(97);
+const validation_token_module_1 = __webpack_require__(81);
+const seeder_module_1 = __webpack_require__(147);
+const contacts_module_1 = __webpack_require__(156);
 const city_entity_1 = __webpack_require__(33);
-const country_entity_1 = __webpack_require__(51);
+const country_entity_1 = __webpack_require__(56);
 const cementery_entity_1 = __webpack_require__(34);
 const certificate_entity_1 = __webpack_require__(35);
 const user_entity_1 = __webpack_require__(37);
@@ -61,11 +61,13 @@ const file_entity_1 = __webpack_require__(36);
 const role_entity_1 = __webpack_require__(43);
 const permission_entity_1 = __webpack_require__(38);
 const order_entity_1 = __webpack_require__(44);
-const gethering_entity_1 = __webpack_require__(47);
-const tribute_entity_1 = __webpack_require__(49);
-const qrcode_entity_1 = __webpack_require__(48);
-const contact_entity_1 = __webpack_require__(158);
-const validation_token_entity_1 = __webpack_require__(66);
+const gethering_entity_1 = __webpack_require__(52);
+const tribute_entity_1 = __webpack_require__(54);
+const qrcode_entity_1 = __webpack_require__(53);
+const contact_entity_1 = __webpack_require__(163);
+const validation_token_entity_1 = __webpack_require__(71);
+const entities_1 = __webpack_require__(47);
+const blogs_module_1 = __webpack_require__(164);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -98,6 +100,9 @@ exports.AppModule = AppModule = __decorate([
                         qrcode_entity_1.Qrcode,
                         contact_entity_1.Contact,
                         validation_token_entity_1.ValidationToken,
+                        entities_1.Blog,
+                        entities_1.BlogContent,
+                        entities_1.BlogText,
                     ],
                     synchronize: true,
                 }),
@@ -117,6 +122,7 @@ exports.AppModule = AppModule = __decorate([
             validation_token_module_1.ValidationTokenModule,
             seeder_module_1.SeederModule,
             contacts_module_1.ContactsModule,
+            blogs_module_1.BlogsModule,
         ],
         providers: [
             { provide: core_1.APP_GUARD, useClass: guards_1.JwtAuthGuard },
@@ -725,7 +731,7 @@ const common_1 = __webpack_require__(5);
 const cementery_service_1 = __webpack_require__(31);
 const city_entity_1 = __webpack_require__(33);
 const typeorm_1 = __webpack_require__(7);
-const cemetery_controller_1 = __webpack_require__(53);
+const cemetery_controller_1 = __webpack_require__(58);
 const cementery_entity_1 = __webpack_require__(34);
 let CemeteryModule = class CemeteryModule {
 };
@@ -765,7 +771,7 @@ const typeorm_1 = __webpack_require__(7);
 const typeorm_2 = __webpack_require__(32);
 const city_entity_1 = __webpack_require__(33);
 const cementery_entity_1 = __webpack_require__(34);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const helpers_1 = __webpack_require__(18);
 let CementeryService = class CementeryService {
     constructor(cemeteryRepository, cityRepository) {
@@ -900,7 +906,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.City = void 0;
 const swagger_1 = __webpack_require__(3);
 const cementery_entity_1 = __webpack_require__(34);
-const country_entity_1 = __webpack_require__(51);
+const country_entity_1 = __webpack_require__(56);
 const order_entity_1 = __webpack_require__(44);
 const typeorm_1 = __webpack_require__(32);
 let City = class City {
@@ -1074,10 +1080,10 @@ const swagger_1 = __webpack_require__(3);
 const cementery_entity_1 = __webpack_require__(34);
 const helpers_1 = __webpack_require__(18);
 const file_entity_1 = __webpack_require__(36);
-const gethering_entity_1 = __webpack_require__(47);
+const gethering_entity_1 = __webpack_require__(52);
 const order_entity_1 = __webpack_require__(44);
-const qrcode_entity_1 = __webpack_require__(48);
-const tribute_entity_1 = __webpack_require__(49);
+const qrcode_entity_1 = __webpack_require__(53);
+const tribute_entity_1 = __webpack_require__(54);
 const user_entity_1 = __webpack_require__(37);
 const typeorm_1 = __webpack_require__(32);
 let Certificate = class Certificate {
@@ -1234,7 +1240,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.File = void 0;
 const user_entity_1 = __webpack_require__(37);
@@ -1242,6 +1248,7 @@ const typeorm_1 = __webpack_require__(32);
 const file_type_enum_1 = __webpack_require__(46);
 const certificate_entity_1 = __webpack_require__(35);
 const swagger_1 = __webpack_require__(3);
+const entities_1 = __webpack_require__(47);
 let File = class File {
 };
 exports.File = File;
@@ -1295,6 +1302,11 @@ __decorate([
     __metadata("design:type", typeof (_c = typeof certificate_entity_1.Certificate !== "undefined" && certificate_entity_1.Certificate) === "function" ? _c : Object)
 ], File.prototype, "certificateProfile", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ type: () => entities_1.BlogContent }),
+    (0, typeorm_1.OneToOne)(() => entities_1.BlogContent, (blogContent) => blogContent.blogContentImage),
+    __metadata("design:type", typeof (_d = typeof entities_1.BlogContent !== "undefined" && entities_1.BlogContent) === "function" ? _d : Object)
+], File.prototype, "blogContentImage", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ name: 'certificate_id', nullable: true }),
     __metadata("design:type", Number)
@@ -1303,7 +1315,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({ type: () => certificate_entity_1.Certificate }),
     (0, typeorm_1.ManyToOne)(() => certificate_entity_1.Certificate, (certificate) => certificate.files),
     (0, typeorm_1.JoinColumn)({ name: 'certificate_id' }),
-    __metadata("design:type", typeof (_d = typeof certificate_entity_1.Certificate !== "undefined" && certificate_entity_1.Certificate) === "function" ? _d : Object)
+    __metadata("design:type", typeof (_e = typeof certificate_entity_1.Certificate !== "undefined" && certificate_entity_1.Certificate) === "function" ? _e : Object)
 ], File.prototype, "certificate", void 0);
 exports.File = File = __decorate([
     (0, typeorm_1.Entity)({ name: 'files' })
@@ -1758,6 +1770,256 @@ var FileTypeEnum;
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(48), exports);
+__exportStar(__webpack_require__(49), exports);
+__exportStar(__webpack_require__(51), exports);
+
+
+/***/ }),
+/* 48 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c, _d, _e, _f;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BlogContent = void 0;
+const swagger_1 = __webpack_require__(3);
+const typeorm_1 = __webpack_require__(32);
+const blog_text_entity_1 = __webpack_require__(49);
+const blog_content_type_1 = __webpack_require__(50);
+const blog_entity_1 = __webpack_require__(51);
+const file_entity_1 = __webpack_require__(36);
+let BlogContent = class BlogContent {
+};
+exports.BlogContent = BlogContent;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ name: 'blog_content_id' }),
+    __metadata("design:type", Number)
+], BlogContent.prototype, "blogContentId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'created_at', default: new Date() }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], BlogContent.prototype, "createdAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'updated_at', nullable: true }),
+    __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], BlogContent.prototype, "updatedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'deleted_at', nullable: true }),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], BlogContent.prototype, "deletedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: () => [blog_text_entity_1.BlogText] }),
+    (0, typeorm_1.OneToMany)(() => blog_text_entity_1.BlogText, (blogText) => blogText.blogContent),
+    __metadata("design:type", Array)
+], BlogContent.prototype, "paragraphs", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ name: 'blog_id' }),
+    __metadata("design:type", Number)
+], BlogContent.prototype, "blogId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: () => blog_entity_1.Blog }),
+    (0, typeorm_1.ManyToOne)(() => blog_entity_1.Blog, (blog) => blog.contents),
+    (0, typeorm_1.JoinColumn)({ name: 'blog_id' }),
+    __metadata("design:type", typeof (_d = typeof blog_entity_1.Blog !== "undefined" && blog_entity_1.Blog) === "function" ? _d : Object)
+], BlogContent.prototype, "blog", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: blog_content_type_1.BlogContentTypeEnum,
+        default: blog_content_type_1.BlogContentTypeEnum.TITLE,
+    }),
+    __metadata("design:type", typeof (_e = typeof blog_content_type_1.BlogContentTypeEnum !== "undefined" && blog_content_type_1.BlogContentTypeEnum) === "function" ? _e : Object)
+], BlogContent.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ name: 'blog_content_image_id', nullable: true }),
+    __metadata("design:type", Number)
+], BlogContent.prototype, "blogContentImageId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: () => file_entity_1.File }),
+    (0, typeorm_1.OneToOne)(() => file_entity_1.File, (file) => file.blogContentImage),
+    (0, typeorm_1.JoinColumn)({ name: 'blog_content_image_id' }),
+    __metadata("design:type", typeof (_f = typeof file_entity_1.File !== "undefined" && file_entity_1.File) === "function" ? _f : Object)
+], BlogContent.prototype, "blogContentImage", void 0);
+exports.BlogContent = BlogContent = __decorate([
+    (0, typeorm_1.Entity)({ name: 'blog-content' })
+], BlogContent);
+
+
+/***/ }),
+/* 49 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BlogText = void 0;
+const swagger_1 = __webpack_require__(3);
+const typeorm_1 = __webpack_require__(32);
+const blog_content_entity_1 = __webpack_require__(48);
+let BlogText = class BlogText {
+};
+exports.BlogText = BlogText;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ name: 'blog_text_id' }),
+    __metadata("design:type", Number)
+], BlogText.prototype, "blogTextId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ length: 255 }),
+    __metadata("design:type", String)
+], BlogText.prototype, "text", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'created_at', default: new Date() }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], BlogText.prototype, "createdAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'updated_at', nullable: true }),
+    __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], BlogText.prototype, "updatedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'deleted_at', nullable: true }),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], BlogText.prototype, "deletedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ name: 'blog_content_id' }),
+    __metadata("design:type", Number)
+], BlogText.prototype, "blogContentId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: () => blog_content_entity_1.BlogContent }),
+    (0, typeorm_1.ManyToOne)(() => blog_content_entity_1.BlogContent, (blogContent) => blogContent.paragraphs),
+    (0, typeorm_1.JoinColumn)({ name: 'blog_content_id' }),
+    __metadata("design:type", typeof (_d = typeof blog_content_entity_1.BlogContent !== "undefined" && blog_content_entity_1.BlogContent) === "function" ? _d : Object)
+], BlogText.prototype, "blogContent", void 0);
+exports.BlogText = BlogText = __decorate([
+    (0, typeorm_1.Entity)({ name: 'blogs-text' })
+], BlogText);
+
+
+/***/ }),
+/* 50 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BlogContentTypeEnum = void 0;
+var BlogContentTypeEnum;
+(function (BlogContentTypeEnum) {
+    BlogContentTypeEnum["TITLE"] = "title";
+    BlogContentTypeEnum["TEXT_CENTER"] = "text.center";
+    BlogContentTypeEnum["TEXT_LEFT"] = "text.left";
+    BlogContentTypeEnum["TEXT_RIGHT"] = "text.right";
+})(BlogContentTypeEnum || (exports.BlogContentTypeEnum = BlogContentTypeEnum = {}));
+
+
+/***/ }),
+/* 51 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Blog = void 0;
+const swagger_1 = __webpack_require__(3);
+const typeorm_1 = __webpack_require__(32);
+const blog_content_entity_1 = __webpack_require__(48);
+let Blog = class Blog {
+};
+exports.Blog = Blog;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ name: 'blog_id' }),
+    __metadata("design:type", Number)
+], Blog.prototype, "blogId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ unique: true, length: 100 }),
+    __metadata("design:type", String)
+], Blog.prototype, "slug", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'created_at', default: new Date() }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], Blog.prototype, "createdAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'updated_at', nullable: true }),
+    __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], Blog.prototype, "updatedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'deleted_at', nullable: true }),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], Blog.prototype, "deletedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: () => [blog_content_entity_1.BlogContent] }),
+    (0, typeorm_1.OneToMany)(() => blog_content_entity_1.BlogContent, (content) => content.blog),
+    __metadata("design:type", Array)
+], Blog.prototype, "contents", void 0);
+exports.Blog = Blog = __decorate([
+    (0, typeorm_1.Entity)({ name: 'blogs' })
+], Blog);
+
+
+/***/ }),
+/* 52 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1828,7 +2090,7 @@ exports.Gethering = Gethering = __decorate([
 
 
 /***/ }),
-/* 48 */
+/* 53 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1892,7 +2154,7 @@ exports.Qrcode = Qrcode = __decorate([
 
 
 /***/ }),
-/* 49 */
+/* 54 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1911,7 +2173,7 @@ exports.Tribute = void 0;
 const swagger_1 = __webpack_require__(3);
 const certificate_entity_1 = __webpack_require__(35);
 const typeorm_1 = __webpack_require__(32);
-const tribute_status_enum_1 = __webpack_require__(50);
+const tribute_status_enum_1 = __webpack_require__(55);
 let Tribute = class Tribute {
 };
 exports.Tribute = Tribute;
@@ -1981,7 +2243,7 @@ exports.Tribute = Tribute = __decorate([
 
 
 /***/ }),
-/* 50 */
+/* 55 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1996,7 +2258,7 @@ var TributeStatusEnum;
 
 
 /***/ }),
-/* 51 */
+/* 56 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2069,13 +2331,13 @@ exports.Country = Country = __decorate([
 
 
 /***/ }),
-/* 52 */
+/* 57 */
 /***/ ((module) => {
 
 module.exports = require("nestjs-typeorm-paginate");
 
 /***/ }),
-/* 53 */
+/* 58 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2097,7 +2359,7 @@ exports.CemeteryController = void 0;
 const common_1 = __webpack_require__(5);
 const cementery_service_1 = __webpack_require__(31);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(54);
+const dto_1 = __webpack_require__(59);
 const cementery_entity_1 = __webpack_require__(34);
 const decorators_1 = __webpack_require__(14);
 let CemeteryController = class CemeteryController {
@@ -2278,7 +2540,7 @@ exports.CemeteryController = CemeteryController = __decorate([
 
 
 /***/ }),
-/* 54 */
+/* 59 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2297,13 +2559,13 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(55), exports);
-__exportStar(__webpack_require__(59), exports);
 __exportStar(__webpack_require__(60), exports);
+__exportStar(__webpack_require__(64), exports);
+__exportStar(__webpack_require__(65), exports);
 
 
 /***/ }),
-/* 55 */
+/* 60 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2320,9 +2582,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCemeteryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_transformer_1 = __webpack_require__(56);
-const class_validator_1 = __webpack_require__(57);
-const location_point_dto_1 = __webpack_require__(58);
+const class_transformer_1 = __webpack_require__(61);
+const class_validator_1 = __webpack_require__(62);
+const location_point_dto_1 = __webpack_require__(63);
 class CreateCemeteryDto {
 }
 exports.CreateCemeteryDto = CreateCemeteryDto;
@@ -2342,25 +2604,26 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCemeteryDto.prototype, "address", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ type: location_point_dto_1.LocationPointDto }),
     (0, class_transformer_1.Type)(() => location_point_dto_1.LocationPointDto),
     __metadata("design:type", typeof (_a = typeof location_point_dto_1.LocationPointDto !== "undefined" && location_point_dto_1.LocationPointDto) === "function" ? _a : Object)
 ], CreateCemeteryDto.prototype, "location", void 0);
 
 
 /***/ }),
-/* 56 */
+/* 61 */
 /***/ ((module) => {
 
 module.exports = require("class-transformer");
 
 /***/ }),
-/* 57 */
+/* 62 */
 /***/ ((module) => {
 
 module.exports = require("class-validator");
 
 /***/ }),
-/* 58 */
+/* 63 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2376,7 +2639,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocationPointDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class LocationPointDto {
 }
 exports.LocationPointDto = LocationPointDto;
@@ -2393,7 +2656,7 @@ __decorate([
 
 
 /***/ }),
-/* 59 */
+/* 64 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2431,7 +2694,7 @@ __decorate([
 
 
 /***/ }),
-/* 60 */
+/* 65 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2447,7 +2710,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateCemeteryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class UpdateCemeteryDto {
 }
 exports.UpdateCemeteryDto = UpdateCemeteryDto;
@@ -2469,7 +2732,7 @@ __decorate([
 
 
 /***/ }),
-/* 61 */
+/* 66 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2482,20 +2745,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CertificatesModule = void 0;
 const common_1 = __webpack_require__(5);
-const certificates_service_1 = __webpack_require__(62);
-const certificates_controller_1 = __webpack_require__(70);
+const certificates_service_1 = __webpack_require__(67);
+const certificates_controller_1 = __webpack_require__(75);
 const typeorm_1 = __webpack_require__(7);
 const certificate_entity_1 = __webpack_require__(35);
 const cementery_entity_1 = __webpack_require__(34);
 const role_entity_1 = __webpack_require__(43);
 const user_entity_1 = __webpack_require__(37);
 const mailer_module_1 = __webpack_require__(23);
-const validation_token_module_1 = __webpack_require__(76);
-const jwt_1 = __webpack_require__(63);
+const validation_token_module_1 = __webpack_require__(81);
+const jwt_1 = __webpack_require__(68);
 const config_1 = __webpack_require__(6);
 const order_entity_1 = __webpack_require__(44);
 const city_entity_1 = __webpack_require__(33);
-const qrcode_entity_1 = __webpack_require__(48);
+const qrcode_entity_1 = __webpack_require__(53);
 let CertificatesModule = class CertificatesModule {
 };
 exports.CertificatesModule = CertificatesModule;
@@ -2530,7 +2793,7 @@ exports.CertificatesModule = CertificatesModule = __decorate([
 
 
 /***/ }),
-/* 62 */
+/* 67 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2550,25 +2813,25 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CertificatesService = void 0;
 const common_1 = __webpack_require__(5);
-const jwt_1 = __webpack_require__(63);
+const jwt_1 = __webpack_require__(68);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const role_entity_1 = __webpack_require__(43);
 const enums_1 = __webpack_require__(39);
 const cementery_entity_1 = __webpack_require__(34);
 const mailer_service_1 = __webpack_require__(24);
 const order_entity_1 = __webpack_require__(44);
 const user_entity_1 = __webpack_require__(37);
-const VerificationTokenType_1 = __webpack_require__(64);
-const validation_token_service_1 = __webpack_require__(65);
+const VerificationTokenType_1 = __webpack_require__(69);
+const validation_token_service_1 = __webpack_require__(70);
 const typeorm_2 = __webpack_require__(32);
 const certificate_entity_1 = __webpack_require__(35);
 const city_entity_1 = __webpack_require__(33);
 const helpers_1 = __webpack_require__(18);
 const config_1 = __webpack_require__(6);
-const qrcode_entity_1 = __webpack_require__(48);
-const qr = __webpack_require__(67);
-const utils_1 = __webpack_require__(68);
+const qrcode_entity_1 = __webpack_require__(53);
+const qr = __webpack_require__(72);
+const utils_1 = __webpack_require__(73);
 let CertificatesService = class CertificatesService {
     constructor(certificateRepository, cemeteryRepository, cityRepository, userRepository, roleRepository, orderRepository, qrcodeRepository, mailerService, validationTokenService, jwtService, configService) {
         this.certificateRepository = certificateRepository;
@@ -2851,13 +3114,13 @@ exports.CertificatesService = CertificatesService = __decorate([
 
 
 /***/ }),
-/* 63 */
+/* 68 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");
 
 /***/ }),
-/* 64 */
+/* 69 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -2871,7 +3134,7 @@ var ValidationTokenTypeEnums;
 
 
 /***/ }),
-/* 65 */
+/* 70 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2893,8 +3156,8 @@ exports.ValidationTokenService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
 const typeorm_2 = __webpack_require__(32);
-const validation_token_entity_1 = __webpack_require__(66);
-const VerificationTokenType_1 = __webpack_require__(64);
+const validation_token_entity_1 = __webpack_require__(71);
+const VerificationTokenType_1 = __webpack_require__(69);
 let ValidationTokenService = class ValidationTokenService {
     constructor(validationRepository) {
         this.validationRepository = validationRepository;
@@ -2965,7 +3228,7 @@ exports.ValidationTokenService = ValidationTokenService = __decorate([
 
 
 /***/ }),
-/* 66 */
+/* 71 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2982,7 +3245,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationToken = void 0;
 const typeorm_1 = __webpack_require__(32);
-const VerificationTokenType_1 = __webpack_require__(64);
+const VerificationTokenType_1 = __webpack_require__(69);
 const swagger_1 = __webpack_require__(3);
 let ValidationToken = class ValidationToken {
 };
@@ -3023,13 +3286,13 @@ exports.ValidationToken = ValidationToken = __decorate([
 
 
 /***/ }),
-/* 67 */
+/* 72 */
 /***/ ((module) => {
 
 module.exports = require("qrcode");
 
 /***/ }),
-/* 68 */
+/* 73 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3048,11 +3311,11 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(69), exports);
+__exportStar(__webpack_require__(74), exports);
 
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -3077,7 +3340,7 @@ function formatDateYearMonthDay(input) {
 
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3098,9 +3361,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CertificatesController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(71);
+const dto_1 = __webpack_require__(76);
 const certificate_entity_1 = __webpack_require__(35);
-const certificates_service_1 = __webpack_require__(62);
+const certificates_service_1 = __webpack_require__(67);
 const decorators_1 = __webpack_require__(14);
 let CertificatesController = class CertificatesController {
     constructor(certificatesService) {
@@ -3324,7 +3587,7 @@ exports.CertificatesController = CertificatesController = __decorate([
 
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3343,14 +3606,14 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(72), exports);
-__exportStar(__webpack_require__(73), exports);
-__exportStar(__webpack_require__(74), exports);
-__exportStar(__webpack_require__(75), exports);
+__exportStar(__webpack_require__(77), exports);
+__exportStar(__webpack_require__(78), exports);
+__exportStar(__webpack_require__(79), exports);
+__exportStar(__webpack_require__(80), exports);
 
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3367,9 +3630,9 @@ var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCertificateAndUserDto = exports.CreateCertificateDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_transformer_1 = __webpack_require__(56);
-const class_validator_1 = __webpack_require__(57);
-const location_point_dto_1 = __webpack_require__(58);
+const class_transformer_1 = __webpack_require__(61);
+const class_validator_1 = __webpack_require__(62);
+const location_point_dto_1 = __webpack_require__(63);
 class CreateCertificateDto {
 }
 exports.CreateCertificateDto = CreateCertificateDto;
@@ -3417,6 +3680,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCertificateDto.prototype, "biography", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ type: location_point_dto_1.LocationPointDto }),
     (0, class_transformer_1.Type)(() => location_point_dto_1.LocationPointDto),
     __metadata("design:type", typeof (_c = typeof location_point_dto_1.LocationPointDto !== "undefined" && location_point_dto_1.LocationPointDto) === "function" ? _c : Object)
 ], CreateCertificateDto.prototype, "location", void 0);
@@ -3516,7 +3780,7 @@ __decorate([
 
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3554,7 +3818,7 @@ __decorate([
 
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3570,7 +3834,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SearchCertificateDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class SearchCertificateDto {
 }
 exports.SearchCertificateDto = SearchCertificateDto;
@@ -3611,7 +3875,7 @@ __decorate([
 
 
 /***/ }),
-/* 75 */
+/* 80 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3627,8 +3891,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateCertificateDto = void 0;
-const class_transformer_1 = __webpack_require__(56);
-const class_validator_1 = __webpack_require__(57);
+const class_transformer_1 = __webpack_require__(61);
+const class_validator_1 = __webpack_require__(62);
 class UpdateCertificateDto {
 }
 exports.UpdateCertificateDto = UpdateCertificateDto;
@@ -3684,7 +3948,7 @@ __decorate([
 
 
 /***/ }),
-/* 76 */
+/* 81 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3697,9 +3961,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationTokenModule = void 0;
 const common_1 = __webpack_require__(5);
-const validation_token_service_1 = __webpack_require__(65);
+const validation_token_service_1 = __webpack_require__(70);
 const typeorm_1 = __webpack_require__(7);
-const validation_token_entity_1 = __webpack_require__(66);
+const validation_token_entity_1 = __webpack_require__(71);
 let ValidationTokenModule = class ValidationTokenModule {
 };
 exports.ValidationTokenModule = ValidationTokenModule;
@@ -3713,7 +3977,7 @@ exports.ValidationTokenModule = ValidationTokenModule = __decorate([
 
 
 /***/ }),
-/* 77 */
+/* 82 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3726,14 +3990,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthModule = void 0;
 const common_1 = __webpack_require__(5);
-const auth_service_1 = __webpack_require__(78);
-const auth_controller_1 = __webpack_require__(81);
-const users_module_1 = __webpack_require__(92);
+const auth_service_1 = __webpack_require__(83);
+const auth_controller_1 = __webpack_require__(86);
+const users_module_1 = __webpack_require__(97);
 const config_1 = __webpack_require__(6);
 const passport_1 = __webpack_require__(10);
-const jwt_1 = __webpack_require__(63);
-const strategies_1 = __webpack_require__(94);
-const validation_token_module_1 = __webpack_require__(76);
+const jwt_1 = __webpack_require__(68);
+const strategies_1 = __webpack_require__(99);
+const validation_token_module_1 = __webpack_require__(81);
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -3759,7 +4023,7 @@ exports.AuthModule = AuthModule = __decorate([
 
 
 /***/ }),
-/* 78 */
+/* 83 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3776,11 +4040,11 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthService = void 0;
 const common_1 = __webpack_require__(5);
-const bcrypt = __webpack_require__(79);
-const users_service_1 = __webpack_require__(80);
-const jwt_1 = __webpack_require__(63);
-const validation_token_service_1 = __webpack_require__(65);
-const VerificationTokenType_1 = __webpack_require__(64);
+const bcrypt = __webpack_require__(84);
+const users_service_1 = __webpack_require__(85);
+const jwt_1 = __webpack_require__(68);
+const validation_token_service_1 = __webpack_require__(70);
+const VerificationTokenType_1 = __webpack_require__(69);
 const config_1 = __webpack_require__(6);
 let AuthService = class AuthService {
     constructor(usersService, jwtService, validationTokenService, configService) {
@@ -3889,13 +4153,13 @@ exports.AuthService = AuthService = __decorate([
 
 
 /***/ }),
-/* 79 */
+/* 84 */
 /***/ ((module) => {
 
 module.exports = require("bcryptjs");
 
 /***/ }),
-/* 80 */
+/* 85 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3915,13 +4179,13 @@ var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersService = void 0;
 const common_1 = __webpack_require__(5);
-const jwt_1 = __webpack_require__(63);
+const jwt_1 = __webpack_require__(68);
 const typeorm_1 = __webpack_require__(7);
-const bcrypt = __webpack_require__(79);
+const bcrypt = __webpack_require__(84);
 const role_entity_1 = __webpack_require__(43);
 const mailer_service_1 = __webpack_require__(24);
-const VerificationTokenType_1 = __webpack_require__(64);
-const validation_token_service_1 = __webpack_require__(65);
+const VerificationTokenType_1 = __webpack_require__(69);
+const validation_token_service_1 = __webpack_require__(70);
 const typeorm_2 = __webpack_require__(32);
 const user_entity_1 = __webpack_require__(37);
 let UsersService = class UsersService {
@@ -4088,7 +4352,7 @@ exports.UsersService = UsersService = __decorate([
 
 
 /***/ }),
-/* 81 */
+/* 86 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4108,14 +4372,14 @@ var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(5);
-const dto_1 = __webpack_require__(82);
+const dto_1 = __webpack_require__(87);
 const user_entity_1 = __webpack_require__(37);
-const dto_2 = __webpack_require__(90);
-const users_service_1 = __webpack_require__(80);
+const dto_2 = __webpack_require__(95);
+const users_service_1 = __webpack_require__(85);
 const decorators_1 = __webpack_require__(14);
 const enums_1 = __webpack_require__(39);
 const guards_1 = __webpack_require__(8);
-const auth_service_1 = __webpack_require__(78);
+const auth_service_1 = __webpack_require__(83);
 const swagger_1 = __webpack_require__(3);
 let AuthController = class AuthController {
     constructor(authService, usersService) {
@@ -4272,7 +4536,7 @@ exports.AuthController = AuthController = __decorate([
 
 
 /***/ }),
-/* 82 */
+/* 87 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4291,16 +4555,16 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(83), exports);
-__exportStar(__webpack_require__(84), exports);
-__exportStar(__webpack_require__(85), exports);
-__exportStar(__webpack_require__(86), exports);
-__exportStar(__webpack_require__(87), exports);
+__exportStar(__webpack_require__(88), exports);
 __exportStar(__webpack_require__(89), exports);
+__exportStar(__webpack_require__(90), exports);
+__exportStar(__webpack_require__(91), exports);
+__exportStar(__webpack_require__(92), exports);
+__exportStar(__webpack_require__(94), exports);
 
 
 /***/ }),
-/* 83 */
+/* 88 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -4312,7 +4576,7 @@ exports.FindUsersDto = FindUsersDto;
 
 
 /***/ }),
-/* 84 */
+/* 89 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4328,7 +4592,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LoginUserDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class LoginUserDto {
 }
 exports.LoginUserDto = LoginUserDto;
@@ -4345,7 +4609,7 @@ __decorate([
 
 
 /***/ }),
-/* 85 */
+/* 90 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4361,7 +4625,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RegisterUserOptionsDto = exports.RegisterUserDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class RegisterUserDto {
 }
 exports.RegisterUserDto = RegisterUserDto;
@@ -4397,7 +4661,7 @@ exports.RegisterUserOptionsDto = RegisterUserOptionsDto;
 
 
 /***/ }),
-/* 86 */
+/* 91 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4413,7 +4677,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RefreshTokenDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class RefreshTokenDto {
 }
 exports.RefreshTokenDto = RefreshTokenDto;
@@ -4425,7 +4689,7 @@ __decorate([
 
 
 /***/ }),
-/* 87 */
+/* 92 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4440,8 +4704,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserRolesAndPermisssionsDto = void 0;
-const mapped_types_1 = __webpack_require__(88);
-const register_user_dto_1 = __webpack_require__(85);
+const mapped_types_1 = __webpack_require__(93);
+const register_user_dto_1 = __webpack_require__(90);
 const swagger_1 = __webpack_require__(3);
 class UserRolesAndPermisssionsDto extends (0, mapped_types_1.PartialType)(register_user_dto_1.RegisterUserDto) {
 }
@@ -4457,13 +4721,13 @@ __decorate([
 
 
 /***/ }),
-/* 88 */
+/* 93 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/mapped-types");
 
 /***/ }),
-/* 89 */
+/* 94 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4479,7 +4743,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FirstTimeRegisterDto = exports.CheckFirstTimeRegisterTokenValidDto = exports.UpdateFirstTimeRegisterUserDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class UpdateFirstTimeRegisterUserDto {
 }
 exports.UpdateFirstTimeRegisterUserDto = UpdateFirstTimeRegisterUserDto;
@@ -4533,7 +4797,7 @@ __decorate([
 
 
 /***/ }),
-/* 90 */
+/* 95 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4552,11 +4816,11 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(91), exports);
+__exportStar(__webpack_require__(96), exports);
 
 
 /***/ }),
-/* 91 */
+/* 96 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4572,7 +4836,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TokenDto = exports.LoginDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class LoginDto {
 }
 exports.LoginDto = LoginDto;
@@ -4600,7 +4864,7 @@ __decorate([
 
 
 /***/ }),
-/* 92 */
+/* 97 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4613,14 +4877,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersModule = void 0;
 const common_1 = __webpack_require__(5);
-const users_service_1 = __webpack_require__(80);
-const users_controller_1 = __webpack_require__(93);
+const users_service_1 = __webpack_require__(85);
+const users_controller_1 = __webpack_require__(98);
 const typeorm_1 = __webpack_require__(7);
 const user_entity_1 = __webpack_require__(37);
 const role_entity_1 = __webpack_require__(43);
-const jwt_1 = __webpack_require__(63);
+const jwt_1 = __webpack_require__(68);
 const config_1 = __webpack_require__(6);
-const validation_token_module_1 = __webpack_require__(76);
+const validation_token_module_1 = __webpack_require__(81);
 const mailer_module_1 = __webpack_require__(23);
 let UsersModule = class UsersModule {
 };
@@ -4648,7 +4912,7 @@ exports.UsersModule = UsersModule = __decorate([
 
 
 /***/ }),
-/* 93 */
+/* 98 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4671,9 +4935,9 @@ const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const decorators_1 = __webpack_require__(14);
 const enums_1 = __webpack_require__(39);
-const dto_1 = __webpack_require__(82);
+const dto_1 = __webpack_require__(87);
 const user_entity_1 = __webpack_require__(37);
-const users_service_1 = __webpack_require__(80);
+const users_service_1 = __webpack_require__(85);
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -4743,7 +5007,7 @@ exports.UsersController = UsersController = __decorate([
 
 
 /***/ }),
-/* 94 */
+/* 99 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4762,12 +5026,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(95), exports);
-__exportStar(__webpack_require__(97), exports);
+__exportStar(__webpack_require__(100), exports);
+__exportStar(__webpack_require__(102), exports);
 
 
 /***/ }),
-/* 95 */
+/* 100 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4786,8 +5050,8 @@ exports.JwtStrategy = void 0;
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const passport_1 = __webpack_require__(10);
-const passport_jwt_1 = __webpack_require__(96);
-const users_service_1 = __webpack_require__(80);
+const passport_jwt_1 = __webpack_require__(101);
+const users_service_1 = __webpack_require__(85);
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(configService, usersService) {
         super({
@@ -4814,13 +5078,13 @@ exports.JwtStrategy = JwtStrategy = __decorate([
 
 
 /***/ }),
-/* 96 */
+/* 101 */
 /***/ ((module) => {
 
 module.exports = require("passport-jwt");
 
 /***/ }),
-/* 97 */
+/* 102 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4838,8 +5102,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocalStrategy = void 0;
 const common_1 = __webpack_require__(5);
 const passport_1 = __webpack_require__(10);
-const passport_local_1 = __webpack_require__(98);
-const auth_service_1 = __webpack_require__(78);
+const passport_local_1 = __webpack_require__(103);
+const auth_service_1 = __webpack_require__(83);
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
         super({ usernameField: 'email' });
@@ -4848,7 +5112,7 @@ let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)
     async validate(email, password) {
         const user = await this.authService.validateUser({ email, password });
         if (!user) {
-            throw new common_1.UnauthorizedException();
+            throw new common_1.UnauthorizedException('Invalid email or password. Please try again.');
         }
         return user;
     }
@@ -4861,13 +5125,13 @@ exports.LocalStrategy = LocalStrategy = __decorate([
 
 
 /***/ }),
-/* 98 */
+/* 103 */
 /***/ ((module) => {
 
 module.exports = require("passport-local");
 
 /***/ }),
-/* 99 */
+/* 104 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4880,11 +5144,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CityModule = void 0;
 const common_1 = __webpack_require__(5);
-const city_service_1 = __webpack_require__(100);
-const city_controller_1 = __webpack_require__(101);
+const city_service_1 = __webpack_require__(105);
+const city_controller_1 = __webpack_require__(106);
 const typeorm_1 = __webpack_require__(7);
 const city_entity_1 = __webpack_require__(33);
-const country_entity_1 = __webpack_require__(51);
+const country_entity_1 = __webpack_require__(56);
 let CityModule = class CityModule {
 };
 exports.CityModule = CityModule;
@@ -4899,7 +5163,7 @@ exports.CityModule = CityModule = __decorate([
 
 
 /***/ }),
-/* 100 */
+/* 105 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4920,9 +5184,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CityService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const helpers_1 = __webpack_require__(18);
-const country_entity_1 = __webpack_require__(51);
+const country_entity_1 = __webpack_require__(56);
 const typeorm_2 = __webpack_require__(32);
 const city_entity_1 = __webpack_require__(33);
 let CityService = class CityService {
@@ -5031,7 +5295,7 @@ exports.CityService = CityService = __decorate([
 
 
 /***/ }),
-/* 101 */
+/* 106 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5052,9 +5316,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CityController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(102);
+const dto_1 = __webpack_require__(107);
 const city_entity_1 = __webpack_require__(33);
-const city_service_1 = __webpack_require__(100);
+const city_service_1 = __webpack_require__(105);
 const decorators_1 = __webpack_require__(14);
 let CityController = class CityController {
     constructor(cityService) {
@@ -5234,7 +5498,7 @@ exports.CityController = CityController = __decorate([
 
 
 /***/ }),
-/* 102 */
+/* 107 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5253,13 +5517,13 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(103), exports);
-__exportStar(__webpack_require__(104), exports);
-__exportStar(__webpack_require__(105), exports);
+__exportStar(__webpack_require__(108), exports);
+__exportStar(__webpack_require__(109), exports);
+__exportStar(__webpack_require__(110), exports);
 
 
 /***/ }),
-/* 103 */
+/* 108 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5275,7 +5539,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCityDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class CreateCityDto {
 }
 exports.CreateCityDto = CreateCityDto;
@@ -5297,7 +5561,7 @@ __decorate([
 
 
 /***/ }),
-/* 104 */
+/* 109 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5335,7 +5599,7 @@ __decorate([
 
 
 /***/ }),
-/* 105 */
+/* 110 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5351,7 +5615,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateCityDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class UpdateCityDto {
 }
 exports.UpdateCityDto = UpdateCityDto;
@@ -5373,7 +5637,7 @@ __decorate([
 
 
 /***/ }),
-/* 106 */
+/* 111 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5386,10 +5650,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CountryModule = void 0;
 const common_1 = __webpack_require__(5);
-const country_service_1 = __webpack_require__(107);
-const country_controller_1 = __webpack_require__(108);
+const country_service_1 = __webpack_require__(112);
+const country_controller_1 = __webpack_require__(113);
 const typeorm_1 = __webpack_require__(7);
-const country_entity_1 = __webpack_require__(51);
+const country_entity_1 = __webpack_require__(56);
 let CountryModule = class CountryModule {
 };
 exports.CountryModule = CountryModule;
@@ -5404,7 +5668,7 @@ exports.CountryModule = CountryModule = __decorate([
 
 
 /***/ }),
-/* 107 */
+/* 112 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5426,9 +5690,9 @@ exports.CountryService = void 0;
 const common_1 = __webpack_require__(5);
 const helpers_1 = __webpack_require__(18);
 const typeorm_1 = __webpack_require__(7);
-const country_entity_1 = __webpack_require__(51);
+const country_entity_1 = __webpack_require__(56);
 const typeorm_2 = __webpack_require__(32);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 let CountryService = class CountryService {
     constructor(countryRepository) {
         this.countryRepository = countryRepository;
@@ -5514,7 +5778,7 @@ exports.CountryService = CountryService = __decorate([
 
 
 /***/ }),
-/* 108 */
+/* 113 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5536,9 +5800,9 @@ exports.CountryController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
 const decorators_1 = __webpack_require__(14);
-const dto_1 = __webpack_require__(109);
-const country_entity_1 = __webpack_require__(51);
-const country_service_1 = __webpack_require__(107);
+const dto_1 = __webpack_require__(114);
+const country_entity_1 = __webpack_require__(56);
+const country_service_1 = __webpack_require__(112);
 let CountryController = class CountryController {
     constructor(countryService) {
         this.countryService = countryService;
@@ -5695,7 +5959,7 @@ exports.CountryController = CountryController = __decorate([
 
 
 /***/ }),
-/* 109 */
+/* 114 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5714,13 +5978,13 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(110), exports);
-__exportStar(__webpack_require__(111), exports);
-__exportStar(__webpack_require__(112), exports);
+__exportStar(__webpack_require__(115), exports);
+__exportStar(__webpack_require__(116), exports);
+__exportStar(__webpack_require__(117), exports);
 
 
 /***/ }),
-/* 110 */
+/* 115 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5736,7 +6000,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateCountryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class CreateCountryDto {
 }
 exports.CreateCountryDto = CreateCountryDto;
@@ -5758,7 +6022,7 @@ __decorate([
 
 
 /***/ }),
-/* 111 */
+/* 116 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5792,7 +6056,7 @@ __decorate([
 
 
 /***/ }),
-/* 112 */
+/* 117 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5808,7 +6072,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateCountryDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class UpdateCountryDto {
 }
 exports.UpdateCountryDto = UpdateCountryDto;
@@ -5825,7 +6089,7 @@ __decorate([
 
 
 /***/ }),
-/* 113 */
+/* 118 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5838,17 +6102,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FileModule = void 0;
 const common_1 = __webpack_require__(5);
-const file_service_1 = __webpack_require__(114);
-const file_controller_1 = __webpack_require__(115);
+const file_service_1 = __webpack_require__(119);
+const file_controller_1 = __webpack_require__(120);
 const typeorm_1 = __webpack_require__(7);
 const file_entity_1 = __webpack_require__(36);
 const certificate_entity_1 = __webpack_require__(35);
+const entities_1 = __webpack_require__(47);
 let FileModule = class FileModule {
 };
 exports.FileModule = FileModule;
 exports.FileModule = FileModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([file_entity_1.File, certificate_entity_1.Certificate])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([file_entity_1.File, certificate_entity_1.Certificate, entities_1.BlogContent])],
         controllers: [file_controller_1.FileController],
         providers: [file_service_1.FileService],
         exports: [file_service_1.FileService],
@@ -5857,7 +6122,7 @@ exports.FileModule = FileModule = __decorate([
 
 
 /***/ }),
-/* 114 */
+/* 119 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5873,7 +6138,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FileService = void 0;
 const common_1 = __webpack_require__(5);
@@ -5882,10 +6147,12 @@ const typeorm_1 = __webpack_require__(7);
 const typeorm_2 = __webpack_require__(32);
 const certificate_entity_1 = __webpack_require__(35);
 const file_type_enum_1 = __webpack_require__(46);
+const entities_1 = __webpack_require__(47);
 let FileService = class FileService {
-    constructor(fileRepository, certificateRepository) {
+    constructor(fileRepository, certificateRepository, blogContentRepository) {
         this.fileRepository = fileRepository;
         this.certificateRepository = certificateRepository;
+        this.blogContentRepository = blogContentRepository;
     }
     async createCertificateProfile(certificateId, createImageDto) {
         const certificate = await this.certificateRepository.findOne({
@@ -5905,6 +6172,27 @@ let FileService = class FileService {
         const profile = this.fileRepository.create({
             ...createImageDto,
             certificateProfile: certificate,
+        });
+        await this.fileRepository.save(profile);
+    }
+    async createBlogContentImage(blogContentId, createImageDto) {
+        const blogContent = await this.blogContentRepository.findOne({
+            where: { blogContentId },
+        });
+        if (!blogContent) {
+            throw new common_1.NotFoundException();
+        }
+        if (blogContent.blogContentImage) {
+            await this.certificateRepository.save({
+                ...blogContent,
+                blogContentImage: null,
+                blogContentImageId: null,
+            });
+            await this.removeImage(blogContent.blogContentId);
+        }
+        const profile = this.fileRepository.create({
+            ...createImageDto,
+            blogContentImage: blogContent,
         });
         await this.fileRepository.save(profile);
     }
@@ -6040,12 +6328,13 @@ exports.FileService = FileService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(file_entity_1.File)),
     __param(1, (0, typeorm_1.InjectRepository)(certificate_entity_1.Certificate)),
-    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object, typeof (_b = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _b : Object])
+    __param(2, (0, typeorm_1.InjectRepository)(entities_1.BlogContent)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object, typeof (_b = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _b : Object, typeof (_c = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _c : Object])
 ], FileService);
 
 
 /***/ }),
-/* 115 */
+/* 120 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6061,17 +6350,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FileController = void 0;
 const common_1 = __webpack_require__(5);
-const file_service_1 = __webpack_require__(114);
+const file_service_1 = __webpack_require__(119);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(116);
-const cloudinary = __webpack_require__(118);
-const platform_express_1 = __webpack_require__(119);
+const dto_1 = __webpack_require__(121);
+const cloudinary = __webpack_require__(123);
+const platform_express_1 = __webpack_require__(124);
 const config_1 = __webpack_require__(6);
-const map_1 = __webpack_require__(120);
+const map_1 = __webpack_require__(125);
 const file_type_enum_1 = __webpack_require__(46);
 const decorators_1 = __webpack_require__(14);
 let FileController = class FileController {
@@ -6106,6 +6395,9 @@ let FileController = class FileController {
     }
     createCertificateProfile(certificateId, createFileDto) {
         return this.fileService.createCertificateProfile(certificateId, createFileDto);
+    }
+    createBlogContentImage(blogContentId, createFileDto) {
+        return this.fileService.createBlogContentImage(blogContentId, createFileDto);
     }
     createCertificateFiles(certificateId, createFileBodyDto) {
         return this.fileService.createCertificateFiles(certificateId, createFileBodyDto.filesToAdd, createFileBodyDto.filesToRemove);
@@ -6163,6 +6455,25 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], FileController.prototype, "createCertificateProfile", null);
 __decorate([
+    (0, common_1.Post)('/blog-cntent/:blogContentId'),
+    (0, swagger_1.ApiOperation)({ summary: 'Create a new file' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.CREATED,
+        description: 'The file has been successfully created.',
+        type: File,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throw exception if the blog content is not found',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Param)('blogContentId', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, typeof (_f = typeof dto_1.CreateFileDto !== "undefined" && dto_1.CreateFileDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", void 0)
+], FileController.prototype, "createBlogContentImage", null);
+__decorate([
     (0, common_1.Patch)('/certificate-files/:certificateId'),
     (0, swagger_1.ApiOperation)({ summary: 'Create new files' }),
     (0, swagger_1.ApiResponse)({
@@ -6178,7 +6489,7 @@ __decorate([
     __param(0, (0, common_1.Param)('certificateId', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, typeof (_f = typeof dto_1.CreateFileBodyDto !== "undefined" && dto_1.CreateFileBodyDto) === "function" ? _f : Object]),
+    __metadata("design:paramtypes", [Number, typeof (_g = typeof dto_1.CreateFileBodyDto !== "undefined" && dto_1.CreateFileBodyDto) === "function" ? _g : Object]),
     __metadata("design:returntype", void 0)
 ], FileController.prototype, "createCertificateFiles", null);
 __decorate([
@@ -6282,7 +6593,7 @@ exports.FileController = FileController = __decorate([
 
 
 /***/ }),
-/* 116 */
+/* 121 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6301,11 +6612,11 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(117), exports);
+__exportStar(__webpack_require__(122), exports);
 
 
 /***/ }),
-/* 117 */
+/* 122 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6321,10 +6632,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateFileBodyDto = exports.CreateFileDto = exports.CreateMultyCludnleryDto = exports.CreateColudnleryDto = void 0;
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 const file_type_enum_1 = __webpack_require__(46);
 const swagger_1 = __webpack_require__(3);
-const class_transformer_1 = __webpack_require__(56);
+const class_transformer_1 = __webpack_require__(61);
 class CreateColudnleryDto {
 }
 exports.CreateColudnleryDto = CreateColudnleryDto;
@@ -6334,7 +6645,11 @@ __decorate([
     __metadata("design:type", String)
 ], CreateColudnleryDto.prototype, "file", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({
+        enum: file_type_enum_1.FileTypeEnum,
+        enumName: 'FileTypeEnum',
+        description: 'Type must be one of the following: image, videos, files',
+    }),
     (0, class_validator_1.IsEnum)(file_type_enum_1.FileTypeEnum, {
         message: 'Status must be one of the following: image, video, document',
     }),
@@ -6350,7 +6665,11 @@ __decorate([
     __metadata("design:type", Array)
 ], CreateMultyCludnleryDto.prototype, "files", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({
+        enum: file_type_enum_1.FileTypeEnum,
+        enumName: 'FileTypeEnum',
+        description: 'Type must be one of the following: image, videos, files',
+    }),
     (0, class_validator_1.IsEnum)(file_type_enum_1.FileTypeEnum, {
         message: 'Status must be one of the following: image, video, document',
     }),
@@ -6385,7 +6704,11 @@ __decorate([
     __metadata("design:type", String)
 ], CreateFileDto.prototype, "fileExtension", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({
+        enum: file_type_enum_1.FileTypeEnum,
+        enumName: 'FileTypeEnum',
+        description: 'Type must be one of the following: image, videos, files',
+    }),
     (0, class_validator_1.IsEnum)(file_type_enum_1.FileTypeEnum, {
         message: 'Status must be one of the following: image, video, document',
     }),
@@ -6395,7 +6718,7 @@ class CreateFileBodyDto {
 }
 exports.CreateFileBodyDto = CreateFileBodyDto;
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({ type: [CreateFileDto] }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => CreateFileDto),
@@ -6409,19 +6732,19 @@ __decorate([
 
 
 /***/ }),
-/* 118 */
+/* 123 */
 /***/ ((module) => {
 
 module.exports = require("cloudinary");
 
 /***/ }),
-/* 119 */
+/* 124 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-/* 120 */
+/* 125 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -6446,7 +6769,7 @@ exports.mappCloundleryToFile = mappCloundleryToFile;
 
 
 /***/ }),
-/* 121 */
+/* 126 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6459,11 +6782,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GetheringsModule = void 0;
 const common_1 = __webpack_require__(5);
-const getherings_controller_1 = __webpack_require__(122);
+const getherings_controller_1 = __webpack_require__(127);
 const typeorm_1 = __webpack_require__(7);
-const gethering_entity_1 = __webpack_require__(47);
+const gethering_entity_1 = __webpack_require__(52);
 const certificate_entity_1 = __webpack_require__(35);
-const getherings_service_1 = __webpack_require__(126);
+const getherings_service_1 = __webpack_require__(131);
 let GetheringsModule = class GetheringsModule {
 };
 exports.GetheringsModule = GetheringsModule;
@@ -6478,7 +6801,7 @@ exports.GetheringsModule = GetheringsModule = __decorate([
 
 
 /***/ }),
-/* 122 */
+/* 127 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6499,9 +6822,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GetheringsController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(123);
-const gethering_entity_1 = __webpack_require__(47);
-const getherings_service_1 = __webpack_require__(126);
+const dto_1 = __webpack_require__(128);
+const gethering_entity_1 = __webpack_require__(52);
+const getherings_service_1 = __webpack_require__(131);
 const decorators_1 = __webpack_require__(14);
 let GetheringsController = class GetheringsController {
     constructor(getheringsService) {
@@ -6649,7 +6972,7 @@ exports.GetheringsController = GetheringsController = __decorate([
 
 
 /***/ }),
-/* 123 */
+/* 128 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6668,12 +6991,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(124), exports);
-__exportStar(__webpack_require__(125), exports);
+__exportStar(__webpack_require__(129), exports);
+__exportStar(__webpack_require__(130), exports);
 
 
 /***/ }),
-/* 124 */
+/* 129 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6689,8 +7012,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateGetheringDto = void 0;
-const class_validator_1 = __webpack_require__(57);
-const class_transformer_1 = __webpack_require__(56);
+const class_validator_1 = __webpack_require__(62);
+const class_transformer_1 = __webpack_require__(61);
 const swagger_1 = __webpack_require__(3);
 class CreateGetheringDto {
 }
@@ -6719,7 +7042,7 @@ __decorate([
 
 
 /***/ }),
-/* 125 */
+/* 130 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6735,8 +7058,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateGetheringDto = void 0;
-const class_validator_1 = __webpack_require__(57);
-const class_transformer_1 = __webpack_require__(56);
+const class_validator_1 = __webpack_require__(62);
+const class_transformer_1 = __webpack_require__(61);
 const swagger_1 = __webpack_require__(3);
 class UpdateGetheringDto {
 }
@@ -6760,7 +7083,7 @@ __decorate([
 
 
 /***/ }),
-/* 126 */
+/* 131 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6780,11 +7103,11 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GetheringsService = void 0;
 const common_1 = __webpack_require__(5);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const typeorm_1 = __webpack_require__(7);
 const certificate_entity_1 = __webpack_require__(35);
 const typeorm_2 = __webpack_require__(32);
-const gethering_entity_1 = __webpack_require__(47);
+const gethering_entity_1 = __webpack_require__(52);
 let GetheringsService = class GetheringsService {
     constructor(getheringRepository, certificateRepository) {
         this.getheringRepository = getheringRepository;
@@ -6862,7 +7185,7 @@ exports.GetheringsService = GetheringsService = __decorate([
 
 
 /***/ }),
-/* 127 */
+/* 132 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6875,13 +7198,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrderModule = void 0;
 const common_1 = __webpack_require__(5);
-const order_service_1 = __webpack_require__(128);
-const order_controller_1 = __webpack_require__(129);
+const order_service_1 = __webpack_require__(133);
+const order_controller_1 = __webpack_require__(134);
 const typeorm_1 = __webpack_require__(7);
 const order_entity_1 = __webpack_require__(44);
 const city_entity_1 = __webpack_require__(33);
 const user_entity_1 = __webpack_require__(37);
-const qrcode_entity_1 = __webpack_require__(48);
+const qrcode_entity_1 = __webpack_require__(53);
 const certificate_entity_1 = __webpack_require__(35);
 let OrderModule = class OrderModule {
 };
@@ -6897,7 +7220,7 @@ exports.OrderModule = OrderModule = __decorate([
 
 
 /***/ }),
-/* 128 */
+/* 133 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6918,14 +7241,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrderService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const certificate_entity_1 = __webpack_require__(35);
 const city_entity_1 = __webpack_require__(33);
 const user_entity_1 = __webpack_require__(37);
 const typeorm_2 = __webpack_require__(32);
 const order_entity_1 = __webpack_require__(44);
-const qr = __webpack_require__(67);
-const qrcode_entity_1 = __webpack_require__(48);
+const qr = __webpack_require__(72);
+const qrcode_entity_1 = __webpack_require__(53);
 const config_1 = __webpack_require__(6);
 let OrderService = class OrderService {
     constructor(orderRepository, qrcodeRepository, certificateRepository, cityRepository, userRepository, configService) {
@@ -7053,7 +7376,7 @@ exports.OrderService = OrderService = __decorate([
 
 
 /***/ }),
-/* 129 */
+/* 134 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7074,9 +7397,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrderController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(130);
+const dto_1 = __webpack_require__(135);
 const order_entity_1 = __webpack_require__(44);
-const order_service_1 = __webpack_require__(128);
+const order_service_1 = __webpack_require__(133);
 let OrderController = class OrderController {
     constructor(orderService) {
         this.orderService = orderService;
@@ -7236,7 +7559,7 @@ exports.OrderController = OrderController = __decorate([
 
 
 /***/ }),
-/* 130 */
+/* 135 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7255,12 +7578,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(131), exports);
-__exportStar(__webpack_require__(132), exports);
+__exportStar(__webpack_require__(136), exports);
+__exportStar(__webpack_require__(137), exports);
 
 
 /***/ }),
-/* 131 */
+/* 136 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7276,7 +7599,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateOrderDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class CreateOrderDto {
 }
 exports.CreateOrderDto = CreateOrderDto;
@@ -7318,7 +7641,7 @@ __decorate([
 
 
 /***/ }),
-/* 132 */
+/* 137 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7334,7 +7657,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateOrderStatusDto = exports.UpdateOrderDto = void 0;
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 const order_status_enum_1 = __webpack_require__(45);
 const swagger_1 = __webpack_require__(3);
 class UpdateOrderDto {
@@ -7379,7 +7702,11 @@ class UpdateOrderStatusDto {
 }
 exports.UpdateOrderStatusDto = UpdateOrderStatusDto;
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({
+        enum: order_status_enum_1.OrderStatusEnum,
+        enumName: 'OrderStatusEnum',
+        description: 'Status must be one of the following: canceled, delivered, in.progress',
+    }),
     (0, class_validator_1.IsEnum)(order_status_enum_1.OrderStatusEnum, {
         message: 'Status must be one of the following: canceled, delivered, in.progress',
     }),
@@ -7388,7 +7715,7 @@ __decorate([
 
 
 /***/ }),
-/* 133 */
+/* 138 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7401,10 +7728,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QrcodeModule = void 0;
 const common_1 = __webpack_require__(5);
-const qrcode_controller_1 = __webpack_require__(134);
+const qrcode_controller_1 = __webpack_require__(139);
 const certificate_entity_1 = __webpack_require__(35);
-const qrcode_entity_1 = __webpack_require__(48);
-const qrcode_service_1 = __webpack_require__(135);
+const qrcode_entity_1 = __webpack_require__(53);
+const qrcode_service_1 = __webpack_require__(140);
 const typeorm_1 = __webpack_require__(7);
 let QrcodeModule = class QrcodeModule {
 };
@@ -7420,7 +7747,7 @@ exports.QrcodeModule = QrcodeModule = __decorate([
 
 
 /***/ }),
-/* 134 */
+/* 139 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7441,8 +7768,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QrcodeController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const qrcode_entity_1 = __webpack_require__(48);
-const qrcode_service_1 = __webpack_require__(135);
+const qrcode_entity_1 = __webpack_require__(53);
+const qrcode_service_1 = __webpack_require__(140);
 let QrcodeController = class QrcodeController {
     constructor(qrcodeService) {
         this.qrcodeService = qrcodeService;
@@ -7537,7 +7864,7 @@ exports.QrcodeController = QrcodeController = __decorate([
 
 
 /***/ }),
-/* 135 */
+/* 140 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7559,10 +7886,10 @@ exports.QrcodeService = void 0;
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const certificate_entity_1 = __webpack_require__(35);
 const typeorm_2 = __webpack_require__(32);
-const qrcode_entity_1 = __webpack_require__(48);
+const qrcode_entity_1 = __webpack_require__(53);
 let QrcodeService = class QrcodeService {
     constructor(qrcodeRepository, certificateRepository, configService) {
         this.qrcodeRepository = qrcodeRepository;
@@ -7612,7 +7939,7 @@ exports.QrcodeService = QrcodeService = __decorate([
 
 
 /***/ }),
-/* 136 */
+/* 141 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7625,10 +7952,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TributesModule = void 0;
 const common_1 = __webpack_require__(5);
-const tributes_controller_1 = __webpack_require__(137);
+const tributes_controller_1 = __webpack_require__(142);
 const typeorm_1 = __webpack_require__(7);
-const tribute_entity_1 = __webpack_require__(49);
-const tributes_service_1 = __webpack_require__(141);
+const tribute_entity_1 = __webpack_require__(54);
+const tributes_service_1 = __webpack_require__(146);
 const certificate_entity_1 = __webpack_require__(35);
 let TributesModule = class TributesModule {
 };
@@ -7644,7 +7971,7 @@ exports.TributesModule = TributesModule = __decorate([
 
 
 /***/ }),
-/* 137 */
+/* 142 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7665,9 +7992,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TributesController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(138);
-const tribute_entity_1 = __webpack_require__(49);
-const tributes_service_1 = __webpack_require__(141);
+const dto_1 = __webpack_require__(143);
+const tribute_entity_1 = __webpack_require__(54);
+const tributes_service_1 = __webpack_require__(146);
 const decorators_1 = __webpack_require__(14);
 let TributesController = class TributesController {
     constructor(tributesService) {
@@ -7837,7 +8164,7 @@ exports.TributesController = TributesController = __decorate([
 
 
 /***/ }),
-/* 138 */
+/* 143 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7856,12 +8183,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(139), exports);
-__exportStar(__webpack_require__(140), exports);
+__exportStar(__webpack_require__(144), exports);
+__exportStar(__webpack_require__(145), exports);
 
 
 /***/ }),
-/* 139 */
+/* 144 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7878,8 +8205,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateTributeDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
-const tribute_status_enum_1 = __webpack_require__(50);
+const class_validator_1 = __webpack_require__(62);
+const tribute_status_enum_1 = __webpack_require__(55);
 class CreateTributeDto {
 }
 exports.CreateTributeDto = CreateTributeDto;
@@ -7910,7 +8237,11 @@ __decorate([
 ], CreateTributeDto.prototype, "email", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({
+        enum: tribute_status_enum_1.TributeStatusEnum,
+        enumName: 'TributeStatusEnum',
+        description: 'Status must be one of the following: allowed, denied, pending',
+    }),
     (0, class_validator_1.IsEnum)(tribute_status_enum_1.TributeStatusEnum, {
         message: 'Status must be one of the following: allowed, denied, pending',
     }),
@@ -7919,7 +8250,7 @@ __decorate([
 
 
 /***/ }),
-/* 140 */
+/* 145 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7936,8 +8267,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateTributeStatusDto = exports.UpdateTributeDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
-const tribute_status_enum_1 = __webpack_require__(50);
+const class_validator_1 = __webpack_require__(62);
+const tribute_status_enum_1 = __webpack_require__(55);
 class UpdateTributeDto {
 }
 exports.UpdateTributeDto = UpdateTributeDto;
@@ -7965,8 +8296,11 @@ class UpdateTributeStatusDto {
 }
 exports.UpdateTributeStatusDto = UpdateTributeStatusDto;
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({
+        enum: tribute_status_enum_1.TributeStatusEnum,
+        enumName: 'TributeStatusEnum',
+        description: 'Status must be one of the following: allowed, denied, pending',
+    }),
     (0, class_validator_1.IsEnum)(tribute_status_enum_1.TributeStatusEnum, {
         message: 'Status must be one of the following: allowed, denied, pending',
     }),
@@ -7975,7 +8309,7 @@ __decorate([
 
 
 /***/ }),
-/* 141 */
+/* 146 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7995,10 +8329,10 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TributesService = void 0;
 const common_1 = __webpack_require__(5);
-const tribute_entity_1 = __webpack_require__(49);
+const tribute_entity_1 = __webpack_require__(54);
 const typeorm_1 = __webpack_require__(7);
 const typeorm_2 = __webpack_require__(32);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const certificate_entity_1 = __webpack_require__(35);
 let TributesService = class TributesService {
     constructor(tributeRepository, certificateRepository) {
@@ -8090,7 +8424,7 @@ exports.TributesService = TributesService = __decorate([
 
 
 /***/ }),
-/* 142 */
+/* 147 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8106,14 +8440,14 @@ const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
 const permission_entity_1 = __webpack_require__(38);
 const role_entity_1 = __webpack_require__(43);
-const users_module_1 = __webpack_require__(92);
-const app_seeder_service_1 = __webpack_require__(143);
-const city_module_1 = __webpack_require__(99);
-const country_module_1 = __webpack_require__(106);
-const city_seeder_service_1 = __webpack_require__(147);
-const country_seeder_service_1 = __webpack_require__(144);
-const user_seeder_service_1 = __webpack_require__(146);
-const cemeteries_seeder_service_1 = __webpack_require__(149);
+const users_module_1 = __webpack_require__(97);
+const app_seeder_service_1 = __webpack_require__(148);
+const city_module_1 = __webpack_require__(104);
+const country_module_1 = __webpack_require__(111);
+const city_seeder_service_1 = __webpack_require__(152);
+const country_seeder_service_1 = __webpack_require__(149);
+const user_seeder_service_1 = __webpack_require__(151);
+const cemeteries_seeder_service_1 = __webpack_require__(154);
 const cemetery_module_1 = __webpack_require__(30);
 let SeederModule = class SeederModule {
 };
@@ -8139,7 +8473,7 @@ exports.SeederModule = SeederModule = __decorate([
 
 
 /***/ }),
-/* 143 */
+/* 148 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8162,10 +8496,10 @@ const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
 const typeorm_1 = __webpack_require__(7);
 const typeorm_2 = __webpack_require__(32);
-const country_seeder_service_1 = __webpack_require__(144);
-const user_seeder_service_1 = __webpack_require__(146);
-const city_seeder_service_1 = __webpack_require__(147);
-const cemeteries_seeder_service_1 = __webpack_require__(149);
+const country_seeder_service_1 = __webpack_require__(149);
+const user_seeder_service_1 = __webpack_require__(151);
+const city_seeder_service_1 = __webpack_require__(152);
+const cemeteries_seeder_service_1 = __webpack_require__(154);
 let AppSeederService = class AppSeederService {
     constructor(countrySeederService, citySeederService, cemeteriesSeederService, userSeederService, configService, connection) {
         this.countrySeederService = countrySeederService;
@@ -8233,7 +8567,7 @@ exports.AppSeederService = AppSeederService = __decorate([
 
 
 /***/ }),
-/* 144 */
+/* 149 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8250,8 +8584,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CountrySeederService = void 0;
 const common_1 = __webpack_require__(5);
-const country_service_1 = __webpack_require__(107);
-const countries_1 = __webpack_require__(145);
+const country_service_1 = __webpack_require__(112);
+const countries_1 = __webpack_require__(150);
 let CountrySeederService = class CountrySeederService {
     constructor(countryService) {
         this.countryService = countryService;
@@ -8277,7 +8611,7 @@ exports.CountrySeederService = CountrySeederService = __decorate([
 
 
 /***/ }),
-/* 145 */
+/* 150 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -8287,7 +8621,7 @@ exports.COUNTRIES = [{ name: 'Serbia', code: '381', iso: 'RS / SRB' }];
 
 
 /***/ }),
-/* 146 */
+/* 151 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8311,7 +8645,7 @@ const typeorm_1 = __webpack_require__(7);
 const typeorm_2 = __webpack_require__(32);
 const enums_1 = __webpack_require__(39);
 const enums_2 = __webpack_require__(39);
-const users_service_1 = __webpack_require__(80);
+const users_service_1 = __webpack_require__(85);
 const permission_entity_1 = __webpack_require__(38);
 const role_entity_1 = __webpack_require__(43);
 let UserSeederService = class UserSeederService {
@@ -8447,7 +8781,7 @@ exports.UserSeederService = UserSeederService = __decorate([
 
 
 /***/ }),
-/* 147 */
+/* 152 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8464,8 +8798,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CitySeederService = void 0;
 const common_1 = __webpack_require__(5);
-const city_service_1 = __webpack_require__(100);
-const cities_1 = __webpack_require__(148);
+const city_service_1 = __webpack_require__(105);
+const cities_1 = __webpack_require__(153);
 let CitySeederService = class CitySeederService {
     constructor(cityService) {
         this.cityService = cityService;
@@ -8490,7 +8824,7 @@ exports.CitySeederService = CitySeederService = __decorate([
 
 
 /***/ }),
-/* 148 */
+/* 153 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -8522,7 +8856,7 @@ exports.SERBIAN_CITIES = [
 
 
 /***/ }),
-/* 149 */
+/* 154 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8540,7 +8874,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CemeteriesSeederService = void 0;
 const common_1 = __webpack_require__(5);
 const cementery_service_1 = __webpack_require__(31);
-const cemeteries_1 = __webpack_require__(150);
+const cemeteries_1 = __webpack_require__(155);
 let CemeteriesSeederService = class CemeteriesSeederService {
     constructor(cementeryService) {
         this.cementeryService = cementeryService;
@@ -8576,7 +8910,7 @@ exports.CemeteriesSeederService = CemeteriesSeederService = __decorate([
 
 
 /***/ }),
-/* 150 */
+/* 155 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -9259,7 +9593,7 @@ exports.SERBIAN_CITIES_CEMETEREIS = [
 
 
 /***/ }),
-/* 151 */
+/* 156 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9272,10 +9606,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContactsModule = void 0;
 const common_1 = __webpack_require__(5);
-const contacts_controller_1 = __webpack_require__(152);
-const contacts_service_1 = __webpack_require__(157);
+const contacts_controller_1 = __webpack_require__(157);
+const contacts_service_1 = __webpack_require__(162);
 const typeorm_1 = __webpack_require__(7);
-const contact_entity_1 = __webpack_require__(158);
+const contact_entity_1 = __webpack_require__(163);
 let ContactsModule = class ContactsModule {
 };
 exports.ContactsModule = ContactsModule;
@@ -9289,7 +9623,7 @@ exports.ContactsModule = ContactsModule = __decorate([
 
 
 /***/ }),
-/* 152 */
+/* 157 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9310,10 +9644,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContactsController = void 0;
 const common_1 = __webpack_require__(5);
 const swagger_1 = __webpack_require__(3);
-const dto_1 = __webpack_require__(153);
-const contacts_service_1 = __webpack_require__(157);
+const dto_1 = __webpack_require__(158);
+const contacts_service_1 = __webpack_require__(162);
 const decorators_1 = __webpack_require__(14);
-const contact_entity_1 = __webpack_require__(158);
+const contact_entity_1 = __webpack_require__(163);
 let ContactsController = class ContactsController {
     constructor(contactsService) {
         this.contactsService = contactsService;
@@ -9457,7 +9791,7 @@ exports.ContactsController = ContactsController = __decorate([
 
 
 /***/ }),
-/* 153 */
+/* 158 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9476,12 +9810,12 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__webpack_require__(154), exports);
-__exportStar(__webpack_require__(155), exports);
+__exportStar(__webpack_require__(159), exports);
+__exportStar(__webpack_require__(160), exports);
 
 
 /***/ }),
-/* 154 */
+/* 159 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9497,7 +9831,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateContactDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const class_validator_1 = __webpack_require__(57);
+const class_validator_1 = __webpack_require__(62);
 class CreateContactDto {
 }
 exports.CreateContactDto = CreateContactDto;
@@ -9519,7 +9853,7 @@ __decorate([
 
 
 /***/ }),
-/* 155 */
+/* 160 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9536,9 +9870,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateContactStatusEnumDto = exports.UpdateContactDto = void 0;
 const swagger_1 = __webpack_require__(3);
-const create_contact_dto_1 = __webpack_require__(154);
-const class_validator_1 = __webpack_require__(57);
-const contact_status_enum_1 = __webpack_require__(156);
+const create_contact_dto_1 = __webpack_require__(159);
+const class_validator_1 = __webpack_require__(62);
+const contact_status_enum_1 = __webpack_require__(161);
 class UpdateContactDto extends (0, swagger_1.PartialType)(create_contact_dto_1.CreateContactDto) {
 }
 exports.UpdateContactDto = UpdateContactDto;
@@ -9546,7 +9880,11 @@ class UpdateContactStatusEnumDto {
 }
 exports.UpdateContactStatusEnumDto = UpdateContactStatusEnumDto;
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({
+        enum: contact_status_enum_1.ContactStatusEnum,
+        enumName: 'ContactStatusEnum',
+        description: 'Type must be one of the following: title, text.center, text.left, text.right',
+    }),
     (0, class_validator_1.IsEnum)(contact_status_enum_1.ContactStatusEnum, {
         message: 'Status must be one of the following: resolved, new.message...',
     }),
@@ -9555,7 +9893,7 @@ __decorate([
 
 
 /***/ }),
-/* 156 */
+/* 161 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -9574,7 +9912,7 @@ var ContactStatusEnum;
 
 
 /***/ }),
-/* 157 */
+/* 162 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9595,9 +9933,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContactsService = void 0;
 const common_1 = __webpack_require__(5);
 const typeorm_1 = __webpack_require__(7);
-const nestjs_typeorm_paginate_1 = __webpack_require__(52);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
 const typeorm_2 = __webpack_require__(32);
-const contact_entity_1 = __webpack_require__(158);
+const contact_entity_1 = __webpack_require__(163);
 let ContactsService = class ContactsService {
     constructor(contactRepository) {
         this.contactRepository = contactRepository;
@@ -9667,7 +10005,7 @@ exports.ContactsService = ContactsService = __decorate([
 
 
 /***/ }),
-/* 158 */
+/* 163 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -9685,7 +10023,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Contact = void 0;
 const swagger_1 = __webpack_require__(3);
 const typeorm_1 = __webpack_require__(32);
-const contact_status_enum_1 = __webpack_require__(156);
+const contact_status_enum_1 = __webpack_require__(161);
 let Contact = class Contact {
 };
 exports.Contact = Contact;
@@ -9739,7 +10077,789 @@ exports.Contact = Contact = __decorate([
 
 
 /***/ }),
-/* 159 */
+/* 164 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BlogsModule = void 0;
+const common_1 = __webpack_require__(5);
+const blogs_service_1 = __webpack_require__(165);
+const blogs_controller_1 = __webpack_require__(166);
+const typeorm_1 = __webpack_require__(7);
+const entities_1 = __webpack_require__(47);
+let BlogsModule = class BlogsModule {
+};
+exports.BlogsModule = BlogsModule;
+exports.BlogsModule = BlogsModule = __decorate([
+    (0, common_1.Module)({
+        imports: [typeorm_1.TypeOrmModule.forFeature([entities_1.Blog, entities_1.BlogContent, entities_1.BlogText])],
+        controllers: [blogs_controller_1.BlogsController],
+        providers: [blogs_service_1.BlogsService],
+    })
+], BlogsModule);
+
+
+/***/ }),
+/* 165 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BlogsService = void 0;
+const common_1 = __webpack_require__(5);
+const typeorm_1 = __webpack_require__(7);
+const entities_1 = __webpack_require__(47);
+const typeorm_2 = __webpack_require__(32);
+const nestjs_typeorm_paginate_1 = __webpack_require__(57);
+const helpers_1 = __webpack_require__(18);
+const blog_content_type_1 = __webpack_require__(50);
+let BlogsService = class BlogsService {
+    constructor(blogContentRepository, blogRepository, blogTextRepository) {
+        this.blogContentRepository = blogContentRepository;
+        this.blogRepository = blogRepository;
+        this.blogTextRepository = blogTextRepository;
+        this.generateSlug = async (slug) => {
+            let count = 2;
+            let nextSlug = (0, helpers_1.slugify)({ text: slug });
+            while (await this.blogRepository.findOne({ where: { slug: nextSlug } })) {
+                nextSlug = (0, helpers_1.slugify)({ text: `${slug}-${count}` });
+                count++;
+            }
+            return nextSlug;
+        };
+    }
+    async getBlogById(blogId) {
+        const blog = await this.blogRepository
+            .createQueryBuilder('blog')
+            .where('blog.deleted_at IS NULL')
+            .andWhere('blog.blogId = :blogId', { blogId })
+            .leftJoinAndSelect('blog.contents', 'blog-content')
+            .leftJoinAndSelect('blog-content.blogContentImage', 'files')
+            .getOne();
+        if (!blog) {
+            throw new common_1.NotFoundException();
+        }
+        return blog;
+    }
+    async getBlogSitemap() {
+        const query = this.blogRepository
+            .createQueryBuilder('blog')
+            .where('blog.deleted_at IS NULL')
+            .leftJoinAndSelect('blog.contents', 'blog-content')
+            .leftJoinAndSelect('blog-content.blogContentImage', 'files');
+        const data = await query.getMany();
+        return data.map((obj) => {
+            let image = '';
+            const findImage = obj.contents.find((cont) => cont.blogContentImage?.url);
+            if (findImage) {
+                image = findImage.blogContentImage.url;
+            }
+            return {
+                slug: obj.slug,
+                image,
+                updatedAt: obj.updatedAt,
+                blogId: obj.blogId,
+            };
+        });
+    }
+    async createBlog(createBlogDto) {
+        const { contents } = createBlogDto;
+        const titleExist = contents.filter((cont) => cont.type === blog_content_type_1.BlogContentTypeEnum.TITLE);
+        if (titleExist.length !== 1) {
+            throw new common_1.NotAcceptableException('Must have one title');
+        }
+        const title = contents.find((cont) => cont.type === blog_content_type_1.BlogContentTypeEnum.TITLE);
+        const slug = await this.generateSlug(title.paragraphs[0]);
+        const newBlog = this.blogRepository.create({
+            slug,
+        });
+        const blog = await this.blogRepository.save(newBlog);
+        const newBlogContexts = [];
+        for (const cont of contents) {
+            const newBlogContent = this.blogContentRepository.create({
+                type: cont.type,
+                blog,
+            });
+            const blogContent = await this.blogContentRepository.save(newBlogContent);
+            const newParagraphs = [];
+            for (const paragraph of cont.paragraphs) {
+                const newBlogText = this.blogTextRepository.create({
+                    text: paragraph,
+                    blogContent: blogContent,
+                });
+                const blogText = await this.blogTextRepository.save(newBlogText);
+                newParagraphs.push(blogText);
+            }
+            blogContent.paragraphs = newParagraphs;
+            newBlogContexts.push(blogContent);
+        }
+        blog.contents = newBlogContexts;
+        return blog;
+    }
+    searchAllBlogs(options, title) {
+        const query = this.blogRepository
+            .createQueryBuilder('blog')
+            .where('blog.deleted_at IS NULL')
+            .leftJoinAndSelect('blog.contents', 'blog-content')
+            .leftJoinAndSelect('blog-content.paragraphs', 'blog-text');
+        if (title) {
+            query.andWhere('blog-text.text LIKE :text', {
+                text: `%${title}%`,
+            });
+        }
+        return (0, nestjs_typeorm_paginate_1.paginate)(query, options);
+    }
+    async getBlogBySlug(slug) {
+        const blog = await this.blogRepository
+            .createQueryBuilder('blog')
+            .where('blog.deleted_at IS NULL')
+            .andWhere('blog.slug = :slug', { slug })
+            .leftJoinAndSelect('blog.contents', 'blog-content')
+            .leftJoinAndSelect('blog-content.paragraphs', 'blog-text')
+            .getOne();
+        if (!blog) {
+            throw new common_1.NotFoundException();
+        }
+        return blog;
+    }
+    async updateBlog(blogId, updateBlogDto) {
+        const { content } = updateBlogDto;
+        const blog = await this.blogRepository.findOne({
+            where: { blogId, deletedAt: null },
+            relations: ['contents'],
+        });
+        if (!blog) {
+            throw new common_1.NotFoundException();
+        }
+        if (content.blogContentId) {
+            const toUpdateContent = await this.blogContentRepository.findOne({
+                where: {
+                    blogContentId: content.blogContentId,
+                    deletedAt: null,
+                },
+            });
+            if (!toUpdateContent) {
+                throw new common_1.NotFoundException();
+            }
+            if (toUpdateContent.type === blog_content_type_1.BlogContentTypeEnum.TITLE &&
+                content.type !== blog_content_type_1.BlogContentTypeEnum.TITLE) {
+                throw new common_1.NotAcceptableException('Blog have one title');
+            }
+            toUpdateContent.updatedAt = new Date();
+            toUpdateContent.type = content.type;
+            const newParagraphs = [];
+            for (const paragraph of content.paragraphs) {
+                if (paragraph.blogTextId) {
+                    const paragraphToUpdate = await this.blogTextRepository.findOne({
+                        where: {
+                            blogTextId: paragraph.blogTextId,
+                            deletedAt: null,
+                        },
+                    });
+                    if (!paragraphToUpdate)
+                        continue;
+                    Object.assign(paragraphToUpdate, paragraph);
+                    paragraphToUpdate.updatedAt = new Date();
+                    this.blogTextRepository.save(paragraphToUpdate);
+                    newParagraphs.push(paragraphToUpdate);
+                }
+                else {
+                    const newBlogText = this.blogTextRepository.create({
+                        text: paragraph.text,
+                        blogContent: toUpdateContent,
+                    });
+                    const blogText = await this.blogTextRepository.save(newBlogText);
+                    newParagraphs.push(blogText);
+                }
+            }
+            await this.blogContentRepository.save(toUpdateContent);
+            toUpdateContent.paragraphs = newParagraphs;
+            blog.contents = blog.contents.map((cont) => {
+                if (cont.blogContentId == toUpdateContent.blogContentId) {
+                    return toUpdateContent;
+                }
+            });
+        }
+        else {
+            const newBlogContent = this.blogContentRepository.create({
+                type: content.type,
+                blog,
+            });
+            const blogContent = await this.blogContentRepository.save(newBlogContent);
+            const newParagraphs = [];
+            for (const paragraph of content.paragraphs) {
+                const newBlogText = this.blogTextRepository.create({
+                    text: paragraph.text,
+                    blogContent: blogContent,
+                });
+                const blogText = await this.blogTextRepository.save(newBlogText);
+                newParagraphs.push(blogText);
+            }
+            blogContent.paragraphs = newParagraphs;
+            blog.contents = [...blog.contents, blogContent];
+        }
+        blog.updatedAt = new Date();
+        return blog;
+    }
+    async removeBlog(blogId) {
+        const blog = await this.blogRepository.findOne({
+            where: { blogId, deletedAt: null },
+        });
+        if (!blog) {
+            throw new common_1.NotFoundException();
+        }
+        blog.deletedAt = new Date();
+        return this.blogRepository.save(blog);
+    }
+};
+exports.BlogsService = BlogsService;
+exports.BlogsService = BlogsService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(entities_1.BlogContent)),
+    __param(1, (0, typeorm_1.InjectRepository)(entities_1.Blog)),
+    __param(2, (0, typeorm_1.InjectRepository)(entities_1.BlogText)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object, typeof (_b = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _b : Object, typeof (_c = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _c : Object])
+], BlogsService);
+
+
+/***/ }),
+/* 166 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BlogsController = void 0;
+const common_1 = __webpack_require__(5);
+const blogs_service_1 = __webpack_require__(165);
+const decorators_1 = __webpack_require__(14);
+const swagger_1 = __webpack_require__(3);
+const entities_1 = __webpack_require__(47);
+const dto_1 = __webpack_require__(167);
+let BlogsController = class BlogsController {
+    constructor(blogsService) {
+        this.blogsService = blogsService;
+    }
+    createBlog(createBlogDto) {
+        return this.blogsService.createBlog(createBlogDto);
+    }
+    searchAllBlogs({ limit, page, ...restSearchBlogDto }) {
+        return this.blogsService.searchAllBlogs({
+            page,
+            limit,
+        }, restSearchBlogDto.title);
+    }
+    getBlogSitemap() {
+        return this.blogsService.getBlogSitemap();
+    }
+    getBlogById(id) {
+        return this.blogsService.getBlogById(id);
+    }
+    getBlogBySlug(slug) {
+        return this.blogsService.getBlogBySlug(slug);
+    }
+    updateBlog(id, updateBlogDto) {
+        return this.blogsService.updateBlog(id, updateBlogDto);
+    }
+    removeBlog(id) {
+        return this.blogsService.removeBlog(id);
+    }
+};
+exports.BlogsController = BlogsController;
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Create a new Blog' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.CREATED,
+        description: 'The Blog has been successfully created.',
+        type: entities_1.Blog,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throws exception if title is not found.',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateBlogDto !== "undefined" && dto_1.CreateBlogDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "createBlog", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Post)('/search'),
+    (0, swagger_1.ApiOperation)({ summary: 'Search blogs by title' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.OK,
+        description: 'Return all blogs.',
+        type: [entities_1.Blog],
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.SearchBlogDto !== "undefined" && dto_1.SearchBlogDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "searchAllBlogs", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Get)('/sitemap'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get blogs for sitemap' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.OK,
+        description: 'Return the sitemap.',
+        type: [dto_1.BlogSitemapDto],
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "getBlogSitemap", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get a Blog by id' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.OK,
+        description: 'Return the Blog.',
+        type: entities_1.Blog,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throws exception if Blog is not found.',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "getBlogById", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Get)('/slug/:slug'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get a certificate by slug' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.OK,
+        description: 'Return the certificate.',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throws exception if certificate is not found.',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Param)('slug')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "getBlogBySlug", null);
+__decorate([
+    (0, decorators_1.Public)(),
+    (0, common_1.Patch)('/:id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Update a blog with id' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.ACCEPTED,
+        description: 'Return the blog.',
+        type: entities_1.Blog,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throws exception if blog is not found.',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, typeof (_d = typeof dto_1.UpdateBlogDto !== "undefined" && dto_1.UpdateBlogDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "updateBlog", null);
+__decorate([
+    (0, common_1.Delete)('/:id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Remove a blog with id' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NO_CONTENT,
+        description: 'Return the blog.',
+        type: entities_1.Blog,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throws exception if blog is not found.',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "removeBlog", null);
+exports.BlogsController = BlogsController = __decorate([
+    (0, common_1.Controller)('blogs'),
+    (0, swagger_1.ApiTags)('Blogs'),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    __metadata("design:paramtypes", [typeof (_a = typeof blogs_service_1.BlogsService !== "undefined" && blogs_service_1.BlogsService) === "function" ? _a : Object])
+], BlogsController);
+
+
+/***/ }),
+/* 167 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(168), exports);
+__exportStar(__webpack_require__(170), exports);
+__exportStar(__webpack_require__(172), exports);
+__exportStar(__webpack_require__(173), exports);
+__exportStar(__webpack_require__(169), exports);
+__exportStar(__webpack_require__(171), exports);
+__exportStar(__webpack_require__(174), exports);
+__exportStar(__webpack_require__(175), exports);
+
+
+/***/ }),
+/* 168 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateBlogDto = void 0;
+const create_blog_content_dto_1 = __webpack_require__(169);
+const swagger_1 = __webpack_require__(3);
+const class_transformer_1 = __webpack_require__(61);
+const class_validator_1 = __webpack_require__(62);
+class CreateBlogDto {
+}
+exports.CreateBlogDto = CreateBlogDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [create_blog_content_dto_1.CreateBlogContentDto] }),
+    (0, class_validator_1.IsArray)(),
+    (0, class_transformer_1.Type)(() => create_blog_content_dto_1.CreateBlogContentDto),
+    __metadata("design:type", Array)
+], CreateBlogDto.prototype, "contents", void 0);
+
+
+/***/ }),
+/* 169 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateBlogContentDto = void 0;
+const blog_content_type_1 = __webpack_require__(50);
+const swagger_1 = __webpack_require__(3);
+const class_validator_1 = __webpack_require__(62);
+class CreateBlogContentDto {
+}
+exports.CreateBlogContentDto = CreateBlogContentDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ArrayNotEmpty)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    __metadata("design:type", Array)
+], CreateBlogContentDto.prototype, "paragraphs", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: blog_content_type_1.BlogContentTypeEnum,
+        enumName: 'BlogContentTypeEnum',
+        description: 'Type must be one of the following: title, text.center, text.left, text.right',
+    }),
+    (0, class_validator_1.IsEnum)(blog_content_type_1.BlogContentTypeEnum, {
+        message: 'Type must be one of the following: title, text.center, text.left, text.right',
+    }),
+    __metadata("design:type", typeof (_a = typeof blog_content_type_1.BlogContentTypeEnum !== "undefined" && blog_content_type_1.BlogContentTypeEnum) === "function" ? _a : Object)
+], CreateBlogContentDto.prototype, "type", void 0);
+
+
+/***/ }),
+/* 170 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateBlogDto = void 0;
+const update_blog_content_dto_1 = __webpack_require__(171);
+const swagger_1 = __webpack_require__(3);
+const class_transformer_1 = __webpack_require__(61);
+const class_validator_1 = __webpack_require__(62);
+class UpdateBlogDto {
+}
+exports.UpdateBlogDto = UpdateBlogDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: update_blog_content_dto_1.UpdateBlogContentDto }),
+    (0, class_validator_1.ValidateNested)(),
+    (0, class_transformer_1.Type)(() => update_blog_content_dto_1.UpdateBlogContentDto),
+    __metadata("design:type", typeof (_a = typeof update_blog_content_dto_1.UpdateBlogContentDto !== "undefined" && update_blog_content_dto_1.UpdateBlogContentDto) === "function" ? _a : Object)
+], UpdateBlogDto.prototype, "content", void 0);
+
+
+/***/ }),
+/* 171 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateBlogContentDto = void 0;
+const class_validator_1 = __webpack_require__(62);
+const update_blog_text_dto_1 = __webpack_require__(172);
+const class_transformer_1 = __webpack_require__(61);
+const swagger_1 = __webpack_require__(3);
+const blog_content_type_1 = __webpack_require__(50);
+class UpdateBlogContentDto {
+}
+exports.UpdateBlogContentDto = UpdateBlogContentDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateBlogContentDto.prototype, "blogContentId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: [update_blog_text_dto_1.UpdateBlogTextDto] }),
+    (0, class_validator_1.IsArray)(),
+    (0, class_transformer_1.Type)(() => update_blog_text_dto_1.UpdateBlogTextDto),
+    __metadata("design:type", Array)
+], UpdateBlogContentDto.prototype, "paragraphs", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: blog_content_type_1.BlogContentTypeEnum,
+        enumName: 'BlogContentTypeEnum',
+        description: 'Type must be one of the following: title, text.center, text.left, text.right',
+    }),
+    (0, class_validator_1.IsEnum)(blog_content_type_1.BlogContentTypeEnum, {
+        message: 'Type must be one of the following: title, text.center, text.left, text.right',
+    }),
+    __metadata("design:type", typeof (_a = typeof blog_content_type_1.BlogContentTypeEnum !== "undefined" && blog_content_type_1.BlogContentTypeEnum) === "function" ? _a : Object)
+], UpdateBlogContentDto.prototype, "type", void 0);
+
+
+/***/ }),
+/* 172 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateBlogTextDto = void 0;
+const swagger_1 = __webpack_require__(3);
+const class_validator_1 = __webpack_require__(62);
+class UpdateBlogTextDto {
+}
+exports.UpdateBlogTextDto = UpdateBlogTextDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateBlogTextDto.prototype, "blogTextId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateBlogTextDto.prototype, "text", void 0);
+
+
+/***/ }),
+/* 173 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateBlogTextDto = void 0;
+const swagger_1 = __webpack_require__(3);
+const class_validator_1 = __webpack_require__(62);
+class CreateBlogTextDto {
+}
+exports.CreateBlogTextDto = CreateBlogTextDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBlogTextDto.prototype, "text", void 0);
+
+
+/***/ }),
+/* 174 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SearchBlogDto = void 0;
+const swagger_1 = __webpack_require__(3);
+const class_validator_1 = __webpack_require__(62);
+class SearchBlogDto {
+}
+exports.SearchBlogDto = SearchBlogDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], SearchBlogDto.prototype, "page", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], SearchBlogDto.prototype, "limit", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], SearchBlogDto.prototype, "title", void 0);
+
+
+/***/ }),
+/* 175 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BlogSitemapDto = void 0;
+const swagger_1 = __webpack_require__(3);
+const class_validator_1 = __webpack_require__(62);
+class BlogSitemapDto {
+}
+exports.BlogSitemapDto = BlogSitemapDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], BlogSitemapDto.prototype, "blogId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], BlogSitemapDto.prototype, "slug", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], BlogSitemapDto.prototype, "image", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], BlogSitemapDto.prototype, "updatedAt", void 0);
+
+
+/***/ }),
+/* 176 */
 /***/ ((module) => {
 
 module.exports = require("body-parser");
@@ -9782,9 +10902,10 @@ __webpack_require__(1);
 const core_1 = __webpack_require__(2);
 const swagger_1 = __webpack_require__(3);
 const app_module_1 = __webpack_require__(4);
-const bodyParser = __webpack_require__(159);
+const bodyParser = __webpack_require__(176);
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
+const fs = __webpack_require__(26);
 async function bootstrap() {
     const baseUrl = 'api';
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
@@ -9806,6 +10927,7 @@ async function bootstrap() {
     app.setGlobalPrefix(baseUrl);
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup(baseUrl, app, document);
+    fs.writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
     app.enableCors({
         origin: [dashboard, client],
         methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',

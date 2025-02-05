@@ -39,6 +39,7 @@ export class CreateCertificateDto {
   @IsString()
   biography: string;
 
+  @ApiProperty({ type: LocationPointDto })
   @Type(() => LocationPointDto)
   location: LocationPointDto;
 

@@ -28,6 +28,7 @@ import { ConfigService } from '@nestjs/config';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import * as qr from 'qrcode';
 import { formatDateYearMonthDay } from '@/common/utils';
+import { Nullable } from '@/common/interface';
 
 @Injectable()
 export class CertificatesService {
@@ -350,7 +351,7 @@ export class CertificatesService {
       addressOrder,
     } = createCertificateDto;
 
-    let user = null;
+    let user: Nullable<User> = null;
 
     const exist = await this.userRepository.findOne({
       where: { email: emailNewUser },

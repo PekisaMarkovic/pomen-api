@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { FileTypeEnum } from '@/files/enums/file-type.enum';
 import { CreateFileDto } from '@/files/dto';
+import { BlogContent } from '@/blogs/entities';
 
 @Injectable()
 export class FileService {
@@ -13,6 +14,8 @@ export class FileService {
     private readonly fileRepository: Repository<File>,
     @InjectRepository(Certificate)
     private readonly certificateRepository: Repository<Certificate>,
+    @InjectRepository(BlogContent)
+    private readonly blogContentRepository: Repository<BlogContent>,
   ) {}
 
   /**
@@ -48,6 +51,44 @@ export class FileService {
     const profile = this.fileRepository.create({
       ...createImageDto,
       certificateProfile: certificate,
+    });
+
+    await this.fileRepository.save(profile);
+  }
+
+  /**
+   * Create a new file
+   * @param blogContentId - The data to create a new File
+   * @param CreateFileDto - The data to create a new File
+   * @returns The created file
+   * @throws NotFoundException if the certification is not found
+   *
+   */
+  async createBlogContentImage(
+    blogContentId: number,
+    createImageDto: CreateFileDto,
+  ) {
+    const blogContent = await this.blogContentRepository.findOne({
+      where: { blogContentId },
+    });
+
+    if (!blogContent) {
+      throw new NotFoundException();
+    }
+
+    if (blogContent.blogContentImage) {
+      await this.certificateRepository.save({
+        ...blogContent,
+        blogContentImage: null,
+        blogContentImageId: null,
+      });
+
+      await this.removeImage(blogContent.blogContentId);
+    }
+
+    const profile = this.fileRepository.create({
+      ...createImageDto,
+      blogContentImage: blogContent,
     });
 
     await this.fileRepository.save(profile);

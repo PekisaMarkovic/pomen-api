@@ -16,6 +16,7 @@ export class CreateCemeteryDto {
   @IsString()
   address: string;
 
+  @ApiProperty({ type: LocationPointDto })
   @Type(() => LocationPointDto)
   location: LocationPointDto;
 }

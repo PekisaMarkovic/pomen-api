@@ -14,7 +14,11 @@ export class CreateColudnleryDto {
   @ApiProperty()
   @IsString()
   file: string;
-  @ApiProperty()
+  @ApiProperty({
+    enum: FileTypeEnum,
+    enumName: 'FileTypeEnum',
+    description: 'Type must be one of the following: image, videos, files',
+  })
   @IsEnum(FileTypeEnum, {
     message: 'Status must be one of the following: image, video, document',
   })
@@ -27,7 +31,11 @@ export class CreateMultyCludnleryDto {
   @IsString({ each: true })
   files: string[];
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: FileTypeEnum,
+    enumName: 'FileTypeEnum',
+    description: 'Type must be one of the following: image, videos, files',
+  })
   @IsEnum(FileTypeEnum, {
     message: 'Status must be one of the following: image, video, document',
   })
@@ -55,7 +63,11 @@ export class CreateFileDto {
   @IsString()
   fileExtension: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: FileTypeEnum,
+    enumName: 'FileTypeEnum',
+    description: 'Type must be one of the following: image, videos, files',
+  })
   @IsEnum(FileTypeEnum, {
     message: 'Status must be one of the following: image, video, document',
   })
@@ -63,7 +75,7 @@ export class CreateFileDto {
 }
 
 export class CreateFileBodyDto {
-  @ApiProperty()
+  @ApiProperty({ type: [CreateFileDto] })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateFileDto)

@@ -32,6 +32,8 @@ import { Tribute } from '@/tributes/entities/tribute.entity';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import { Contact } from '@/contacts/entities/contact.entity';
 import { ValidationToken } from '@/validation-token/entities/validation-token.entity';
+import { Blog, BlogContent, BlogText } from '@/blogs/entities';
+import { BlogsModule } from '@/blogs/blogs.module';
 
 @Module({
   imports: [
@@ -61,6 +63,9 @@ import { ValidationToken } from '@/validation-token/entities/validation-token.en
           Qrcode,
           Contact,
           ValidationToken,
+          Blog,
+          BlogContent,
+          BlogText,
         ],
         synchronize: true,
       }),
@@ -80,6 +85,7 @@ import { ValidationToken } from '@/validation-token/entities/validation-token.en
     ValidationTokenModule,
     SeederModule,
     ContactsModule,
+    BlogsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },

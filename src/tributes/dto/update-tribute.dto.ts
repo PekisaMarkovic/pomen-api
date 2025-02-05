@@ -21,8 +21,12 @@ export class UpdateTributeDto {
 }
 
 export class UpdateTributeStatusDto {
-  @ApiProperty()
-  @ApiProperty()
+  @ApiProperty({
+    enum: TributeStatusEnum,
+    enumName: 'TributeStatusEnum',
+    description:
+      'Status must be one of the following: allowed, denied, pending',
+  })
   @IsEnum(TributeStatusEnum, {
     message: 'Status must be one of the following: allowed, denied, pending',
   })

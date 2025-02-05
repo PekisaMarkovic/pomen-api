@@ -5,6 +5,7 @@ import { AppModule } from '@/app.module';
 import * as bodyParser from 'body-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import * as fs from 'fs';
 
 // http://localhost:3200/api
 async function bootstrap() {
@@ -44,6 +45,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup(baseUrl, app, document);
+
+  fs.writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
 
   app.enableCors({
     origin: [dashboard, client],

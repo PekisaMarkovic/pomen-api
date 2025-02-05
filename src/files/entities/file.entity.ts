@@ -10,6 +10,7 @@ import {
 import { FileTypeEnum } from '@/files/enums/file-type.enum';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { BlogContent } from '@/blogs/entities';
 
 @Entity({ name: 'files' })
 export class File {
@@ -52,6 +53,10 @@ export class File {
   @ApiProperty({ type: () => Certificate })
   @OneToOne(() => Certificate, (certificate) => certificate.profileImage)
   certificateProfile?: Certificate;
+
+  @ApiProperty({ type: () => BlogContent })
+  @OneToOne(() => BlogContent, (blogContent) => blogContent.blogContentImage)
+  blogContentImage?: BlogContent;
 
   @ApiProperty()
   @Column({ name: 'certificate_id', nullable: true })
