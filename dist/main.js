@@ -10251,6 +10251,7 @@ let BlogsService = class BlogsService {
         if (!blog) {
             throw new common_1.NotFoundException();
         }
+        const blogContents = blog.contents;
         if (content.blogContentId) {
             const toUpdateContent = await this.blogContentRepository.findOne({
                 where: {
@@ -10294,11 +10295,8 @@ let BlogsService = class BlogsService {
             }
             await this.blogContentRepository.save(toUpdateContent);
             toUpdateContent.paragraphs = newParagraphs;
-            blog.contents = blog.contents.map((cont) => {
-                if (cont.blogContentId == toUpdateContent.blogContentId) {
-                    return toUpdateContent;
-                }
-            });
+            const index = blogContents.findIndex((cont) => cont.blogContentId == toUpdateContent.blogContentId);
+            toUpdateContent[index] = toUpdateContent;
         }
         else {
             const newBlogContent = this.blogContentRepository.create({
@@ -10316,10 +10314,12 @@ let BlogsService = class BlogsService {
                 newParagraphs.push(blogText);
             }
             blogContent.paragraphs = newParagraphs;
-            blog.contents = [...blog.contents, blogContent];
+            blogContents.push(blogContent);
         }
         blog.updatedAt = new Date();
-        return blog;
+        const updatedBlog = await this.blogRepository.save(blog);
+        updatedBlog.contents = blogContents;
+        return updatedBlog;
     }
     async removeBlog(blogId) {
         const blog = await this.blogRepository.findOne({
@@ -10399,7 +10399,6 @@ let BlogsController = class BlogsController {
 };
 exports.BlogsController = BlogsController;
 __decorate([
-    (0, decorators_1.Public)(),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new Blog' }),
     (0, swagger_1.ApiResponse)({
@@ -10482,7 +10481,6 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BlogsController.prototype, "getBlogBySlug", null);
 __decorate([
-    (0, decorators_1.Public)(),
     (0, common_1.Patch)('/:id'),
     (0, swagger_1.ApiOperation)({ summary: 'Update a blog with id' }),
     (0, swagger_1.ApiResponse)({
