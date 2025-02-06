@@ -148,4 +148,36 @@ export class BlogsController {
   removeBlog(@Param('id', ParseIntPipe) id: number) {
     return this.blogsService.removeBlog(id);
   }
+
+  @Delete('/blog-content/:id')
+  @ApiOperation({ summary: 'Remove a blog with id' })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Return the blog.',
+    type: Blog,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throws exception if blog is not found.',
+    type: NotFoundException,
+  })
+  removeBlogContent(@Param('id', ParseIntPipe) id: number) {
+    return this.blogsService.removeBlogContent(id);
+  }
+
+  @Delete('/blog-text/:id')
+  @ApiOperation({ summary: 'Remove a blog with id' })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Return the blog.',
+    type: Blog,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throws exception if blog is not found.',
+    type: NotFoundException,
+  })
+  removeBlogText(@Param('id', ParseIntPipe) id: number) {
+    return this.blogsService.removeBlogText(id);
+  }
 }

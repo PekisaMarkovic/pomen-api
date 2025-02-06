@@ -10154,6 +10154,7 @@ let BlogsService = class BlogsService {
             .where('blog.deleted_at IS NULL')
             .andWhere('blog.blogId = :blogId', { blogId })
             .leftJoinAndSelect('blog.contents', 'blog-content')
+            .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
             .leftJoinAndSelect('blog-content.blogContentImage', 'files')
             .getOne();
         if (!blog) {
@@ -10216,18 +10217,38 @@ let BlogsService = class BlogsService {
         blog.contents = newBlogContexts;
         return blog;
     }
-    searchAllBlogs(options, title) {
-        const query = this.blogRepository
+    async searchAllBlogs(options, title) {
+        const baseQuery = this.blogRepository
             .createQueryBuilder('blog')
-            .where('blog.deleted_at IS NULL')
-            .leftJoinAndSelect('blog.contents', 'blog-content')
-            .leftJoinAndSelect('blog-content.paragraphs', 'blog-text');
+            .where('blog.deleted_at IS NULL');
         if (title) {
-            query.andWhere('blog-text.text LIKE :text', {
-                text: `%${title}%`,
-            });
+            baseQuery
+                .andWhere((qb) => {
+                const subQuery = qb
+                    .subQuery()
+                    .select('blog-content.blogId')
+                    .from('blog-content', 'blog-content')
+                    .leftJoin('blog-content.paragraphs', 'blog-text')
+                    .where('blog-text.text LIKE :text')
+                    .getQuery();
+                return `blog.id IN ${subQuery}`;
+            })
+                .setParameter('text', `%${title}%`);
         }
-        return (0, nestjs_typeorm_paginate_1.paginate)(query, options);
+        const d = await (0, nestjs_typeorm_paginate_1.paginate)(baseQuery, options);
+        const paginatedResult = { ...d };
+        if (paginatedResult.items.length === 0) {
+            return paginatedResult;
+        }
+        const blogIds = paginatedResult.items.map((blog) => blog.blogId);
+        const blogsWithRelations = await this.blogRepository
+            .createQueryBuilder('blog')
+            .leftJoinAndSelect('blog.contents', 'blog-content')
+            .leftJoinAndSelect('blog-content.paragraphs', 'blog-text')
+            .where('blog.blogId IN (:...ids)', { ids: blogIds })
+            .getMany();
+        paginatedResult.items = blogsWithRelations;
+        return paginatedResult;
     }
     async getBlogBySlug(slug) {
         const blog = await this.blogRepository

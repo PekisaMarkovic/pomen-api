@@ -39,6 +39,7 @@ export class BlogsService {
       .where('blog.deleted_at IS NULL')
       .andWhere('blog.blogId = :blogId', { blogId })
       .leftJoinAndSelect('blog.contents', 'blog-content')
+      .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
       .leftJoinAndSelect('blog-content.blogContentImage', 'files')
       .getOne();
 
@@ -150,23 +151,51 @@ export class BlogsService {
    * @returns An array of blogs and the total count
    *
    */
-  searchAllBlogs(
+  async searchAllBlogs(
     options: IPaginationOptions,
     title?: string,
   ): Promise<Pagination<Blog>> {
-    const query = this.blogRepository
+    // Step 1: Create a base query for unique blog IDs
+    const baseQuery = this.blogRepository
       .createQueryBuilder('blog')
-      .where('blog.deleted_at IS NULL')
-      .leftJoinAndSelect('blog.contents', 'blog-content')
-      .leftJoinAndSelect('blog-content.paragraphs', 'blog-text');
+      .where('blog.deleted_at IS NULL');
 
     if (title) {
-      query.andWhere('blog-text.text LIKE :text', {
-        text: `%${title}%`,
-      });
+      baseQuery
+        .andWhere((qb) => {
+          const subQuery = qb
+            .subQuery()
+            .select('blog-content.blogId')
+            .from('blog-content', 'blog-content')
+            .leftJoin('blog-content.paragraphs', 'blog-text')
+            .where('blog-text.text LIKE :text')
+            .getQuery();
+          return `blog.id IN ${subQuery}`;
+        })
+        .setParameter('text', `%${title}%`);
     }
 
-    return paginate<Blog>(query, options);
+    const d = await paginate<Blog>(baseQuery, options);
+
+    const paginatedResult = { ...d };
+
+    if (paginatedResult.items.length === 0) {
+      return paginatedResult;
+    }
+
+    const blogIds = paginatedResult.items.map((blog) => blog.blogId);
+
+    const blogsWithRelations = await this.blogRepository
+      .createQueryBuilder('blog')
+      .leftJoinAndSelect('blog.contents', 'blog-content')
+      .leftJoinAndSelect('blog-content.paragraphs', 'blog-text')
+      .where('blog.blogId IN (:...ids)', { ids: blogIds })
+      .getMany();
+
+    // Step 5: Replace items with properly joined results
+    paginatedResult.items = blogsWithRelations as any;
+
+    return paginatedResult;
   }
 
   /**
@@ -334,6 +363,48 @@ export class BlogsService {
     blog.deletedAt = new Date();
 
     return this.blogRepository.save(blog);
+  }
+
+  /**
+   * Remove a blog text
+   * @param blogTextId - The id of the blog text to remove
+   * @returns The removed blog text
+   * @throws NotFoundException if the blog text is not found
+   *
+   */
+  async removeBlogText(blogTextId: number): Promise<BlogText> {
+    const blogText = await this.blogTextRepository.findOne({
+      where: { blogTextId, deletedAt: null },
+    });
+
+    if (!blogText) {
+      throw new NotFoundException();
+    }
+
+    blogText.deletedAt = new Date();
+
+    return this.blogTextRepository.save(blogText);
+  }
+
+  /**
+   * Remove a blog Content
+   * @param blogContentId - The id of the blog content to remove
+   * @returns The removed blog content
+   * @throws NotFoundException if the blog content is not found
+   *
+   */
+  async removeBlogContent(blogContentId: number): Promise<BlogContent> {
+    const blogContent = await this.blogContentRepository.findOne({
+      where: { blogContentId, deletedAt: null },
+    });
+
+    if (!blogContent) {
+      throw new NotFoundException();
+    }
+
+    blogContent.deletedAt = new Date();
+
+    return this.blogContentRepository.save(blogContent);
   }
 
   /**
