@@ -19,6 +19,10 @@ export class BlogText {
   text: string;
 
   @ApiProperty()
+  @Column({ type: 'boolean', name: 'is_bold', default: false })
+  isBold: boolean;
+
+  @ApiProperty()
   @Column({ type: 'date', name: 'created_at', default: new Date() })
   createdAt: Date;
 

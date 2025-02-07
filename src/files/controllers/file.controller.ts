@@ -100,7 +100,7 @@ export class FileController {
     );
   }
 
-  @Post('/blog-cntent/:blogContentId')
+  @Post('/blog-content/:blogContentId')
   @ApiOperation({ summary: 'Create a new file' })
   @ApiResponse({
     status: HttpStatus.CREATED,

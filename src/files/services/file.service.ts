@@ -77,7 +77,7 @@ export class FileService {
     }
 
     if (blogContent.blogContentImage) {
-      await this.certificateRepository.save({
+      await this.blogContentRepository.save({
         ...blogContent,
         blogContentImage: null,
         blogContentImageId: null,
@@ -86,12 +86,12 @@ export class FileService {
       await this.removeImage(blogContent.blogContentId);
     }
 
-    const profile = this.fileRepository.create({
+    const blogContentImage = this.fileRepository.create({
       ...createImageDto,
       blogContentImage: blogContent,
     });
 
-    await this.fileRepository.save(profile);
+    await this.fileRepository.save(blogContentImage);
   }
 
   /**

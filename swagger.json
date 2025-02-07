@@ -1947,7 +1947,7 @@
         ]
       }
     },
-    "/api/files/blog-cntent/{blogContentId}": {
+    "/api/files/blog-content/{blogContentId}": {
       "post": {
         "operationId": "FileController_createBlogContentImage",
         "summary": "Create a new file",
@@ -3942,6 +3942,98 @@
           }
         ]
       }
+    },
+    "/api/blogs/blog-content/{id}": {
+      "delete": {
+        "operationId": "BlogsController_removeBlogContent",
+        "summary": "Remove a blog with id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Return the blog.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blog"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Throws exception if blog is not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundException"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
+    "/api/blogs/blog-text/{id}": {
+      "delete": {
+        "operationId": "BlogsController_removeBlogText",
+        "summary": "Remove a blog with id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Return the blog.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Blog"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Throws exception if blog is not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundException"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
     }
   },
   "info": {
@@ -4061,6 +4153,9 @@
           "text": {
             "type": "string"
           },
+          "isBold": {
+            "type": "boolean"
+          },
           "createdAt": {
             "format": "date-time",
             "type": "string"
@@ -4083,6 +4178,7 @@
         "required": [
           "blogTextId",
           "text",
+          "isBold",
           "createdAt",
           "updatedAt",
           "deletedAt",
@@ -5691,11 +5787,15 @@
           },
           "text": {
             "type": "string"
+          },
+          "isBold": {
+            "type": "string"
           }
         },
         "required": [
           "blogTextId",
-          "text"
+          "text",
+          "isBold"
         ]
       },
       "UpdateBlogContentDto": {

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateBlogTextDto {
   @ApiProperty()
@@ -10,4 +10,8 @@ export class UpdateBlogTextDto {
   @ApiProperty()
   @IsString()
   text: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  isBold: string;
 }

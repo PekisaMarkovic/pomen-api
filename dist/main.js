@@ -1912,6 +1912,11 @@ __decorate([
 ], BlogText.prototype, "text", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'boolean', name: 'is_bold', default: false }),
+    __metadata("design:type", Boolean)
+], BlogText.prototype, "isBold", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'date', name: 'created_at', default: new Date() }),
     __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
 ], BlogText.prototype, "createdAt", void 0);
@@ -6183,18 +6188,18 @@ let FileService = class FileService {
             throw new common_1.NotFoundException();
         }
         if (blogContent.blogContentImage) {
-            await this.certificateRepository.save({
+            await this.blogContentRepository.save({
                 ...blogContent,
                 blogContentImage: null,
                 blogContentImageId: null,
             });
             await this.removeImage(blogContent.blogContentId);
         }
-        const profile = this.fileRepository.create({
+        const blogContentImage = this.fileRepository.create({
             ...createImageDto,
             blogContentImage: blogContent,
         });
-        await this.fileRepository.save(profile);
+        await this.fileRepository.save(blogContentImage);
     }
     async createCertificateFiles(certificateId, filesToAdd, filesToRemove) {
         const certificate = await this.certificateRepository.findOne({
@@ -6455,7 +6460,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], FileController.prototype, "createCertificateProfile", null);
 __decorate([
-    (0, common_1.Post)('/blog-cntent/:blogContentId'),
+    (0, common_1.Post)('/blog-content/:blogContentId'),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new file' }),
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.CREATED,
@@ -10154,7 +10159,9 @@ let BlogsService = class BlogsService {
             .where('blog.deleted_at IS NULL')
             .andWhere('blog.blogId = :blogId', { blogId })
             .leftJoinAndSelect('blog.contents', 'blog-content')
+            .andWhere('blog-content.deleted_at IS NULL')
             .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
+            .andWhere('blogs-text.deleted_at IS NULL')
             .leftJoinAndSelect('blog-content.blogContentImage', 'files')
             .getOne();
         if (!blog) {
@@ -10256,7 +10263,11 @@ let BlogsService = class BlogsService {
             .where('blog.deleted_at IS NULL')
             .andWhere('blog.slug = :slug', { slug })
             .leftJoinAndSelect('blog.contents', 'blog-content')
-            .leftJoinAndSelect('blog-content.paragraphs', 'blog-text')
+            .andWhere('blog-content.deleted_at IS NULL')
+            .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
+            .andWhere('blogs-text.deleted_at IS NULL')
+            .leftJoinAndSelect('blog-content.blogContentImage', 'files')
+            .andWhere('files.deleted_at IS NULL')
             .getOne();
         if (!blog) {
             throw new common_1.NotFoundException();
@@ -10339,7 +10350,7 @@ let BlogsService = class BlogsService {
         }
         blog.updatedAt = new Date();
         const updatedBlog = await this.blogRepository.save(blog);
-        updatedBlog.contents = blogContents;
+        updatedBlog.contents = blogContents.filter((cont) => !cont.deletedAt);
         return updatedBlog;
     }
     async removeBlog(blogId) {
@@ -10351,6 +10362,26 @@ let BlogsService = class BlogsService {
         }
         blog.deletedAt = new Date();
         return this.blogRepository.save(blog);
+    }
+    async removeBlogText(blogTextId) {
+        const blogText = await this.blogTextRepository.findOne({
+            where: { blogTextId, deletedAt: null },
+        });
+        if (!blogText) {
+            throw new common_1.NotFoundException();
+        }
+        blogText.deletedAt = new Date();
+        return this.blogTextRepository.save(blogText);
+    }
+    async removeBlogContent(blogContentId) {
+        const blogContent = await this.blogContentRepository.findOne({
+            where: { blogContentId, deletedAt: null },
+        });
+        if (!blogContent) {
+            throw new common_1.NotFoundException();
+        }
+        blogContent.deletedAt = new Date();
+        return this.blogContentRepository.save(blogContent);
     }
 };
 exports.BlogsService = BlogsService;
@@ -10416,6 +10447,12 @@ let BlogsController = class BlogsController {
     }
     removeBlog(id) {
         return this.blogsService.removeBlog(id);
+    }
+    removeBlogContent(id) {
+        return this.blogsService.removeBlogContent(id);
+    }
+    removeBlogText(id) {
+        return this.blogsService.removeBlogText(id);
     }
 };
 exports.BlogsController = BlogsController;
@@ -10538,6 +10575,42 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], BlogsController.prototype, "removeBlog", null);
+__decorate([
+    (0, common_1.Delete)('/blog-content/:id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Remove a blog with id' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NO_CONTENT,
+        description: 'Return the blog.',
+        type: entities_1.Blog,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throws exception if blog is not found.',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "removeBlogContent", null);
+__decorate([
+    (0, common_1.Delete)('/blog-text/:id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Remove a blog with id' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NO_CONTENT,
+        description: 'Return the blog.',
+        type: entities_1.Blog,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.NOT_FOUND,
+        description: 'Throws exception if blog is not found.',
+        type: common_1.NotFoundException,
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "removeBlogText", null);
 exports.BlogsController = BlogsController = __decorate([
     (0, common_1.Controller)('blogs'),
     (0, swagger_1.ApiTags)('Blogs'),
@@ -10764,6 +10837,11 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateBlogTextDto.prototype, "text", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", String)
+], UpdateBlogTextDto.prototype, "isBold", void 0);
 
 
 /***/ }),

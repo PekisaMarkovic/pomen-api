@@ -39,7 +39,9 @@ export class BlogsService {
       .where('blog.deleted_at IS NULL')
       .andWhere('blog.blogId = :blogId', { blogId })
       .leftJoinAndSelect('blog.contents', 'blog-content')
+      .andWhere('blog-content.deleted_at IS NULL')
       .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
+      .andWhere('blogs-text.deleted_at IS NULL')
       .leftJoinAndSelect('blog-content.blogContentImage', 'files')
       .getOne();
 
@@ -211,7 +213,11 @@ export class BlogsService {
       .where('blog.deleted_at IS NULL')
       .andWhere('blog.slug = :slug', { slug })
       .leftJoinAndSelect('blog.contents', 'blog-content')
-      .leftJoinAndSelect('blog-content.paragraphs', 'blog-text')
+      .andWhere('blog-content.deleted_at IS NULL')
+      .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
+      .andWhere('blogs-text.deleted_at IS NULL')
+      .leftJoinAndSelect('blog-content.blogContentImage', 'files')
+      .andWhere('files.deleted_at IS NULL')
       .getOne();
 
     if (!blog) {
@@ -339,7 +345,7 @@ export class BlogsService {
 
     const updatedBlog = await this.blogRepository.save(blog);
 
-    updatedBlog.contents = blogContents;
+    updatedBlog.contents = blogContents.filter((cont) => !cont.deletedAt);
 
     return updatedBlog;
   }
