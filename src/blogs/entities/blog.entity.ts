@@ -17,6 +17,10 @@ export class Blog {
   createdAt: Date;
 
   @ApiProperty()
+  @Column({ type: 'date', name: 'published_at', nullable: true })
+  publishedAt: Date;
+
+  @ApiProperty()
   @Column({ type: 'date', name: 'updated_at', nullable: true })
   updatedAt: Date;
 

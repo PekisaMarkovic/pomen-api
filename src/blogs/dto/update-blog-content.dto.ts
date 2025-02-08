@@ -10,6 +10,10 @@ export class UpdateBlogContentDto {
   @IsOptional()
   blogContentId?: number;
 
+  @ApiProperty()
+  @IsNumber()
+  order: number;
+
   @ApiProperty({ type: [UpdateBlogTextDto] })
   @IsArray()
   @Type(() => UpdateBlogTextDto)

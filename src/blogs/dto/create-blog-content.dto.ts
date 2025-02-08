@@ -1,6 +1,12 @@
 import { BlogContentTypeEnum } from '@/blogs/enums/blog-content-type';
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayNotEmpty, IsArray, IsEnum, IsString } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsEnum,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class CreateBlogContentDto {
   @ApiProperty()
@@ -8,6 +14,10 @@ export class CreateBlogContentDto {
   @ArrayNotEmpty()
   @IsString({ each: true })
   paragraphs: string[];
+
+  @ApiProperty()
+  @IsNumber()
+  order: number;
 
   @ApiProperty({
     enum: BlogContentTypeEnum,

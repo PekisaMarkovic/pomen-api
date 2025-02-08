@@ -3,7 +3,12 @@ import {
   NotAcceptableException,
   NotFoundException,
 } from '@nestjs/common';
-import { BlogSitemapDto, CreateBlogDto, UpdateBlogDto } from '@/blogs/dto';
+import {
+  BlogSitemapDto,
+  CreateBlogDto,
+  SearchBlogDto,
+  UpdateBlogDto,
+} from '@/blogs/dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BlogContent, Blog, BlogText } from '@/blogs/entities';
 import { Repository } from 'typeorm';
@@ -61,6 +66,7 @@ export class BlogsService {
     const query = this.blogRepository
       .createQueryBuilder('blog')
       .where('blog.deleted_at IS NULL')
+      .andWhere('blog.published_at IS NOT NULL')
       .leftJoinAndSelect('blog.contents', 'blog-content')
       .leftJoinAndSelect('blog-content.blogContentImage', 'files');
 
@@ -153,14 +159,16 @@ export class BlogsService {
    * @returns An array of blogs and the total count
    *
    */
-  async searchAllBlogs(
-    options: IPaginationOptions,
-    title?: string,
-  ): Promise<Pagination<Blog>> {
-    // Step 1: Create a base query for unique blog IDs
+  async searchAllBlogs(body: SearchBlogDto): Promise<Pagination<Blog>> {
+    const { isPublished, limit, page, title } = body;
+    const options: IPaginationOptions = { limit, page };
     const baseQuery = this.blogRepository
       .createQueryBuilder('blog')
       .where('blog.deleted_at IS NULL');
+
+    if (isPublished) {
+      baseQuery.andWhere('blog.published_at IS NOT NULL');
+    }
 
     if (title) {
       baseQuery
@@ -177,9 +185,9 @@ export class BlogsService {
         .setParameter('text', `%${title}%`);
     }
 
-    const d = await paginate<Blog>(baseQuery, options);
+    const paginateReadOnly = await paginate<Blog>(baseQuery, options);
 
-    const paginatedResult = { ...d };
+    const paginatedResult = { ...paginateReadOnly };
 
     if (paginatedResult.items.length === 0) {
       return paginatedResult;
@@ -194,7 +202,6 @@ export class BlogsService {
       .where('blog.blogId IN (:...ids)', { ids: blogIds })
       .getMany();
 
-    // Step 5: Replace items with properly joined results
     paginatedResult.items = blogsWithRelations as any;
 
     return paginatedResult;
@@ -211,13 +218,13 @@ export class BlogsService {
     const blog = await this.blogRepository
       .createQueryBuilder('blog')
       .where('blog.deleted_at IS NULL')
+      .andWhere('blog.published_at IS NOT NULL')
       .andWhere('blog.slug = :slug', { slug })
       .leftJoinAndSelect('blog.contents', 'blog-content')
       .andWhere('blog-content.deleted_at IS NULL')
       .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
       .andWhere('blogs-text.deleted_at IS NULL')
       .leftJoinAndSelect('blog-content.blogContentImage', 'files')
-      .andWhere('files.deleted_at IS NULL')
       .getOne();
 
     if (!blog) {
@@ -273,6 +280,7 @@ export class BlogsService {
       toUpdateContent.updatedAt = new Date();
 
       toUpdateContent.type = content.type;
+      toUpdateContent.order = content.order;
 
       const newParagraphs: BlogText[] = [];
 
@@ -317,6 +325,7 @@ export class BlogsService {
       toUpdateContent[index] = toUpdateContent;
     } else {
       const newBlogContent = this.blogContentRepository.create({
+        order: content.order,
         type: content.type,
         blog,
       });
@@ -327,6 +336,7 @@ export class BlogsService {
 
       for (const paragraph of content.paragraphs) {
         const newBlogText = this.blogTextRepository.create({
+          order: paragraph.order,
           text: paragraph.text,
           blogContent: blogContent,
         });
@@ -367,6 +377,32 @@ export class BlogsService {
     }
 
     blog.deletedAt = new Date();
+    blog.publishedAt = null;
+
+    return this.blogRepository.save(blog);
+  }
+
+  /**
+   * Publish or unpublish a blog
+   * @param blogId - The id of the blog to publish/unpublished
+   * @returns The publish/unpublished blog
+   * @throws NotFoundException if the blog is not found
+   *
+   */
+  async publishOrUnpublishBlog(blogId: number): Promise<Blog> {
+    const blog = await this.blogRepository.findOne({
+      where: { blogId, deletedAt: null },
+    });
+
+    if (!blog) {
+      throw new NotFoundException();
+    }
+
+    if (blog.publishedAt === null) {
+      blog.publishedAt = new Date();
+    } else {
+      blog.publishedAt = null;
+    }
 
     return this.blogRepository.save(blog);
   }

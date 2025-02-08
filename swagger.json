@@ -3760,6 +3760,46 @@
         ]
       }
     },
+    "/api/blogs/publish-blog": {
+      "post": {
+        "operationId": "BlogsController_publishOrUnpublishBlog",
+        "summary": "Get blogs for sitemap",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishBlogDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the sitemap.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BlogSitemapDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Blogs"
+        ],
+        "security": [
+          {
+            "access-token": []
+          }
+        ]
+      }
+    },
     "/api/blogs/{id}": {
       "get": {
         "operationId": "BlogsController_getBlogById",
@@ -4153,6 +4193,9 @@
           "text": {
             "type": "string"
           },
+          "order": {
+            "type": "number"
+          },
           "isBold": {
             "type": "boolean"
           },
@@ -4178,6 +4221,7 @@
         "required": [
           "blogTextId",
           "text",
+          "order",
           "isBold",
           "createdAt",
           "updatedAt",
@@ -4196,6 +4240,10 @@
             "type": "string"
           },
           "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "publishedAt": {
             "format": "date-time",
             "type": "string"
           },
@@ -4218,6 +4266,7 @@
           "blogId",
           "slug",
           "createdAt",
+          "publishedAt",
           "updatedAt",
           "deletedAt",
           "contents"
@@ -4227,6 +4276,9 @@
         "type": "object",
         "properties": {
           "blogContentId": {
+            "type": "number"
+          },
+          "order": {
             "type": "number"
           },
           "createdAt": {
@@ -4265,6 +4317,7 @@
         },
         "required": [
           "blogContentId",
+          "order",
           "createdAt",
           "updatedAt",
           "deletedAt",
@@ -5713,12 +5766,16 @@
               "type": "string"
             }
           },
+          "order": {
+            "type": "number"
+          },
           "type": {
             "$ref": "#/components/schemas/BlogContentTypeEnum"
           }
         },
         "required": [
           "paragraphs",
+          "order",
           "type"
         ]
       },
@@ -5747,12 +5804,16 @@
           },
           "title": {
             "type": "string"
+          },
+          "isPublished": {
+            "type": "boolean"
           }
         },
         "required": [
           "page",
           "limit",
-          "title"
+          "title",
+          "isPublished"
         ]
       },
       "BlogSitemapDto": {
@@ -5779,6 +5840,17 @@
           "updatedAt"
         ]
       },
+      "PublishBlogDto": {
+        "type": "object",
+        "properties": {
+          "blogId": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "blogId"
+        ]
+      },
       "UpdateBlogTextDto": {
         "type": "object",
         "properties": {
@@ -5788,6 +5860,9 @@
           "text": {
             "type": "string"
           },
+          "order": {
+            "type": "number"
+          },
           "isBold": {
             "type": "string"
           }
@@ -5795,6 +5870,7 @@
         "required": [
           "blogTextId",
           "text",
+          "order",
           "isBold"
         ]
       },
@@ -5802,6 +5878,9 @@
         "type": "object",
         "properties": {
           "blogContentId": {
+            "type": "number"
+          },
+          "order": {
             "type": "number"
           },
           "paragraphs": {
@@ -5816,6 +5895,7 @@
         },
         "required": [
           "blogContentId",
+          "order",
           "paragraphs",
           "type"
         ]

@@ -1823,6 +1823,11 @@ __decorate([
 ], BlogContent.prototype, "blogContentId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ default: 0, type: 'int4' }),
+    __metadata("design:type", Number)
+], BlogContent.prototype, "order", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'date', name: 'created_at', default: new Date() }),
     __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
 ], BlogContent.prototype, "createdAt", void 0);
@@ -1907,9 +1912,14 @@ __decorate([
 ], BlogText.prototype, "blogTextId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, typeorm_1.Column)({ length: 255 }),
+    (0, typeorm_1.Column)({ length: 850 }),
     __metadata("design:type", String)
 ], BlogText.prototype, "text", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ default: 0, type: 'int4' }),
+    __metadata("design:type", Number)
+], BlogText.prototype, "order", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'boolean', name: 'is_bold', default: false }),
@@ -1976,7 +1986,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Blog = void 0;
 const swagger_1 = __webpack_require__(3);
@@ -2002,13 +2012,18 @@ __decorate([
 ], Blog.prototype, "createdAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, typeorm_1.Column)({ type: 'date', name: 'updated_at', nullable: true }),
+    (0, typeorm_1.Column)({ type: 'date', name: 'published_at', nullable: true }),
     __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], Blog.prototype, "publishedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)({ type: 'date', name: 'updated_at', nullable: true }),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
 ], Blog.prototype, "updatedAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'date', name: 'deleted_at', nullable: true }),
-    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+    __metadata("design:type", typeof (_d = typeof Date !== "undefined" && Date) === "function" ? _d : Object)
 ], Blog.prototype, "deletedAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: () => [blog_content_entity_1.BlogContent] }),
@@ -10173,6 +10188,7 @@ let BlogsService = class BlogsService {
         const query = this.blogRepository
             .createQueryBuilder('blog')
             .where('blog.deleted_at IS NULL')
+            .andWhere('blog.published_at IS NOT NULL')
             .leftJoinAndSelect('blog.contents', 'blog-content')
             .leftJoinAndSelect('blog-content.blogContentImage', 'files');
         const data = await query.getMany();
@@ -10224,10 +10240,15 @@ let BlogsService = class BlogsService {
         blog.contents = newBlogContexts;
         return blog;
     }
-    async searchAllBlogs(options, title) {
+    async searchAllBlogs(body) {
+        const { isPublished, limit, page, title } = body;
+        const options = { limit, page };
         const baseQuery = this.blogRepository
             .createQueryBuilder('blog')
             .where('blog.deleted_at IS NULL');
+        if (isPublished) {
+            baseQuery.andWhere('blog.published_at IS NOT NULL');
+        }
         if (title) {
             baseQuery
                 .andWhere((qb) => {
@@ -10242,8 +10263,8 @@ let BlogsService = class BlogsService {
             })
                 .setParameter('text', `%${title}%`);
         }
-        const d = await (0, nestjs_typeorm_paginate_1.paginate)(baseQuery, options);
-        const paginatedResult = { ...d };
+        const paginateReadOnly = await (0, nestjs_typeorm_paginate_1.paginate)(baseQuery, options);
+        const paginatedResult = { ...paginateReadOnly };
         if (paginatedResult.items.length === 0) {
             return paginatedResult;
         }
@@ -10261,13 +10282,13 @@ let BlogsService = class BlogsService {
         const blog = await this.blogRepository
             .createQueryBuilder('blog')
             .where('blog.deleted_at IS NULL')
+            .andWhere('blog.published_at IS NOT NULL')
             .andWhere('blog.slug = :slug', { slug })
             .leftJoinAndSelect('blog.contents', 'blog-content')
             .andWhere('blog-content.deleted_at IS NULL')
             .leftJoinAndSelect('blog-content.paragraphs', 'blogs-text')
             .andWhere('blogs-text.deleted_at IS NULL')
             .leftJoinAndSelect('blog-content.blogContentImage', 'files')
-            .andWhere('files.deleted_at IS NULL')
             .getOne();
         if (!blog) {
             throw new common_1.NotFoundException();
@@ -10300,6 +10321,7 @@ let BlogsService = class BlogsService {
             }
             toUpdateContent.updatedAt = new Date();
             toUpdateContent.type = content.type;
+            toUpdateContent.order = content.order;
             const newParagraphs = [];
             for (const paragraph of content.paragraphs) {
                 if (paragraph.blogTextId) {
@@ -10332,6 +10354,7 @@ let BlogsService = class BlogsService {
         }
         else {
             const newBlogContent = this.blogContentRepository.create({
+                order: content.order,
                 type: content.type,
                 blog,
             });
@@ -10339,6 +10362,7 @@ let BlogsService = class BlogsService {
             const newParagraphs = [];
             for (const paragraph of content.paragraphs) {
                 const newBlogText = this.blogTextRepository.create({
+                    order: paragraph.order,
                     text: paragraph.text,
                     blogContent: blogContent,
                 });
@@ -10361,6 +10385,22 @@ let BlogsService = class BlogsService {
             throw new common_1.NotFoundException();
         }
         blog.deletedAt = new Date();
+        blog.publishedAt = null;
+        return this.blogRepository.save(blog);
+    }
+    async publishOrUnpublishBlog(blogId) {
+        const blog = await this.blogRepository.findOne({
+            where: { blogId, deletedAt: null },
+        });
+        if (!blog) {
+            throw new common_1.NotFoundException();
+        }
+        if (blog.publishedAt === null) {
+            blog.publishedAt = new Date();
+        }
+        else {
+            blog.publishedAt = null;
+        }
         return this.blogRepository.save(blog);
     }
     async removeBlogText(blogTextId) {
@@ -10411,7 +10451,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BlogsController = void 0;
 const common_1 = __webpack_require__(5);
@@ -10427,14 +10467,14 @@ let BlogsController = class BlogsController {
     createBlog(createBlogDto) {
         return this.blogsService.createBlog(createBlogDto);
     }
-    searchAllBlogs({ limit, page, ...restSearchBlogDto }) {
-        return this.blogsService.searchAllBlogs({
-            page,
-            limit,
-        }, restSearchBlogDto.title);
+    searchAllBlogs(body) {
+        return this.blogsService.searchAllBlogs(body);
     }
     getBlogSitemap() {
         return this.blogsService.getBlogSitemap();
+    }
+    publishOrUnpublishBlog({ blogId }) {
+        return this.blogsService.publishOrUnpublishBlog(blogId);
     }
     getBlogById(id) {
         return this.blogsService.getBlogById(id);
@@ -10503,6 +10543,20 @@ __decorate([
 ], BlogsController.prototype, "getBlogSitemap", null);
 __decorate([
     (0, decorators_1.Public)(),
+    (0, common_1.Post)('/publish-blog'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get blogs for sitemap' }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.OK,
+        description: 'Return the sitemap.',
+        type: [dto_1.BlogSitemapDto],
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof dto_1.PublishBlogDto !== "undefined" && dto_1.PublishBlogDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], BlogsController.prototype, "publishOrUnpublishBlog", null);
+__decorate([
+    (0, decorators_1.Public)(),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Get a Blog by id' }),
     (0, swagger_1.ApiResponse)({
@@ -10554,7 +10608,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, typeof (_d = typeof dto_1.UpdateBlogDto !== "undefined" && dto_1.UpdateBlogDto) === "function" ? _d : Object]),
+    __metadata("design:paramtypes", [Number, typeof (_e = typeof dto_1.UpdateBlogDto !== "undefined" && dto_1.UpdateBlogDto) === "function" ? _e : Object]),
     __metadata("design:returntype", void 0)
 ], BlogsController.prototype, "updateBlog", null);
 __decorate([
@@ -10711,6 +10765,11 @@ __decorate([
     __metadata("design:type", Array)
 ], CreateBlogContentDto.prototype, "paragraphs", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateBlogContentDto.prototype, "order", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({
         enum: blog_content_type_1.BlogContentTypeEnum,
         enumName: 'BlogContentTypeEnum',
@@ -10787,6 +10846,11 @@ __decorate([
     __metadata("design:type", Number)
 ], UpdateBlogContentDto.prototype, "blogContentId", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpdateBlogContentDto.prototype, "order", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ type: [update_blog_text_dto_1.UpdateBlogTextDto] }),
     (0, class_validator_1.IsArray)(),
     (0, class_transformer_1.Type)(() => update_blog_text_dto_1.UpdateBlogTextDto),
@@ -10839,6 +10903,11 @@ __decorate([
 ], UpdateBlogTextDto.prototype, "text", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpdateBlogTextDto.prototype, "order", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", String)
 ], UpdateBlogTextDto.prototype, "isBold", void 0);
@@ -10870,6 +10939,11 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateBlogTextDto.prototype, "text", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateBlogTextDto.prototype, "order", void 0);
 
 
 /***/ }),
@@ -10887,7 +10961,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.SearchBlogDto = void 0;
+exports.PublishBlogDto = exports.SearchBlogDto = void 0;
 const swagger_1 = __webpack_require__(3);
 const class_validator_1 = __webpack_require__(62);
 class SearchBlogDto {
@@ -10909,6 +10983,20 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], SearchBlogDto.prototype, "title", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], SearchBlogDto.prototype, "isPublished", void 0);
+class PublishBlogDto {
+}
+exports.PublishBlogDto = PublishBlogDto;
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], PublishBlogDto.prototype, "blogId", void 0);
 
 
 /***/ }),

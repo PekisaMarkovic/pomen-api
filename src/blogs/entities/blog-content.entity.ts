@@ -20,6 +20,10 @@ export class BlogContent {
   blogContentId: number;
 
   @ApiProperty()
+  @Column({ default: 0, type: 'int4' })
+  order: number;
+
+  @ApiProperty()
   @Column({ type: 'date', name: 'created_at', default: new Date() })
   createdAt: Date;
 

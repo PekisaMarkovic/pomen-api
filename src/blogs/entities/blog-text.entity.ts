@@ -15,8 +15,12 @@ export class BlogText {
   blogTextId: number;
 
   @ApiProperty()
-  @Column({ length: 255 })
+  @Column({ length: 850 })
   text: string;
+
+  @ApiProperty()
+  @Column({ default: 0, type: 'int4' })
+  order: number;
 
   @ApiProperty()
   @Column({ type: 'boolean', name: 'is_bold', default: false })

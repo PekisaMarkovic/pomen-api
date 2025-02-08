@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class SearchBlogDto {
   @ApiProperty()
@@ -14,4 +14,15 @@ export class SearchBlogDto {
   @IsString()
   @IsOptional()
   title: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  isPublished: boolean;
+}
+
+export class PublishBlogDto {
+  @ApiProperty()
+  @IsNumber()
+  blogId: number;
 }

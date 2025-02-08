@@ -24,6 +24,7 @@ import {
   BlogSitemapDto,
   CreateBlogDto,
   UpdateBlogDto,
+  PublishBlogDto,
 } from '@/blogs/dto';
 
 @Controller('blogs')
@@ -58,15 +59,9 @@ export class BlogsController {
   })
   searchAllBlogs(
     @Body()
-    { limit, page, ...restSearchBlogDto }: SearchBlogDto,
+    body: SearchBlogDto,
   ) {
-    return this.blogsService.searchAllBlogs(
-      {
-        page,
-        limit,
-      },
-      restSearchBlogDto.title,
-    );
+    return this.blogsService.searchAllBlogs(body);
   }
 
   @Public()
@@ -79,6 +74,21 @@ export class BlogsController {
   })
   getBlogSitemap() {
     return this.blogsService.getBlogSitemap();
+  }
+
+  @Public()
+  @Post('/publish-blog')
+  @ApiOperation({ summary: 'Get blogs for sitemap' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the sitemap.',
+    type: [BlogSitemapDto],
+  })
+  publishOrUnpublishBlog(
+    @Body()
+    { blogId }: PublishBlogDto,
+  ) {
+    return this.blogsService.publishOrUnpublishBlog(blogId);
   }
 
   @Public()

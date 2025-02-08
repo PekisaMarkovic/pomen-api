@@ -12,6 +12,10 @@ export class UpdateBlogTextDto {
   text: string;
 
   @ApiProperty()
+  @IsNumber()
+  order: number;
+
+  @ApiProperty()
   @IsBoolean()
   isBold: string;
 }
