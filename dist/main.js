@@ -10273,6 +10273,7 @@ let BlogsService = class BlogsService {
             .createQueryBuilder('blog')
             .leftJoinAndSelect('blog.contents', 'blog-content')
             .leftJoinAndSelect('blog-content.paragraphs', 'blog-text')
+            .leftJoinAndSelect('blog-content.blogContentImage', 'files')
             .where('blog.blogId IN (:...ids)', { ids: blogIds })
             .getMany();
         paginatedResult.items = blogsWithRelations;
