@@ -46,7 +46,7 @@ async function bootstrap() {
 
   SwaggerModule.setup(baseUrl, app, document);
 
-  fs.writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
+  // fs.writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
 
   app.enableCors({
     origin: [dashboard, client],

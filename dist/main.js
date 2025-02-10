@@ -11091,7 +11091,6 @@ const app_module_1 = __webpack_require__(4);
 const bodyParser = __webpack_require__(176);
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
-const fs = __webpack_require__(26);
 async function bootstrap() {
     const baseUrl = 'api';
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
@@ -11113,7 +11112,6 @@ async function bootstrap() {
     app.setGlobalPrefix(baseUrl);
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup(baseUrl, app, document);
-    fs.writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
     app.enableCors({
         origin: [dashboard, client],
         methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
