@@ -1912,7 +1912,7 @@ __decorate([
 ], BlogText.prototype, "blogTextId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, typeorm_1.Column)({ length: 850 }),
+    (0, typeorm_1.Column)({ type: 'text' }),
     __metadata("design:type", String)
 ], BlogText.prototype, "text", void 0);
 __decorate([

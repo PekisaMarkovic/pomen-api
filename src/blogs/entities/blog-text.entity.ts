@@ -15,7 +15,7 @@ export class BlogText {
   blogTextId: number;
 
   @ApiProperty()
-  @Column({ length: 850 })
+  @Column({ type: 'text' })
   text: string;
 
   @ApiProperty()
