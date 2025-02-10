@@ -11091,7 +11091,6 @@ const app_module_1 = __webpack_require__(4);
 const bodyParser = __webpack_require__(176);
 const common_1 = __webpack_require__(5);
 const config_1 = __webpack_require__(6);
-const fs = __webpack_require__(26);
 async function bootstrap() {
     const baseUrl = 'api';
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
@@ -11102,7 +11101,7 @@ async function bootstrap() {
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Pomen API')
         .setDescription('Our API provides a seamless way to create and manage memorial profiles. It allows developers to integrate features for storing and sharing memories, uploading photos and videos, and locating memorial sites. With built-in search functionality, users can easily find profiles by name and explore their biographies, family connections, and important life events. The API supports personalization options, including profile updates and interaction with guestbooks. Designed for scalability and ease of use, our API empowers developers to build meaningful experiences around preserving memories and honoring loved ones.')
-        .setBasePath(baseUrl)
+        .addServer(`/${baseUrl}`)
         .setVersion('1.0')
         .addBearerAuth({
         type: 'http',
@@ -11113,7 +11112,7 @@ async function bootstrap() {
     app.setGlobalPrefix(baseUrl);
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup(baseUrl, app, document);
-    fs.writeFileSync('./swagger.json', JSON.stringify(document, null, 2));
+    app.getHttpAdapter().get('/swagger.json', (_, res) => res.json(document));
     app.enableCors({
         origin: [dashboard, client],
         methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
@@ -11127,7 +11126,6 @@ async function bootstrap() {
         whitelist: true,
         forbidNonWhitelisted: true,
     }));
-    swagger_1.SwaggerModule.setup('swagger', app, document);
     await app.listen(port);
 }
 bootstrap();
