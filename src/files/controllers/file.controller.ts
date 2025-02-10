@@ -30,6 +30,7 @@ import { ConfigService } from '@nestjs/config';
 import { mappCloundleryToFile } from '@/files/utils/map';
 import { FileTypeEnum } from '@/files/enums/file-type.enum';
 import { Public } from '@/auth/decorators';
+import { File } from '@/files/entities/file.entity';
 
 @Controller('files')
 @ApiTags('Files')
