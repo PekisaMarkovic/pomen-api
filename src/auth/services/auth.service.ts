@@ -168,7 +168,7 @@ export class AuthService {
       email: user.email,
       sub: user.userId,
       roles: user.roles || [],
-      profileImage: user.profileImage || null,
+      profileImage: user.profileImage?.url || null,
       firstName: user.firstName,
       gender: user.gender,
       phoneNumber: user.phoneNumber,

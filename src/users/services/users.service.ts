@@ -165,6 +165,8 @@ export class UsersService {
       .createQueryBuilder('user')
       .where('user.email = :email', { email })
       .leftJoinAndSelect('user.roles', 'role')
+      .leftJoinAndSelect('user.profileImage', 'file')
+      .leftJoinAndSelect('user.roles', 'role')
       .leftJoinAndSelect('role.permissions', 'rolePermission')
       .leftJoinAndSelect('user.permissions', 'permission');
 
