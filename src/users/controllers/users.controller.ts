@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -10,6 +18,7 @@ import { ClientRoleEnums } from '@/auth/enums';
 import {
   CheckFirstTimeRegisterTokenValidDto,
   FirstTimeRegisterDto,
+  UpdateProfileDto,
 } from '@/users/dto';
 import { User } from '@/users/entities/user.entity';
 import { UsersService } from '@/users/services/users.service';
@@ -55,5 +64,19 @@ export class UsersController {
   })
   getProfile(@CurrentUser() user: User) {
     return user;
+  }
+
+  @Patch('/:email')
+  @ApiOperation({ summary: 'Update user profile' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the user.',
+    type: User,
+  })
+  patchUserProfile(
+    @Param('email') email: string,
+    @Body() dto: UpdateProfileDto,
+  ) {
+    return this.usersService.patchUserProfile(email, dto);
   }
 }

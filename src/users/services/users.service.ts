@@ -13,6 +13,7 @@ import {
   FirstTimeRegisterDto,
   RegisterUserDto,
   RegisterUserOptionsDto,
+  UpdateProfileDto,
 } from '@/users/dto';
 import { User } from '@/users/entities/user.entity';
 import { LoginUser } from '@/users/interface/user';
@@ -211,6 +212,28 @@ export class UsersService {
 
     user.roles = roles ?? user.roles;
     user.permissions = permissions ?? user.permissions;
+
+    return await this.userRepository.save(user);
+  }
+
+  /**
+   * Update a user
+   * @param email - The email of the user to update
+   * @param UpdateProfileDto - The data to update the user
+   * @returns The updated user
+   * @throws NotFoundException if the city/user is not found
+   *
+   */
+  async patchUserProfile(email: string, dto: UpdateProfileDto) {
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    Object.assign(user, dto);
+
+    user.updatedAt = new Date();
 
     return await this.userRepository.save(user);
   }

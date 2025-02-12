@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateFirstTimeRegisterUserDto {
   @ApiProperty()
@@ -38,4 +39,26 @@ export class FirstTimeRegisterDto {
   @ApiProperty()
   @IsEmail()
   email: string;
+}
+
+export class UpdateProfileDto {
+  @ApiProperty()
+  @IsString()
+  firstName: string;
+
+  @ApiProperty()
+  @IsString()
+  gender: string;
+
+  @ApiProperty()
+  @IsString()
+  lastName: string;
+
+  @IsNotEmpty()
+  @Transform(({ value }) => new Date(value))
+  dateOfBirth: Date;
+
+  @ApiProperty()
+  @IsString()
+  phoneNumber: string;
 }

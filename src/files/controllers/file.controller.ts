@@ -101,6 +101,25 @@ export class FileController {
     );
   }
 
+  @Post('/user-profile/:email')
+  @ApiOperation({ summary: 'Create a new file' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'The file has been successfully created.',
+    type: File,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throw exception if the certification is not found',
+    type: NotFoundException,
+  })
+  createUserProfileImage(
+    @Param('email') email: string,
+    @Body() createFileDto: CreateFileDto,
+  ) {
+    return this.fileService.createUserProfileImage(email, createFileDto);
+  }
+
   @Post('/blog-content/:blogContentId')
   @ApiOperation({ summary: 'Create a new file' })
   @ApiResponse({

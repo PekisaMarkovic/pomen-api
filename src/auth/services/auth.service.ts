@@ -170,6 +170,9 @@ export class AuthService {
       roles: user.roles || [],
       profileImage: user.profileImage || null,
       firstName: user.firstName,
+      gender: user.gender,
+      phoneNumber: user.phoneNumber,
+      dateOfBirth: user.dateOfBirth,
       lastName: user.lastName,
       expires: new Date().getTime() + 3600000,
     });

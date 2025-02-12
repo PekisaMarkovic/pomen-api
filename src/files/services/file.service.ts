@@ -6,6 +6,7 @@ import { Certificate } from '@/certificates/entities/certificate.entity';
 import { FileTypeEnum } from '@/files/enums/file-type.enum';
 import { CreateFileDto } from '@/files/dto';
 import { BlogContent } from '@/blogs/entities';
+import { User } from '@/users/entities/user.entity';
 
 @Injectable()
 export class FileService {
@@ -16,6 +17,8 @@ export class FileService {
     private readonly certificateRepository: Repository<Certificate>,
     @InjectRepository(BlogContent)
     private readonly blogContentRepository: Repository<BlogContent>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   /**
@@ -92,6 +95,41 @@ export class FileService {
     });
 
     await this.fileRepository.save(blogContentImage);
+  }
+
+  /**
+   * Create a new file
+   * @param email - The data to create a new File
+   * @param CreateFileDto - The data to create a new File
+   * @returns The created file
+   * @throws NotFoundException if the certification is not found
+   *
+   */
+  async createUserProfileImage(email: string, createImageDto: CreateFileDto) {
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    if (user.profileImage) {
+      await this.userRepository.save({
+        ...user,
+        profileImage: null,
+        profileImageId: null,
+      });
+
+      await this.removeImage(user.userId);
+    }
+
+    const userProfileImage = this.fileRepository.create({
+      ...createImageDto,
+      user,
+    });
+
+    await this.fileRepository.save(userProfileImage);
   }
 
   /**
