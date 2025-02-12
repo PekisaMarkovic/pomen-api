@@ -164,7 +164,6 @@ export class UsersService {
     const query = this.userRepository
       .createQueryBuilder('user')
       .where('user.email = :email', { email })
-      .leftJoinAndSelect('user.roles', 'role')
       .leftJoinAndSelect('user.profileImage', 'file')
       .leftJoinAndSelect('user.roles', 'role')
       .leftJoinAndSelect('role.permissions', 'rolePermission')
