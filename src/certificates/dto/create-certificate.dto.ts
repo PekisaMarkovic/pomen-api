@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 import { LocationPointDto } from '@/common/dto/location-point.dto';
 
 export class CreateCertificateDto {
@@ -107,6 +113,9 @@ export class CreateCertificateAndUserDto {
 
   @ApiProperty()
   @IsString()
+  @MinLength(250, {
+    message: 'Biography must be at least 250 characters long.',
+  })
   biography: string;
 
   @ApiProperty()
