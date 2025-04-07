@@ -26,7 +26,6 @@ async function bootstrap() {
     .setDescription(
       'Our API provides a seamless way to create and manage memorial profiles. It allows developers to integrate features for storing and sharing memories, uploading photos and videos, and locating memorial sites. With built-in search functionality, users can easily find profiles by name and explore their biographies, family connections, and important life events. The API supports personalization options, including profile updates and interaction with guestbooks. Designed for scalability and ease of use, our API empowers developers to build meaningful experiences around preserving memories and honoring loved ones.',
     )
-    .addServer(`/${baseUrl}`)
     .setVersion('1.0')
     .addBearerAuth(
       {
