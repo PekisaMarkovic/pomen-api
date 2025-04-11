@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Certificate } from '@/certificates/entities/certificate.entity';
-import { City } from '@/cities/entities/city.entity';
-import { pointTransformer } from '@/common/helpers';
+import { Certificate } from '../../certificates/entities/certificate.entity';
+import { City } from '../../cities/entities/city.entity';
+import { pointTransformer } from '../../common/helpers';
 import {
   Column,
   Entity,

@@ -37,7 +37,7 @@ importers:
         version: 7.4.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)
       '@nestjs/typeorm':
         specifier: ^10.0.2
-        version: 10.0.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typeorm@0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)))
+        version: 10.0.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typeorm@0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)))
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -56,6 +56,9 @@ importers:
       cloudinary:
         specifier: ^2.5.0
         version: 2.5.0
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       module-alias:
         specifier: ^2.2.3
         version: 2.2.3
@@ -67,7 +70,7 @@ importers:
         version: 0.1.6
       nestjs-typeorm-paginate:
         specifier: ^4.0.4
-        version: 4.0.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(typeorm@0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)))
+        version: 4.0.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(typeorm@0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)))
       nodemailer:
         specifier: ^6.9.15
         version: 6.9.15
@@ -81,13 +84,13 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       pg:
-        specifier: ^8.12.0
-        version: 8.13.0
+        specifier: ^8.14.1
+        version: 8.14.1
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
       reflect-metadata:
-        specifier: ^0.2.0
+        specifier: ^0.2.2
         version: 0.2.2
       rxjs:
         specifier: ^7.8.1
@@ -96,8 +99,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1(express@4.21.0)
       typeorm:
-        specifier: ^0.3.20
-        version: 0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+        specifier: 0.3.22
+        version: 0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
     devDependencies:
       '@nestjs/cli':
         specifier: ^10.0.0
@@ -172,8 +175,11 @@ importers:
         specifier: ^9.4.3
         version: 9.5.1(typescript@5.6.2)(webpack@5.94.0)
       ts-node:
-        specifier: ^10.9.1
+        specifier: ^10.9.2
         version: 10.9.2(@types/node@20.16.10)(typescript@5.6.2)
+      typeorm-ts-node-commonjs:
+        specifier: ^0.3.20
+        version: 0.3.20
       typescript:
         specifier: ^5.1.3
         version: 5.6.2
@@ -1030,8 +1036,9 @@ packages:
     resolution: {integrity: sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==}
     engines: {node: '>=12'}
 
-  any-promise@1.3.0:
-    resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
+  ansis@3.17.0:
+    resolution: {integrity: sha512-0qWUglt9JEqLFr3w1I1pbrChn1grhaiAR2ocX1PP/flRmxgtwTzPFFFnfIlD6aMOLQZgSuCRlidD70lvx8yhzg==}
+    engines: {node: '>=14'}
 
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
@@ -1227,11 +1234,6 @@ packages:
     resolution: {integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==}
     engines: {node: '>=8'}
 
-  cli-highlight@2.1.11:
-    resolution: {integrity: sha512-9KDcoEVwyUXrjcJNvHD0NFc/hiwe/WPVYIleQh2O1N2Zro5gWJZ/K+3DGn8w8P/F6FxOgzyC5bxDyHIgCSPhGg==}
-    engines: {node: '>=8.0.0', npm: '>=5.0.0'}
-    hasBin: true
-
   cli-spinners@2.9.2:
     resolution: {integrity: sha512-ywqV+5MmyL4E7ybXgKys4DugZbX0FC6LnwrhjuykIjnK9k8OQacQ7axGKnjDXWNhns0xot3bZI5h55H8yo9cJg==}
     engines: {node: '>=6'}
@@ -1253,9 +1255,6 @@ packages:
 
   cliui@6.0.0:
     resolution: {integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==}
-
-  cliui@7.0.4:
-    resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
 
   cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
@@ -1399,6 +1398,15 @@ packages:
       supports-color:
         optional: true
 
+  debug@4.4.0:
+    resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
   decamelize@1.2.0:
     resolution: {integrity: sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==}
     engines: {node: '>=0.10.0'}
@@ -1465,6 +1473,10 @@ packages:
 
   dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
+
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
 
   eastasianwidth@0.2.0:
@@ -1792,6 +1804,10 @@ packages:
     engines: {node: '>=16 || 14 >=14.18'}
     hasBin: true
 
+  glob@10.4.5:
+    resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    hasBin: true
+
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
     deprecated: Glob versions prior to v9 are no longer supported
@@ -1843,9 +1859,6 @@ packages:
   hexoid@1.0.0:
     resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}
     engines: {node: '>=8'}
-
-  highlight.js@10.7.3:
-    resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
 
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
@@ -2372,11 +2385,6 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
-  mkdirp@2.1.6:
-    resolution: {integrity: sha512-+hEnITedc8LAtIP9u3HJDFIdcLV2vXP33sqLLIzkv1Db1zO/1OxbvYf0Y1OC/S/Qo5dxHXepofhmxL02PsKe+A==}
-    engines: {node: '>=10'}
-    hasBin: true
-
   module-alias@2.2.3:
     resolution: {integrity: sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==}
 
@@ -2404,9 +2412,6 @@ packages:
   mute-stream@1.0.0:
     resolution: {integrity: sha512-avsJQhyd+680gKXyG/sQc0nXaC6rBkPOfyHYcFb9+hdkqQkR9bdnkJ0AMZhke0oesPqIO+mFFJ+IdBc7mst4IA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-
-  mz@2.7.0:
-    resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
@@ -2529,15 +2534,6 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
 
-  parse5-htmlparser2-tree-adapter@6.0.1:
-    resolution: {integrity: sha512-qPuWvbLgvDGilKc5BoicRovlT4MtYT6JfJyBOMDsKoiT+GiuP5qyrPCnR9HcPECIJJmZh5jRndyNThnhhb/vlA==}
-
-  parse5@5.1.1:
-    resolution: {integrity: sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==}
-
-  parse5@6.0.1:
-    resolution: {integrity: sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==}
-
   parseurl@1.3.3:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
     engines: {node: '>= 0.8'}
@@ -2603,20 +2599,20 @@ packages:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
 
-  pg-pool@3.7.0:
-    resolution: {integrity: sha512-ZOBQForurqh4zZWjrgSwwAtzJ7QiRX0ovFkZr2klsen3Nm0aoh33Ls0fzfv3imeH/nw/O27cjdz5kzYJfeGp/g==}
+  pg-pool@3.8.0:
+    resolution: {integrity: sha512-VBw3jiVm6ZOdLBTIcXLNdSotb6Iy3uOCwDGFAksZCXmi10nyRvnP2v3jl4d+IsLYRyXf6o9hIm/ZtUzlByNUdw==}
     peerDependencies:
       pg: '>=8.0'
 
-  pg-protocol@1.7.0:
-    resolution: {integrity: sha512-hTK/mE36i8fDDhgDFjy6xNOG+LCorxLG3WO17tku+ij6sVHXh1jQUJ8hYAnRhNla4QVD2H8er/FOjc/+EgC6yQ==}
+  pg-protocol@1.8.0:
+    resolution: {integrity: sha512-jvuYlEkL03NRvOoyoRktBK7+qU5kOvlAwvmrH8sr3wbLrOdVWsRxQfz8mMy9sZFsqJ1hEWNfdWKI4SAmoL+j7g==}
 
   pg-types@2.2.0:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
     engines: {node: '>=4'}
 
-  pg@8.13.0:
-    resolution: {integrity: sha512-34wkUTh3SxTClfoHB3pQ7bIMvw9dpFU1audQQeZG837fmHfHpr14n/AELVDoOYVDW2h5RDWU78tFjkD+erSBsw==}
+  pg@8.14.1:
+    resolution: {integrity: sha512-0TdbqfjwIun9Fm/r89oB7RFQ0bLgduAhiIqIXOsyKoiC/L54DbuAAzIEN/9Op0f1Po9X7iCPXGoa/Ah+2aI8Xw==}
     engines: {node: '>= 8.0.0'}
     peerDependencies:
       pg-native: '>=3.0.1'
@@ -2927,6 +2923,10 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
+  sql-highlight@6.0.0:
+    resolution: {integrity: sha512-+fLpbAbWkQ+d0JEchJT/NrRRXbYRNbG15gFpANx73EwxQB1PRjj+k/OI0GTU0J63g8ikGkJECQp9z8XEJZvPRw==}
+    engines: {node: '>=14'}
+
   stack-trace@0.0.10:
     resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}
 
@@ -3068,13 +3068,6 @@ packages:
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
 
-  thenify-all@1.6.0:
-    resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
-    engines: {node: '>=0.8'}
-
-  thenify@3.3.1:
-    resolution: {integrity: sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==}
-
   through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
 
@@ -3174,6 +3167,9 @@ packages:
   tslib@2.7.0:
     resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
 
+  tslib@2.8.1:
+    resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -3197,28 +3193,33 @@ packages:
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
-  typeorm@0.3.20:
-    resolution: {integrity: sha512-sJ0T08dV5eoZroaq9uPKBoNcGslHBR4E4y+EBHs//SiGbblGe7IeduP/IH4ddCcj0qp3PHwDwGnuvqEAnKlq/Q==}
+  typeorm-ts-node-commonjs@0.3.20:
+    resolution: {integrity: sha512-lXjve7w7OcF3s5+dHnCsrBjUTukpVeiS0bDe5KDXWcDx8TyRW0GTTg9kjWgHzFgHgBIBBu4WGXM0iuGpEgaV9g==}
+    hasBin: true
+
+  typeorm@0.3.22:
+    resolution: {integrity: sha512-P/Tsz3UpJ9+K0oryC0twK5PO27zejLYYwMsE8SISfZc1lVHX+ajigiOyWsKbuXpEFMjD9z7UjLzY3+ElVOMMDA==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     peerDependencies:
-      '@google-cloud/spanner': ^5.18.0
+      '@google-cloud/spanner': ^5.18.0 || ^6.0.0 || ^7.0.0
       '@sap/hana-client': ^2.12.25
-      better-sqlite3: ^7.1.2 || ^8.0.0 || ^9.0.0
+      better-sqlite3: ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0
       hdb-pool: ^0.1.6
       ioredis: ^5.0.4
-      mongodb: ^5.8.0
-      mssql: ^9.1.1 || ^10.0.1
+      mongodb: ^5.8.0 || ^6.0.0
+      mssql: ^9.1.1 || ^10.0.1 || ^11.0.1
       mysql2: ^2.2.5 || ^3.0.1
       oracledb: ^6.3.0
       pg: ^8.5.1
       pg-native: ^3.0.0
       pg-query-stream: ^4.0.0
       redis: ^3.1.1 || ^4.0.0
+      reflect-metadata: ^0.1.14 || ^0.2.0
       sql.js: ^1.4.0
       sqlite3: ^5.0.3
       ts-node: ^10.7.0
-      typeorm-aurora-data-api-driver: ^2.0.0
+      typeorm-aurora-data-api-driver: ^2.0.0 || ^3.0.0
     peerDependenciesMeta:
       '@google-cloud/spanner':
         optional: true
@@ -3299,6 +3300,10 @@ packages:
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
@@ -3422,10 +3427,6 @@ packages:
     resolution: {integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==}
     engines: {node: '>=6'}
 
-  yargs-parser@20.2.9:
-    resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
-    engines: {node: '>=10'}
-
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
@@ -3436,10 +3437,6 @@ packages:
   yargs@15.4.1:
     resolution: {integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==}
     engines: {node: '>=8'}
-
-  yargs@16.2.0:
-    resolution: {integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==}
-    engines: {node: '>=10'}
 
   yargs@17.7.2:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
@@ -4100,13 +4097,13 @@ snapshots:
     optionalDependencies:
       '@nestjs/platform-express': 10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4)
 
-  '@nestjs/typeorm@10.0.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typeorm@0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)))':
+  '@nestjs/typeorm@10.0.2(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typeorm@0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)))':
     dependencies:
       '@nestjs/common': 10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 10.4.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/platform-express@10.4.4)(reflect-metadata@0.2.2)(rxjs@7.8.1)
       reflect-metadata: 0.2.2
       rxjs: 7.8.1
-      typeorm: 0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+      typeorm: 0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
       uuid: 9.0.1
 
   '@nodelib/fs.scandir@2.1.5':
@@ -4560,7 +4557,7 @@ snapshots:
 
   ansi-styles@6.2.1: {}
 
-  any-promise@1.3.0: {}
+  ansis@3.17.0: {}
 
   anymatch@3.1.3:
     dependencies:
@@ -4806,15 +4803,6 @@ snapshots:
     dependencies:
       restore-cursor: 3.1.0
 
-  cli-highlight@2.1.11:
-    dependencies:
-      chalk: 4.1.2
-      highlight.js: 10.7.3
-      mz: 2.7.0
-      parse5: 5.1.1
-      parse5-htmlparser2-tree-adapter: 6.0.1
-      yargs: 16.2.0
-
   cli-spinners@2.9.2: {}
 
   cli-table3@0.6.5:
@@ -4838,12 +4826,6 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
-
-  cliui@7.0.4:
-    dependencies:
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      wrap-ansi: 7.0.0
 
   cliui@8.0.1:
     dependencies:
@@ -4983,6 +4965,10 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
+  debug@4.4.0:
+    dependencies:
+      ms: 2.1.3
+
   decamelize@1.2.0: {}
 
   dedent@1.5.3: {}
@@ -5027,6 +5013,8 @@ snapshots:
   dotenv-expand@10.0.0: {}
 
   dotenv@16.4.5: {}
+
+  dotenv@16.4.7: {}
 
   eastasianwidth@0.2.0: {}
 
@@ -5411,6 +5399,15 @@ snapshots:
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
 
+  glob@10.4.5:
+    dependencies:
+      foreground-child: 3.3.0
+      jackspeak: 3.4.3
+      minimatch: 9.0.5
+      minipass: 7.1.2
+      package-json-from-dist: 1.0.1
+      path-scurry: 1.11.1
+
   glob@7.2.3:
     dependencies:
       fs.realpath: 1.0.0
@@ -5453,8 +5450,6 @@ snapshots:
       function-bind: 1.1.2
 
   hexoid@1.0.0: {}
-
-  highlight.js@10.7.3: {}
 
   html-escaper@2.0.2: {}
 
@@ -6155,8 +6150,6 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
-  mkdirp@2.1.6: {}
-
   module-alias@2.2.3: {}
 
   moo-server@1.3.0: {}
@@ -6189,12 +6182,6 @@ snapshots:
 
   mute-stream@1.0.0: {}
 
-  mz@2.7.0:
-    dependencies:
-      any-promise: 1.3.0
-      object-assign: 4.1.1
-      thenify-all: 1.6.0
-
   natural-compare@1.4.0: {}
 
   negotiator@0.6.3: {}
@@ -6203,10 +6190,10 @@ snapshots:
 
   nest@0.1.6: {}
 
-  nestjs-typeorm-paginate@4.0.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(typeorm@0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))):
+  nestjs-typeorm-paginate@4.0.4(@nestjs/common@10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1))(typeorm@0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))):
     dependencies:
       '@nestjs/common': 10.4.4(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.1)
-      typeorm: 0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
+      typeorm: 0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2))
 
   node-abort-controller@3.1.1: {}
 
@@ -6308,14 +6295,6 @@ snapshots:
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
 
-  parse5-htmlparser2-tree-adapter@6.0.1:
-    dependencies:
-      parse5: 6.0.1
-
-  parse5@5.1.1: {}
-
-  parse5@6.0.1: {}
-
   parseurl@1.3.3: {}
 
   passport-jwt@4.0.1:
@@ -6365,11 +6344,11 @@ snapshots:
 
   pg-int8@1.0.1: {}
 
-  pg-pool@3.7.0(pg@8.13.0):
+  pg-pool@3.8.0(pg@8.14.1):
     dependencies:
-      pg: 8.13.0
+      pg: 8.14.1
 
-  pg-protocol@1.7.0: {}
+  pg-protocol@1.8.0: {}
 
   pg-types@2.2.0:
     dependencies:
@@ -6379,11 +6358,11 @@ snapshots:
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
 
-  pg@8.13.0:
+  pg@8.14.1:
     dependencies:
       pg-connection-string: 2.7.0
-      pg-pool: 3.7.0(pg@8.13.0)
-      pg-protocol: 1.7.0
+      pg-pool: 3.8.0(pg@8.14.1)
+      pg-protocol: 1.8.0
       pg-types: 2.2.0
       pgpass: 1.0.5
     optionalDependencies:
@@ -6669,6 +6648,8 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
+  sql-highlight@6.0.0: {}
+
   stack-trace@0.0.10: {}
 
   stack-utils@2.0.6:
@@ -6807,14 +6788,6 @@ snapshots:
 
   text-table@0.2.0: {}
 
-  thenify-all@1.6.0:
-    dependencies:
-      thenify: 3.3.1
-
-  thenify@3.3.1:
-    dependencies:
-      any-promise: 1.3.0
-
   through@2.3.8: {}
 
   timespan@2.3.0: {}
@@ -6904,6 +6877,8 @@ snapshots:
 
   tslib@2.7.0: {}
 
+  tslib@2.8.1: {}
+
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
@@ -6921,25 +6896,26 @@ snapshots:
 
   typedarray@0.0.6: {}
 
-  typeorm@0.3.20(pg@8.13.0)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
+  typeorm-ts-node-commonjs@0.3.20: {}
+
+  typeorm@0.3.22(pg@8.14.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.16.10)(typescript@5.6.2)):
     dependencies:
       '@sqltools/formatter': 1.2.5
+      ansis: 3.17.0
       app-root-path: 3.1.0
       buffer: 6.0.3
-      chalk: 4.1.2
-      cli-highlight: 2.1.11
       dayjs: 1.11.13
-      debug: 4.3.7
-      dotenv: 16.4.5
-      glob: 10.4.2
-      mkdirp: 2.1.6
+      debug: 4.4.0
+      dotenv: 16.4.7
+      glob: 10.4.5
       reflect-metadata: 0.2.2
       sha.js: 2.4.11
-      tslib: 2.7.0
-      uuid: 9.0.1
+      sql-highlight: 6.0.0
+      tslib: 2.8.1
+      uuid: 11.1.0
       yargs: 17.7.2
     optionalDependencies:
-      pg: 8.13.0
+      pg: 8.14.1
       ts-node: 10.9.2(@types/node@20.16.10)(typescript@5.6.2)
     transitivePeerDependencies:
       - supports-color
@@ -6973,6 +6949,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   utils-merge@1.0.1: {}
+
+  uuid@11.1.0: {}
 
   uuid@9.0.1: {}
 
@@ -7121,8 +7099,6 @@ snapshots:
       camelcase: 5.3.1
       decamelize: 1.2.0
 
-  yargs-parser@20.2.9: {}
-
   yargs-parser@21.1.1: {}
 
   yargs@13.3.2:
@@ -7151,16 +7127,6 @@ snapshots:
       which-module: 2.0.1
       y18n: 4.0.3
       yargs-parser: 18.1.3
-
-  yargs@16.2.0:
-    dependencies:
-      cliui: 7.0.4
-      escalade: 3.2.0
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.3
-      y18n: 5.0.8
-      yargs-parser: 20.2.9
 
   yargs@17.7.2:
     dependencies:

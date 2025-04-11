@@ -24,6 +24,7 @@ import {
   UpdateCertificateDto,
   SearchCertificateDto,
   DropdownCertificateDto,
+  UpdateCertificateStatusDto,
 } from '@/certificates/dto';
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { CertificatesService } from '@/certificates/services/certificates.service';
@@ -195,6 +196,28 @@ export class CertificatesController {
     @Body() updateCertificateDto: UpdateCertificateDto,
   ) {
     return this.certificatesService.updateCertificate(id, updateCertificateDto);
+  }
+
+  @Patch('/status/:id')
+  @ApiOperation({ summary: 'Update a certificate with id' })
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'Return the certificate.',
+    type: Certificate,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throws exception if certificate/cemetery is not found.',
+    type: NotFoundException,
+  })
+  updateCertificateStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateCertificateStatusDto: UpdateCertificateStatusDto,
+  ) {
+    return this.certificatesService.updateCertificateStatus(
+      id,
+      updateCertificateStatusDto.status,
+    );
   }
 
   @Delete('/:id')

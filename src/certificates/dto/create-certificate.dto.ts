@@ -55,6 +55,10 @@ export class CreateCertificateDto {
 
   @ApiProperty()
   @IsNumber()
+  pricingId: number;
+
+  @ApiProperty()
+  @IsNumber()
   userId: number;
 }
 
@@ -121,6 +125,10 @@ export class CreateCertificateAndUserDto {
   @ApiProperty()
   @IsNumber()
   cemeteryId: number;
+
+  @ApiProperty()
+  @IsNumber()
+  pricingId: number;
 
   @IsOptional()
   @ApiProperty()

@@ -17,8 +17,8 @@ import {
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { slugify } from '@/common/helpers';
-import { BlogContentTypeEnum } from '@/blogs/enums/blog-content-type';
+import { slugify } from '../../common/helpers';
+import { BlogContentTypeEnum } from '../../blogs/enums/blog-content-type';
 
 @Injectable()
 export class BlogsService {

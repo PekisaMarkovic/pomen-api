@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Certificate } from '@/certificates/entities/certificate.entity';
+import { Certificate } from '../../certificates/entities/certificate.entity';
 import {
   Column,
   Entity,

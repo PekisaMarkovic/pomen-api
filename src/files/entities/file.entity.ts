@@ -1,4 +1,4 @@
-import { User } from '@/users/entities/user.entity';
+import { User } from '../../users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -7,10 +7,10 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { FileTypeEnum } from '@/files/enums/file-type.enum';
-import { Certificate } from '@/certificates/entities/certificate.entity';
+import { FileTypeEnum } from '../../files/enums/file-type.enum';
+import { Certificate } from '../../certificates/entities/certificate.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { BlogContent } from '@/blogs/entities';
+import { BlogContent } from '../../blogs/entities';
 
 @Entity({ name: 'files' })
 export class File {

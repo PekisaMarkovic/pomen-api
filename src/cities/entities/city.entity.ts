@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Cemetery } from '@/cemeteries/entities/cementery.entity';
-import { Country } from '@/countries/entities/country.entity';
-import { Order } from '@/orders/entities/order.entity';
+import { Cemetery } from '../../cemeteries/entities/cementery.entity';
+import { Country } from '../../countries/entities/country.entity';
+import { Order } from '../../orders/entities/order.entity';
 import {
   Column,
   Entity,

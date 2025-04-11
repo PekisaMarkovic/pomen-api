@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { BlogContent } from '@/blogs/entities/blog-content.entity';
+import { BlogContent } from '../../blogs/entities/blog-content.entity';
 
 @Entity({ name: 'blogs' })
 export class Blog {

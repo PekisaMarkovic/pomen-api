@@ -8,10 +8,10 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BlogText } from '@/blogs/entities/blog-text.entity';
-import { BlogContentTypeEnum } from '@/blogs/enums/blog-content-type';
-import { Blog } from '@/blogs/entities/blog.entity';
-import { File } from '@/files/entities/file.entity';
+import { BlogText } from '../../blogs/entities/blog-text.entity';
+import { BlogContentTypeEnum } from '../../blogs/enums/blog-content-type';
+import { Blog } from '../../blogs/entities/blog.entity';
+import { File } from '../../files/entities/file.entity';
 
 @Entity({ name: 'blog-content' })
 export class BlogContent {

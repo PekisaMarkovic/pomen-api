@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BlogContent } from '@/blogs/entities/blog-content.entity';
+import { BlogContent } from '../../blogs/entities/blog-content.entity';
 
 @Entity({ name: 'blogs-text' })
 export class BlogText {

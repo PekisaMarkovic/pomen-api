@@ -29,6 +29,7 @@ import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import * as qr from 'qrcode';
 import { formatDateYearMonthDay } from '@/common/utils';
 import { Nullable } from '@/common/interface';
+import { CertificateStatusEnums } from '../enums';
 
 @Injectable()
 export class CertificatesService {
@@ -243,6 +244,32 @@ export class CertificatesService {
 
     certificate.cemetery = cemetery;
 
+    certificate.updatedAt = new Date();
+
+    return this.certificateRepository.save(certificate);
+  }
+
+  /**
+   * Update a certificate status
+   * @param certificateId - The id of the certificate to update
+   * @param status - The data to update the certificate status
+   * @returns The updated certificate
+   * @throws NotFoundException if the certificate/cemetery is not found
+   *
+   */
+  async updateCertificateStatus(
+    certificateId: number,
+    status: CertificateStatusEnums,
+  ) {
+    const certificate = await this.certificateRepository.findOne({
+      where: { certificateId, deletedAt: null },
+    });
+
+    if (!certificate) {
+      throw new NotFoundException();
+    }
+
+    certificate.status = status;
     certificate.updatedAt = new Date();
 
     return this.certificateRepository.save(certificate);

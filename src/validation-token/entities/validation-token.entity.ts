@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
+import { ValidationTokenTypeEnums } from '../../validation-token/enums/VerificationTokenType';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('validation_tokens')

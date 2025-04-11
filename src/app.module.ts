@@ -34,6 +34,8 @@ import { Contact } from '@/contacts/entities/contact.entity';
 import { ValidationToken } from '@/validation-token/entities/validation-token.entity';
 import { Blog, BlogContent, BlogText } from '@/blogs/entities';
 import { BlogsModule } from '@/blogs/blogs.module';
+import { PricingsModule } from '@/pricings/pricings.module';
+import { Pricing } from '@/pricings/entities/pricing.entity';
 
 @Module({
   imports: [
@@ -66,6 +68,7 @@ import { BlogsModule } from '@/blogs/blogs.module';
           Blog,
           BlogContent,
           BlogText,
+          Pricing,
         ],
         synchronize: true,
       }),
@@ -86,6 +89,7 @@ import { BlogsModule } from '@/blogs/blogs.module';
     SeederModule,
     ContactsModule,
     BlogsModule,
+    PricingsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },

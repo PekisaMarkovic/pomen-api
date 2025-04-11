@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Cemetery } from '@/cemeteries/entities/cementery.entity';
-import { pointTransformer } from '@/common/helpers';
-import { File } from '@/files/entities/file.entity';
-import { Gethering } from '@/getherings/entities/gethering.entity';
-import { Order } from '@/orders/entities/order.entity';
-import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
-import { Tribute } from '@/tributes/entities/tribute.entity';
-import { User } from '@/users/entities/user.entity';
+import { Cemetery } from '../../cemeteries/entities/cementery.entity';
+import { pointTransformer } from '../../common/helpers';
+import { File } from '../../files/entities/file.entity';
+import { Gethering } from '../../getherings/entities/gethering.entity';
+import { Order } from '../../orders/entities/order.entity';
+import { Qrcode } from '../../qrcodes/entities/qrcode.entity';
+import { Tribute } from '../../tributes/entities/tribute.entity';
+import { User } from '../../users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -16,6 +16,9 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Pricing } from '../../pricings/entities/pricing.entity';
+import { Length } from 'class-validator';
+import { CertificateStatusEnums } from '../../certificates/enums';
 
 @Entity({ name: 'certificate' })
 export class Certificate {
@@ -61,7 +64,17 @@ export class Certificate {
 
   @ApiProperty()
   @Column({ type: 'text' })
+  @Length(250, 3000, {
+    message: 'Biography must be between 250 and 3000 characters.',
+  })
   biography: string;
+
+  @Column({
+    type: 'enum',
+    enum: CertificateStatusEnums,
+    default: CertificateStatusEnums.DRAFT,
+  })
+  status: CertificateStatusEnums;
 
   @ApiProperty()
   @Column({ type: 'point', transformer: pointTransformer })
@@ -87,6 +100,15 @@ export class Certificate {
   @ManyToOne(() => Cemetery, (cemetery) => cemetery.certificates)
   @JoinColumn({ name: 'cemetery_id' })
   cemetery: Cemetery;
+
+  @ApiProperty()
+  @Column({ name: 'pricing_id', nullable: true })
+  pricingId: number;
+
+  @ApiProperty({ type: () => Pricing })
+  @ManyToOne(() => Pricing, (pricing) => pricing.certificates)
+  @JoinColumn({ name: 'pricing_id' })
+  pricing: Pricing;
 
   @ApiProperty()
   @Column({ name: 'user_id' })

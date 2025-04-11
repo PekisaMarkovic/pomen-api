@@ -1,24 +1,18 @@
+import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   IPaginationOptions,
   paginate,
   Pagination,
 } from 'nestjs-typeorm-paginate';
-import { Certificate } from '@/certificates/entities/certificate.entity';
 import { Repository } from 'typeorm';
-import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 
 @Injectable()
 export class QrcodeService {
   constructor(
     @InjectRepository(Qrcode)
     private readonly qrcodeRepository: Repository<Qrcode>,
-    @InjectRepository(Certificate)
-    private readonly certificateRepository: Repository<Certificate>,
-
-    private readonly configService: ConfigService,
   ) {}
 
   /**
