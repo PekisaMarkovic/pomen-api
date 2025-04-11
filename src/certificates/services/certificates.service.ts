@@ -93,6 +93,7 @@ export class CertificatesService {
     lastName?: string,
     cemeteryId?: number,
     cityId?: number,
+    status?: CertificateStatusEnums,
   ): Promise<Pagination<Certificate>> {
     const query = this.certificateRepository
       .createQueryBuilder('certificate')
@@ -109,6 +110,10 @@ export class CertificatesService {
 
     if (cityId) {
       query.andWhere('cemetery.cityId = :cityId', { cityId });
+    }
+
+    if (status) {
+      query.andWhere('certificate.status = :status', { status });
     }
 
     if (lastName) {

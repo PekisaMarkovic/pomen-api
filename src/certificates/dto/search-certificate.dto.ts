@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
+import { CertificateStatusEnums } from '@/certificates/enums';
 
 export class SearchCertificateDto {
   @ApiProperty()
@@ -29,4 +30,17 @@ export class SearchCertificateDto {
   @IsString()
   @IsOptional()
   lastName: string;
+
+  @ApiProperty({
+    enum: CertificateStatusEnums,
+    enumName: 'CertificateStatusEnums',
+    description:
+      'Status must be one of the following: draft, completed, suspended, published',
+  })
+  @IsOptional()
+  @IsEnum(CertificateStatusEnums, {
+    message:
+      'Status must be one of the following: draft, completed, suspended, published',
+  })
+  status: CertificateStatusEnums;
 }

@@ -113,6 +113,7 @@ export class CertificatesController {
       restSearchCertificateDto.lastName,
       restSearchCertificateDto.cemeteryId,
       restSearchCertificateDto.cityId,
+      restSearchCertificateDto.status,
     );
   }
 
