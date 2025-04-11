@@ -13,6 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Order } from '@/orders/entities/order.entity';
 import { City } from '@/cities/entities/city.entity';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
+import { Pricing } from '@/pricings/entities/pricing.entity';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
       Order,
       City,
       Qrcode,
+      Pricing,
     ]),
     MailerModule,
     ValidationTokenModule,

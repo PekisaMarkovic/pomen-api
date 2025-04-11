@@ -19,6 +19,7 @@ export class MailerService {
         pass: this.configService.get('MAIL_PASSWORD'),
       },
     });
+
     return transporeter;
   }
 
@@ -30,7 +31,7 @@ export class MailerService {
 
   private async readHtmlTemplate(name: string) {
     try {
-      const filePath = path.join(__dirname, '..', 'templates', name);
+      const filePath = path.join(__dirname, '..', 'src/mailer/templates', name);
       const data = await fs.readFile(filePath, 'utf-8');
       return data;
     } catch (error) {

@@ -58,6 +58,10 @@ export class UpdateCertificateDto {
   @IsNumber()
   @ApiProperty()
   cityId: number;
+
+  @ApiProperty()
+  @IsNumber()
+  pricingId: number;
 }
 
 export class UpdateCertificateStatusDto {

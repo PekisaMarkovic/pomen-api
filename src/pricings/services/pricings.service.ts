@@ -7,7 +7,11 @@ import {
   Pagination,
 } from 'nestjs-typeorm-paginate';
 import { Repository } from 'typeorm';
-import { UpdatePricingDto, CreatePricingDto } from '@/pricings/dto';
+import {
+  UpdatePricingDto,
+  CreatePricingDto,
+  DropdownPricingDto,
+} from '@/pricings/dto';
 
 @Injectable()
 export class PricingsService {
@@ -100,6 +104,18 @@ export class PricingsService {
     return this.createPricingPlanPackage({
       price: updatePricingDto.price,
       plan: pricingPlan.plan,
+    });
+  }
+
+  /**
+   * Find all pricing options
+   * @returns The pricing options
+   *
+   */
+  getPricingsOptions(): Promise<DropdownPricingDto[]> {
+    return this.pricingPlanRepository.find({
+      where: { deletedAt: null },
+      select: ['pricingId', 'plan', 'price'],
     });
   }
 

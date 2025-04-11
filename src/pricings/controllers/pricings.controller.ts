@@ -17,6 +17,7 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Pricing } from '@/pricings/entities/pricing.entity';
 import { CreatePricingDto, UpdatePricingDto } from '@/pricings/dto';
 import { Public } from '@/auth/decorators';
+import { DropdownPricingDto } from '../dto/dropdown-pricing.dto';
 
 @Controller('pricings')
 export class PricingsController {
@@ -51,6 +52,18 @@ export class PricingsController {
       page,
       limit,
     });
+  }
+
+  @Public()
+  @Get('/options')
+  @ApiOperation({ summary: 'Get all pricings options' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the options.',
+    type: [DropdownPricingDto],
+  })
+  getPricingsOptions() {
+    return this.pricingsService.getPricingsOptions();
   }
 
   @Public()

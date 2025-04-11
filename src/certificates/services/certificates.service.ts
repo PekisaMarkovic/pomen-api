@@ -30,6 +30,7 @@ import * as qr from 'qrcode';
 import { formatDateYearMonthDay } from '@/common/utils';
 import { Nullable } from '@/common/interface';
 import { CertificateStatusEnums } from '../enums';
+import { Pricing } from '@/pricings/entities/pricing.entity';
 
 @Injectable()
 export class CertificatesService {
@@ -48,6 +49,8 @@ export class CertificatesService {
     private readonly orderRepository: Repository<Order>,
     @InjectRepository(Qrcode)
     private readonly qrcodeRepository: Repository<Qrcode>,
+    @InjectRepository(Pricing)
+    private readonly pricingRepository: Repository<Pricing>,
 
     private readonly mailerService: MailerService,
     private readonly validationTokenService: ValidationTokenService,
@@ -67,6 +70,7 @@ export class CertificatesService {
     const query = this.certificateRepository
       .createQueryBuilder('certificate')
       .where('certificate.deleted_at IS NULL')
+      .leftJoinAndSelect('certificate.pricing', 'pricing')
       .leftJoinAndSelect('certificate.profileImage', 'file')
       .leftJoinAndSelect('certificate.cemetery', 'cemetery');
 
@@ -125,7 +129,14 @@ export class CertificatesService {
   getCertificatesBycemeteryId(cemeteryId: number): Promise<Certificate[]> {
     return this.certificateRepository.find({
       where: { cemeteryId, deletedAt: null },
-      relations: ['user', 'qrcode', 'getherings', 'tributes', 'profileImage'],
+      relations: [
+        'user',
+        'qrcode',
+        'getherings',
+        'pricing',
+        'tributes',
+        'profileImage',
+      ],
     });
   }
 
@@ -143,6 +154,7 @@ export class CertificatesService {
         'user',
         'qrcode',
         'getherings',
+        'pricing',
         'tributes',
         'cemetery',
         'profileImage',
@@ -195,6 +207,7 @@ export class CertificatesService {
     const certificate = await this.certificateRepository
       .createQueryBuilder('certificate')
       .leftJoinAndSelect('certificate.user', 'user')
+      .leftJoinAndSelect('certificate.pricing', 'pricing')
       .leftJoinAndSelect('certificate.qrcode', 'qrcode')
       .leftJoinAndSelect('certificate.getherings', 'getherings')
       .leftJoinAndSelect('certificate.tributes', 'tributes')
@@ -240,10 +253,18 @@ export class CertificatesService {
       throw new NotFoundException();
     }
 
+    const pricingPlan = await this.pricingRepository.findOne({
+      where: { pricingId: updateCertificateDto.pricingId },
+    });
+
+    if (!pricingPlan) {
+      throw new NotFoundException();
+    }
+
     Object.assign(certificate, updateCertificateDto);
 
     certificate.cemetery = cemetery;
-
+    certificate.pricing = pricingPlan;
     certificate.updatedAt = new Date();
 
     return this.certificateRepository.save(certificate);
@@ -293,6 +314,7 @@ export class CertificatesService {
       location,
       placeOfBirth,
       placeOfDeath,
+      pricingId,
       timeOfDeath,
       userId,
     } = createCertificateDto;
@@ -313,6 +335,14 @@ export class CertificatesService {
       throw new NotFoundException();
     }
 
+    const pricing = await this.pricingRepository.findOne({
+      where: { pricingId },
+    });
+
+    if (!pricing) {
+      throw new NotFoundException();
+    }
+
     const certificate = this.certificateRepository.create({
       biography,
       dateOfBirth,
@@ -323,6 +353,7 @@ export class CertificatesService {
       placeOfBirth,
       placeOfDeath,
       timeOfDeath,
+      pricing,
       cemetery,
       user,
     });
@@ -374,6 +405,7 @@ export class CertificatesService {
       emailNewUser,
       firstNameNewUser,
       lastNameNewUser,
+      pricingId,
       phoneNewUser,
       addressOrder,
     } = createCertificateDto;
@@ -424,6 +456,14 @@ export class CertificatesService {
       throw new NotFoundException();
     }
 
+    const pricing = await this.pricingRepository.findOne({
+      where: { pricingId },
+    });
+
+    if (!pricing) {
+      throw new NotFoundException();
+    }
+
     const slug = await this.generateSlug(
       `${firstName} ${lastName} ${formatDateYearMonthDay(dateOfBirth)} ${formatDateYearMonthDay(dateOfDeath)}`,
     );
@@ -440,6 +480,7 @@ export class CertificatesService {
       placeOfDeath,
       timeOfDeath,
       cemetery,
+      pricing,
       user,
     });
 
