@@ -22,7 +22,7 @@
     "migration:create": "pnpm run typeorm migration:create -d src/db/data-source.ts",
     "migration:run": "pnpm run typeorm migration:run -d src/db/data-source.ts",
     "migration:revert": "pnpm run typeorm migration:revert -d src/db/data-source.ts",
-    "migration:generate": "pnpm run typeorm migration:generate -p -d src/db/data-source.ts src/migrations/InitMigration"
+    "migration:generate": "pnpm run typeorm migration:generate -p -d src/db/data-source.ts src/migrations/migration"
   },
   "dependencies": {
     "@casl/ability": "^6.7.1",
