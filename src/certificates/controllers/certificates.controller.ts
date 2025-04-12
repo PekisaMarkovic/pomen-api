@@ -7,6 +7,7 @@ import {
   HttpStatus,
   NotFoundException,
   Param,
+  ParseEnumPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -29,6 +30,7 @@ import {
 import { Certificate } from '@/certificates/entities/certificate.entity';
 import { CertificatesService } from '@/certificates/services/certificates.service';
 import { Public } from '@/auth/decorators';
+import { CertificateStatusEnums } from '../enums';
 
 @Controller('certificates')
 @ApiTags('Certificates')
@@ -142,8 +144,12 @@ export class CertificatesController {
     description: 'Throws exception if certificate is not found.',
     type: NotFoundException,
   })
-  getCertificateById(@Param('id', ParseIntPipe) id: number) {
-    return this.certificatesService.getCertificateById(id);
+  getCertificateById(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('status', new ParseEnumPipe(CertificateStatusEnums))
+    status?: CertificateStatusEnums,
+  ) {
+    return this.certificatesService.getCertificateById(id, status);
   }
 
   @Public()
@@ -158,8 +164,12 @@ export class CertificatesController {
     description: 'Throws exception if certificate is not found.',
     type: NotFoundException,
   })
-  getCertificateBySlug(@Param('slug') slug: string) {
-    return this.certificatesService.getCertificateBySlug(slug);
+  getCertificateBySlug(
+    @Param('slug') slug: string,
+    @Query('status', new ParseEnumPipe(CertificateStatusEnums))
+    status?: CertificateStatusEnums,
+  ) {
+    return this.certificatesService.getCertificateBySlug(slug, status);
   }
 
   @Public()

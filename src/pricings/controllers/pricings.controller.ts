@@ -30,7 +30,7 @@ export class PricingsController {
     description: 'The pricing plan has been successfully created.',
     type: Pricing,
   })
-  createCountry(@Body() createPricingDto: CreatePricingDto) {
+  createPricing(@Body() createPricingDto: CreatePricingDto) {
     return this.pricingsService.createPricingPlanPackage(createPricingDto);
   }
 
@@ -42,7 +42,7 @@ export class PricingsController {
     description: 'Return all pricing plans.',
     type: [Pricing],
   })
-  getCountries(
+  getPricings(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
   ) {

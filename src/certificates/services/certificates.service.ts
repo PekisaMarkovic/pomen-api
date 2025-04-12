@@ -152,9 +152,12 @@ export class CertificatesService {
    * @throws NotFoundException if the certificate is not found
    *
    */
-  async getCertificateById(certificateId: number): Promise<Certificate> {
+  async getCertificateById(
+    certificateId: number,
+    status?: CertificateStatusEnums,
+  ): Promise<Certificate> {
     const certificate = await this.certificateRepository.findOne({
-      where: { certificateId, deletedAt: null },
+      where: { certificateId, deletedAt: null, ...(status ? { status } : {}) },
       relations: [
         'user',
         'qrcode',
@@ -208,8 +211,11 @@ export class CertificatesService {
    * @throws NotFoundException if the certificate is not found
    *
    */
-  async getCertificateBySlug(slug: string): Promise<Certificate> {
-    const certificate = await this.certificateRepository
+  async getCertificateBySlug(
+    slug: string,
+    status?: CertificateStatusEnums,
+  ): Promise<Certificate> {
+    const query = this.certificateRepository
       .createQueryBuilder('certificate')
       .leftJoinAndSelect('certificate.user', 'user')
       .leftJoinAndSelect('certificate.pricing', 'pricing')
@@ -220,8 +226,13 @@ export class CertificatesService {
       .leftJoinAndSelect('cemetery.city', 'city')
       .leftJoinAndSelect('certificate.profileImage', 'profileImage')
       .where('certificate.slug = :slug', { slug })
-      .andWhere('certificate.deletedAt IS NULL')
-      .getOne();
+      .andWhere('certificate.deletedAt IS NULL');
+
+    if (status) {
+      query.andWhere('certificate.status = :status', { status });
+    }
+
+    const certificate = await query.getOne();
 
     if (!certificate) {
       throw new NotFoundException();

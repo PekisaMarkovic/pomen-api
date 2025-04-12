@@ -12,7 +12,7 @@ export class Pricing {
   @Column({
     type: 'enum',
     enum: PricingPackagesEnums,
-    default: PricingPackagesEnums.BEGINNER,
+    default: PricingPackagesEnums.BASIC,
   })
   plan: PricingPackagesEnums;
 
