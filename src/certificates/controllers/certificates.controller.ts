@@ -146,7 +146,10 @@ export class CertificatesController {
   })
   getCertificateById(
     @Param('id', ParseIntPipe) id: number,
-    @Query('status', new ParseEnumPipe(CertificateStatusEnums))
+    @Query(
+      'status',
+      new ParseEnumPipe(CertificateStatusEnums, { optional: true }),
+    )
     status?: CertificateStatusEnums,
   ) {
     return this.certificatesService.getCertificateById(id, status);
@@ -166,7 +169,10 @@ export class CertificatesController {
   })
   getCertificateBySlug(
     @Param('slug') slug: string,
-    @Query('status', new ParseEnumPipe(CertificateStatusEnums))
+    @Query(
+      'status',
+      new ParseEnumPipe(CertificateStatusEnums, { optional: true }),
+    )
     status?: CertificateStatusEnums,
   ) {
     return this.certificatesService.getCertificateBySlug(slug, status);
