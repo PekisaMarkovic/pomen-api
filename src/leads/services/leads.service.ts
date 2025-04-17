@@ -126,6 +126,7 @@ export class LeadsService {
    *
    */
   async createLead(createLeadDto: CreateLeadDto) {
+    console.log(createLeadDto);
     const {
       addressOrder,
       dateOfBirth,
