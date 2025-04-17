@@ -14,6 +14,7 @@ import { Order } from '@/orders/entities/order.entity';
 import { City } from '@/cities/entities/city.entity';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import { Pricing } from '@/pricings/entities/pricing.entity';
+import { Lead } from '@/leads/entities/lead.entity';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { Pricing } from '@/pricings/entities/pricing.entity';
       City,
       Qrcode,
       Pricing,
+      Lead,
     ]),
     MailerModule,
     ValidationTokenModule,

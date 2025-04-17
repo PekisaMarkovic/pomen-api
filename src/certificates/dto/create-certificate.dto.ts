@@ -60,6 +60,11 @@ export class CreateCertificateDto {
   @ApiProperty()
   @IsNumber()
   userId: number;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsNumber()
+  leadId: number;
 }
 
 export class CreateCertificateAndUserDto {
@@ -134,4 +139,17 @@ export class CreateCertificateAndUserDto {
   @ApiProperty()
   @IsNumber()
   cityId: number;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsNumber()
+  leadId: number;
+}
+
+export class CertificateBuyerUserData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  isEmailConfirmed: boolean;
 }

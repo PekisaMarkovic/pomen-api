@@ -36,6 +36,8 @@ import { Blog, BlogContent, BlogText } from '@/blogs/entities';
 import { BlogsModule } from '@/blogs/blogs.module';
 import { PricingsModule } from '@/pricings/pricings.module';
 import { Pricing } from '@/pricings/entities/pricing.entity';
+import { LeadsModule } from '@/leads/leads.module';
+import { Lead } from '@/leads/entities/lead.entity';
 
 @Module({
   imports: [
@@ -69,6 +71,7 @@ import { Pricing } from '@/pricings/entities/pricing.entity';
           BlogContent,
           BlogText,
           Pricing,
+          Lead,
         ],
         synchronize: true,
       }),
@@ -90,6 +93,7 @@ import { Pricing } from '@/pricings/entities/pricing.entity';
     ContactsModule,
     BlogsModule,
     PricingsModule,
+    LeadsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },

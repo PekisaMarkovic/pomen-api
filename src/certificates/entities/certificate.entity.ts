@@ -19,6 +19,7 @@ import {
 import { Pricing } from '../../pricings/entities/pricing.entity';
 import { Length } from 'class-validator';
 import { CertificateStatusEnums } from '../../certificates/enums';
+import { Lead } from '../../leads/entities/lead.entity';
 
 @Entity({ name: 'certificate' })
 export class Certificate {
@@ -69,6 +70,7 @@ export class Certificate {
   })
   biography: string;
 
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: CertificateStatusEnums,
@@ -143,6 +145,15 @@ export class Certificate {
   @OneToOne(() => File, (file) => file.certificateProfile)
   @JoinColumn({ name: 'certificate_profile_id' })
   profileImage: File;
+
+  @ApiProperty()
+  @Column({ name: 'lead_id', nullable: true })
+  leadId: number;
+
+  @ApiProperty({ type: () => Lead })
+  @OneToOne(() => Lead, (lead) => lead.certificate)
+  @JoinColumn({ name: 'lead_id' })
+  lead: Lead;
 
   @ApiProperty({ type: () => [File] })
   @OneToMany(() => File, (file) => file.certificate)

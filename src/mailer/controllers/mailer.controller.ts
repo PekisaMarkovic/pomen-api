@@ -16,11 +16,11 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport';
 export class MailerController {
   constructor(private readonly mailerService: MailerService) {}
   @Public()
-  @Get('test-register-organization')
+  @Get('test-first-time-register')
   @ApiOperation({ summary: 'Send a first time registe4r email' })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'Return the city.',
+    description: 'Send email',
     type: SMTPTransport,
   })
   @ApiResponse({
@@ -37,5 +37,34 @@ export class MailerController {
     };
 
     return await this.mailerService.sendFirstTimeRegisterMail(dto);
+  }
+
+  @Public()
+  @Get('test-create-lead')
+  @ApiOperation({ summary: 'Send email to notify user, lead is created' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Send eimal',
+    type: SMTPTransport,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNPROCESSABLE_ENTITY,
+    description: 'Throw exception if email not send',
+    type: HttpException,
+  })
+  async sendLeadCreatedMail() {
+    const dto: SendMailDto = {
+      data: {
+        buyer_name: 'BUYER_NAME',
+        first_name: 'CERTIFICATE_FIST_NAME',
+        last_name: 'CERTIFICATE_LAST_NAME',
+        current_year: `${new Date().getFullYear()}`,
+      },
+      recipients: [
+        { name: 'Petar Markovic', address: 'mark.petar.ovic@gmail.com' },
+      ],
+    };
+
+    return await this.mailerService.sendLeadCreatedMail(dto);
   }
 }

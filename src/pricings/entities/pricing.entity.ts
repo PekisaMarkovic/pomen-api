@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PricingPackagesEnums } from '../../pricings/enums';
 import { ApiProperty } from '@nestjs/swagger';
 import { Certificate } from '../../certificates/entities/certificate.entity';
+import { Lead } from '../../leads/entities/lead.entity';
 
 @Entity({ name: 'pricings' })
 export class Pricing {
@@ -9,6 +10,7 @@ export class Pricing {
   @PrimaryGeneratedColumn({ name: 'pricing_id' })
   pricingId: number;
 
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: PricingPackagesEnums,
@@ -25,6 +27,10 @@ export class Pricing {
   @ApiProperty({ type: () => [Certificate] })
   @OneToMany(() => Certificate, (certificate) => certificate.pricing)
   certificates: Certificate[];
+
+  @ApiProperty({ type: () => [Lead] })
+  @OneToMany(() => Lead, (lead) => lead.pricing)
+  leads: Lead[];
 
   @ApiProperty()
   @Column({ type: 'date', name: 'created_at', default: new Date() })

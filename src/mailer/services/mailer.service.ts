@@ -71,7 +71,7 @@ export class MailerService {
   }
 
   /**
-   * Send a first time registe4r email
+   * Send a first time register email
    * @param SendMailDto - The data to send email
    * @returns The updated SMTPTransport.SentMessageInfo
    * @throws HttpException if the city/country is not found
@@ -87,6 +87,38 @@ export class MailerService {
         'first-time-register.html',
         {
           link: `${this.configService.get('APP_DASHBOARD')}/first-time-register/${data.token}`,
+          current_year: `${new Date().getFullYear()}`,
+        },
+      );
+
+      return result;
+    } catch {
+      throw new HttpException(
+        'Failed to first time register email',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+  }
+
+  /**
+   * Send email to notify user that order is recived
+   * @param SendMailDto - The data to send email
+   * @returns The updated SMTPTransport.SentMessageInfo
+   * @throws HttpException if the city/country is not found
+   *
+   */
+  async sendLeadCreatedMail(dto: SendMailDto) {
+    const { data, recipients } = dto;
+
+    try {
+      const result = await this.sendMail(
+        'Pomen',
+        recipients,
+        'lead-created.html',
+        {
+          buyer_name: data.buyer_name,
+          first_name: data.first_name,
+          last_name: data.last_name,
           current_year: `${new Date().getFullYear()}`,
         },
       );

@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   IPaginationOptions,
@@ -12,10 +11,9 @@ import { Cemetery } from '@/cemeteries/entities/cementery.entity';
 import { MailerService } from '@/mailer/services/mailer.service';
 import { Order } from '@/orders/entities/order.entity';
 import { User } from '@/users/entities/user.entity';
-import { ValidationTokenTypeEnums } from '@/validation-token/enums/VerificationTokenType';
-import { ValidationTokenService } from '@/validation-token/services/validation-token.service';
 import { Repository } from 'typeorm';
 import {
+  CertificateBuyerUserData,
   CreateCertificateAndUserDto,
   CreateCertificateDto,
   DropdownCertificateDto,
@@ -28,9 +26,10 @@ import { ConfigService } from '@nestjs/config';
 import { Qrcode } from '@/qrcodes/entities/qrcode.entity';
 import * as qr from 'qrcode';
 import { formatDateYearMonthDay } from '@/common/utils';
-import { Nullable } from '@/common/interface';
-import { CertificateStatusEnums } from '../enums';
+import { CertificateStatusEnums } from '@/certificates/enums';
 import { Pricing } from '@/pricings/entities/pricing.entity';
+import { Nullable } from '@/common/interface';
+import { Lead } from '@/leads/entities/lead.entity';
 
 @Injectable()
 export class CertificatesService {
@@ -51,10 +50,10 @@ export class CertificatesService {
     private readonly qrcodeRepository: Repository<Qrcode>,
     @InjectRepository(Pricing)
     private readonly pricingRepository: Repository<Pricing>,
+    @InjectRepository(Lead)
+    private readonly leadRepository: Repository<Lead>,
 
     private readonly mailerService: MailerService,
-    private readonly validationTokenService: ValidationTokenService,
-    private readonly jwtService: JwtService,
     private configService: ConfigService,
   ) {}
 
@@ -84,6 +83,7 @@ export class CertificatesService {
    * @param cityId - The cityId of the certificates to find
    * @param firstName - The first name of the certificates to find
    * @param lastName - The last name of the certificates to find
+   * @param status - The status of the certificates to find
    * @returns An array of certificates and the total count
    *
    */
@@ -333,6 +333,7 @@ export class CertificatesService {
       pricingId,
       timeOfDeath,
       userId,
+      leadId,
     } = createCertificateDto;
 
     const cemetery = await this.cemeteryRepository.findOne({
@@ -359,6 +360,16 @@ export class CertificatesService {
       throw new NotFoundException();
     }
 
+    let lead: Nullable<Lead> = null;
+
+    if (leadId !== undefined || leadId !== null) {
+      lead = await this.leadRepository.findOne({ where: { leadId } });
+
+      if (!lead) {
+        throw new NotFoundException();
+      }
+    }
+
     const certificate = this.certificateRepository.create({
       biography,
       dateOfBirth,
@@ -372,6 +383,7 @@ export class CertificatesService {
       pricing,
       cemetery,
       user,
+      lead: lead || null,
     });
 
     return this.certificateRepository.save(certificate);
@@ -424,37 +436,16 @@ export class CertificatesService {
       pricingId,
       phoneNewUser,
       addressOrder,
+      leadId,
     } = createCertificateDto;
 
-    let user: Nullable<User> = null;
-
-    const exist = await this.userRepository.findOne({
-      where: { email: emailNewUser },
+    const { isNewUser, user } = await this.createUseIfDontExist({
+      email: emailNewUser,
+      firstName: firstNameNewUser,
+      lastName: lastNameNewUser,
+      phoneNumber: phoneNewUser,
+      isEmailConfirmed: true,
     });
-
-    if (!exist) {
-      const newUser = this.userRepository.create({
-        email: emailNewUser,
-        firstName: firstNameNewUser,
-        lastName: lastNameNewUser,
-        phoneNumber: phoneNewUser,
-        isEmailConfirmed: true,
-      });
-
-      const role = await this.roleRepository.findOne({
-        where: { name: ClientRoleEnums.USER },
-      });
-
-      newUser.roles = [role];
-
-      user = await this.userRepository.save(newUser);
-    } else {
-      user = exist;
-    }
-
-    if (!user) {
-      throw new NotFoundException();
-    }
 
     const cemetery = await this.cemeteryRepository.findOne({
       where: { cemeteryId, deletedAt: null },
@@ -475,6 +466,16 @@ export class CertificatesService {
     const pricing = await this.pricingRepository.findOne({
       where: { pricingId },
     });
+
+    let lead: Nullable<Lead> = null;
+
+    if (leadId !== undefined || leadId !== null) {
+      lead = await this.leadRepository.findOne({ where: { leadId } });
+
+      if (!lead) {
+        throw new NotFoundException();
+      }
+    }
 
     if (!pricing) {
       throw new NotFoundException();
@@ -498,32 +499,21 @@ export class CertificatesService {
       cemetery,
       pricing,
       user,
+      lead: lead || null,
     });
 
     const certificate = await this.certificateRepository.save(newCertificate);
 
-    if (!exist) {
-      const token = this.jwtService.sign({
-        email: emailNewUser,
-        certificateId: certificate.certificateId,
-        slug: certificate.slug,
-      });
-
-      await this.validationTokenService.createValidationToken({
-        email: emailNewUser,
-        token,
-        validationTokenType: ValidationTokenTypeEnums.FIRST_TIME_REGISTER,
-      });
-
-      await this.mailerService.sendFirstTimeRegisterMail({
-        data: { token },
-        recipients: [
-          {
-            name: `${firstNameNewUser} ${lastNameNewUser}`,
-            address: emailNewUser,
-          },
-        ],
-      });
+    if (isNewUser) {
+      // await this.mailerService.sendFirstTimeRegisterMail({
+      //   data: { token },
+      //   recipients: [
+      //     {
+      //       name: `${firstNameNewUser} ${lastNameNewUser}`,
+      //       address: emailNewUser,
+      //     },
+      //   ],
+      // });
     }
 
     const newOrder = this.orderRepository.create({
@@ -568,5 +558,43 @@ export class CertificatesService {
       count++;
     }
     return nextSlug;
+  };
+
+  /**
+   * Check if user with same email exist if not create new one
+   * @param CertificateBuyerUserData - The data to create a new user
+   * @returns user
+   *
+   */
+  private createUseIfDontExist = async ({
+    email,
+    firstName,
+    isEmailConfirmed,
+    lastName,
+    phoneNumber,
+  }: CertificateBuyerUserData) => {
+    const exist = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (exist) return { user: exist, isNewUser: false };
+
+    const newUser = this.userRepository.create({
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      isEmailConfirmed,
+    });
+
+    const role = await this.roleRepository.findOne({
+      where: { name: ClientRoleEnums.USER },
+    });
+
+    newUser.roles = [role];
+
+    const newUserData = await this.userRepository.save(newUser);
+
+    return { user: newUserData, isNewUser: true };
   };
 }
