@@ -179,6 +179,29 @@ export class CertificatesController {
   }
 
   @Public()
+  @Get('/lead/:leadId')
+  @ApiOperation({ summary: 'Get a certificate by lead id' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Return the certificate.',
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Throws exception if certificate is not found.',
+    type: NotFoundException,
+  })
+  getCertificateByLeadId(
+    @Param('leadId', ParseIntPipe) leadId: number,
+    @Query(
+      'status',
+      new ParseEnumPipe(CertificateStatusEnums, { optional: true }),
+    )
+    status?: CertificateStatusEnums,
+  ) {
+    return this.certificatesService.getCertificateByLeadId(leadId, status);
+  }
+
+  @Public()
   @Get('/cemeteries/:cemeteryId')
   @ApiOperation({ summary: 'Get all cemeteries by cementery id' })
   @ApiResponse({

@@ -242,6 +242,43 @@ export class CertificatesService {
   }
 
   /**
+   * Find a certificate by lead id
+   * @param leadId - The lead Id of the certificate to find
+   * @returns The found certificate
+   * @throws NotFoundException if the certificate is not found
+   *
+   */
+  async getCertificateByLeadId(
+    leadId: number,
+    status?: CertificateStatusEnums,
+  ): Promise<Certificate> {
+    const query = this.certificateRepository
+      .createQueryBuilder('certificate')
+      .leftJoinAndSelect('certificate.user', 'user')
+      .leftJoinAndSelect('certificate.pricing', 'pricing')
+      .leftJoinAndSelect('certificate.qrcode', 'qrcode')
+      .leftJoinAndSelect('certificate.getherings', 'getherings')
+      .leftJoinAndSelect('certificate.tributes', 'tributes')
+      .leftJoinAndSelect('certificate.cemetery', 'cemetery')
+      .leftJoinAndSelect('cemetery.city', 'city')
+      .leftJoinAndSelect('certificate.profileImage', 'profileImage')
+      .where('certificate.leadId = :leadId', { leadId })
+      .andWhere('certificate.deletedAt IS NULL');
+
+    if (status) {
+      query.andWhere('certificate.status = :status', { status });
+    }
+
+    const certificate = await query.getOne();
+
+    if (!certificate) {
+      throw new NotFoundException();
+    }
+
+    return certificate;
+  }
+
+  /**
    * Update a certificate
    * @param certificateId - The id of the certificate to update
    * @param UpdateCertificateDto - The data to update the certificate
